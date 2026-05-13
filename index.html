@@ -6,483 +6,256 @@
 <title>Memory-Link · 메모리링크</title>
 <style>
 :root {
-  --cream: #FAF8F5;
-  --sage: #8BA888;
-  --sage-light: #C5D9C3;
-  --sage-dark: #5C7A59;
-  --rose: #C4897B;
-  --rose-light: #EDD8D3;
-  --text: #3A3530;
-  --text-soft: #6B635C;
-  --white: #FFFFFF;
-  --border: #E8E2DC;
-  --radius: 14px;
-  --shadow: 0 2px 16px rgba(0,0,0,0.07);
-
-  /* 일반 모드 */
-  --fs-body: 14px;
-  --fs-sm: 12px;
-  --fs-lg: 16px;
-  --fs-xl: 22px;
-  --fs-hero: 28px;
-  --btn-pad: 13px 24px;
-  --card-pad: 20px;
+  --cream:#FAF8F5; --sage:#8BA888; --sage-light:#C5D9C3; --sage-dark:#5C7A59;
+  --rose:#C4897B; --rose-light:#EDD8D3; --text:#3A3530; --text-soft:#6B635C;
+  --white:#fff; --border:#E8E2DC; --shadow:0 2px 16px rgba(0,0,0,.07);
+  --fs:14px; --fs-sm:12px; --fs-lg:16px; --fs-xl:22px; --fs-hero:28px;
+  --bp:13px 24px; --cp:20px; --r:14px;
 }
-
-/* ── 큰 글자 모드 ── */
 body.senior {
-  --fs-body: 18px;
-  --fs-sm: 15px;
-  --fs-lg: 20px;
-  --fs-xl: 26px;
-  --fs-hero: 34px;
-  --btn-pad: 18px 32px;
-  --card-pad: 28px;
+  --fs:18px; --fs-sm:15px; --fs-lg:20px; --fs-xl:26px; --fs-hero:34px;
+  --bp:18px 32px; --cp:26px;
 }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--cream);color:var(--text);font-size:var(--fs);line-height:1.7;}
+.page{display:none;min-height:100vh;padding-bottom:90px;}
+.page.active{display:block;}
+.container{max-width:680px;margin:0 auto;padding:0 20px;}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  font-size: var(--fs-body);
-  line-height: 1.7;
-}
-
-.page { display: none; min-height: 100vh; padding-bottom: 90px; }
-.page.active { display: block; }
-.container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
-
-/* ── 큰 글자 토글 바 ── */
-.senior-bar {
-  background: var(--sage-dark);
-  color: white;
-  text-align: center;
-  padding: 10px 16px;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-body.senior .senior-bar { background: #3d5e3a; font-size: 16px; }
-.senior-toggle {
-  background: white;
-  color: var(--sage-dark);
-  border: none;
-  border-radius: 20px;
-  padding: 5px 14px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: inherit;
-}
-body.senior .senior-toggle { font-size: 15px; padding: 7px 18px; }
+/* ── 상단 바 ── */
+.top-bar{background:var(--sage-dark);color:#fff;text-align:center;padding:9px 16px;font-size:13px;display:flex;align-items:center;justify-content:center;gap:12px;}
+body.senior .top-bar{font-size:16px;}
+.toggle-btn{background:#fff;color:var(--sage-dark);border:none;border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
+body.senior .toggle-btn{font-size:15px;padding:7px 18px;}
 
 /* ── 헤더 ── */
-.header {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.logo { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.logo-icon {
-  width: 34px; height: 34px;
-  background: var(--sage);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 17px;
-}
-body.senior .logo-icon { width: 42px; height: 42px; font-size: 20px; }
-.logo-name { font-size: var(--fs-lg); font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
-.logo-sub { font-size: var(--fs-sm); color: var(--text-soft); }
+.header{background:#fff;border-bottom:1px solid var(--border);padding:13px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:8px;cursor:pointer;}
+.logo-icon{width:34px;height:34px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;}
+body.senior .logo-icon{width:42px;height:42px;font-size:21px;}
+.logo-name{font-size:var(--fs-lg);font-weight:800;letter-spacing:-.3px;}
+.logo-sub{font-size:var(--fs-sm);color:var(--text-soft);}
+.admin-link{font-size:11px;color:var(--text-soft);cursor:pointer;padding:4px 8px;border-radius:6px;}
+.admin-link:hover{background:var(--border);}
 
 /* ── 버튼 ── */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: var(--btn-pad);
-  border-radius: 12px;
-  font-size: var(--fs-body);
-  font-weight: 700;
-  cursor: pointer; border: none;
-  transition: all 0.18s;
-  text-decoration: none;
-  gap: 6px;
-  font-family: inherit;
-}
-.btn-primary { background: var(--sage); color: white; }
-.btn-primary:hover { background: var(--sage-dark); transform: translateY(-1px); }
-.btn-outline { background: white; color: var(--sage-dark); border: 2px solid var(--sage); }
-.btn-outline:hover { background: var(--sage-light); }
-.btn-rose { background: var(--rose); color: white; }
-.btn-rose:hover { background: #b37568; }
-.btn-full { width: 100%; }
-.btn-lg { padding: 18px 32px; font-size: var(--fs-lg); border-radius: 14px; }
-body.senior .btn-lg { padding: 22px 40px; font-size: var(--fs-xl); border-radius: 16px; }
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:var(--bp);border-radius:12px;font-size:var(--fs);font-weight:700;cursor:pointer;border:none;transition:all .18s;gap:6px;font-family:inherit;}
+.btn-primary{background:var(--sage);color:#fff;}
+.btn-primary:hover{background:var(--sage-dark);}
+.btn-outline{background:#fff;color:var(--sage-dark);border:2px solid var(--sage);}
+.btn-outline:hover{background:var(--sage-light);}
+.btn-rose{background:var(--rose);color:#fff;}
+.btn-rose:hover{background:#b37568;}
+.btn-gray{background:var(--border);color:var(--text-soft);}
+.btn-full{width:100%;}
+.btn-lg{padding:17px 32px;font-size:var(--fs-lg);border-radius:14px;}
+body.senior .btn-lg{padding:22px 40px;font-size:var(--fs-xl);}
 
 /* ── 카드 ── */
-.card {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: var(--card-pad);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-}
+.card{background:#fff;border-radius:var(--r);padding:var(--cp);box-shadow:var(--shadow);border:1px solid var(--border);}
+
+/* ── 공통 ── */
+.page-top{background:#fff;padding:20px;border-bottom:1px solid var(--border);}
+.page-top h2{font-size:var(--fs-xl);font-weight:800;letter-spacing:-.3px;}
+body.senior .page-top h2{font-size:28px;}
+.page-top p{font-size:var(--fs-sm);color:var(--text-soft);margin-top:4px;}
+.sec-label{font-size:var(--fs-sm);font-weight:700;color:var(--sage-dark);text-transform:uppercase;letter-spacing:.3px;margin:16px 0 8px;}
+body.senior .sec-label{font-size:15px;}
+.notice{background:var(--rose-light);border-left:4px solid var(--rose);border-radius:10px;padding:13px 16px;font-size:var(--fs-sm);color:#7a4a3f;line-height:1.7;}
+body.senior .notice{font-size:16px;padding:17px 20px;}
+.mt8{margin-top:8px;} .mt12{margin-top:12px;} .mt16{margin-top:16px;} .mt24{margin-top:24px;}
+.gap12{display:flex;flex-direction:column;gap:12px;}
+.gap16{display:flex;flex-direction:column;gap:16px;}
+
+/* ── 폼 ── */
+.form-group{margin-bottom:18px;}
+.form-label{display:block;font-size:var(--fs-sm);font-weight:700;margin-bottom:6px;}
+body.senior .form-label{font-size:16px;}
+.form-label span{font-weight:400;color:var(--text-soft);margin-left:6px;}
+.form-input,.form-select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:var(--fs);background:#fff;color:var(--text);font-family:inherit;transition:border-color .2s;}
+body.senior .form-input, body.senior .form-select{padding:16px;font-size:18px;border-radius:12px;}
+.form-input:focus,.form-select:focus{outline:none;border-color:var(--sage);}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B635C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 
 /* ════════ 홈 ════════ */
-.hero {
-  background: linear-gradient(160deg, #EEF5ED 0%, #FAF8F5 65%);
-  padding: 48px 20px 40px;
-  text-align: center;
-}
-body.senior .hero { padding: 56px 20px 48px; }
-
-.hero-badge {
-  display: inline-block;
-  background: var(--rose-light);
-  color: var(--rose);
-  font-size: var(--fs-sm);
-  font-weight: 700;
-  padding: 5px 14px;
-  border-radius: 20px;
-  margin-bottom: 18px;
-}
-.hero h1 {
-  font-size: var(--fs-hero);
-  font-weight: 800;
-  line-height: 1.35;
-  margin-bottom: 14px;
-  letter-spacing: -0.5px;
-}
-.hero h1 em { color: var(--sage-dark); font-style: normal; }
-.hero p {
-  font-size: var(--fs-body);
-  color: var(--text-soft);
-  max-width: 380px;
-  margin: 0 auto 32px;
-  line-height: 1.85;
-}
-body.senior .hero p { max-width: 460px; }
-
-.home-btns { display: flex; flex-direction: column; gap: 12px; max-width: 320px; margin: 0 auto; }
-body.senior .home-btns { max-width: 400px; gap: 14px; }
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 32px 0;
-}
-body.senior .feature-grid { gap: 16px; }
-
-.feature-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: var(--card-pad);
-  border: 1px solid var(--border);
-  text-align: center;
-}
-.feature-icon { font-size: 28px; margin-bottom: 10px; }
-body.senior .feature-icon { font-size: 36px; }
-.feature-title { font-size: var(--fs-body); font-weight: 700; margin-bottom: 5px; }
-.feature-desc { font-size: var(--fs-sm); color: var(--text-soft); line-height: 1.6; }
-
-.empathy-box {
-  background: linear-gradient(135deg, #EEF5ED, #EDD8D3);
-  border-radius: var(--radius);
-  padding: var(--card-pad);
-  text-align: center;
-  margin: 0 0 32px;
-}
-.empathy-box p { font-size: var(--fs-body); color: var(--text-soft); line-height: 1.85; }
-.empathy-box strong { color: var(--sage-dark); }
+.hero{background:linear-gradient(160deg,#EEF5ED 0%,#FAF8F5 65%);padding:48px 20px 40px;text-align:center;}
+body.senior .hero{padding:56px 20px 48px;}
+.hero-badge{display:inline-block;background:var(--rose-light);color:var(--rose);font-size:var(--fs-sm);font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+.hero h1{font-size:var(--fs-hero);font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:-.5px;}
+.hero h1 em{color:var(--sage-dark);font-style:normal;}
+.hero p{font-size:var(--fs);color:var(--text-soft);max-width:380px;margin:0 auto 32px;line-height:1.85;}
+.home-btns{display:flex;flex-direction:column;gap:12px;max-width:320px;margin:0 auto;}
+body.senior .home-btns{max-width:400px;}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.feat-card{background:#fff;border-radius:var(--r);padding:var(--cp);border:1px solid var(--border);text-align:center;}
+.feat-icon{font-size:28px;margin-bottom:10px;}
+body.senior .feat-icon{font-size:36px;}
+.feat-title{font-size:var(--fs);font-weight:700;margin-bottom:4px;}
+.feat-desc{font-size:var(--fs-sm);color:var(--text-soft);}
+.empathy-box{background:linear-gradient(135deg,#EEF5ED,#EDD8D3);border-radius:var(--r);padding:var(--cp);text-align:center;margin:16px 0;}
+.empathy-box p{font-size:var(--fs);color:var(--text-soft);line-height:1.85;}
+.empathy-box strong{color:var(--sage-dark);}
 
 /* ════════ 정리하기 ════════ */
-.page-top {
-  background: var(--white);
-  padding: 20px;
-  border-bottom: 1px solid var(--border);
-}
-.page-top h2 { font-size: var(--fs-xl); font-weight: 800; letter-spacing: -0.3px; }
-.page-top p { font-size: var(--fs-sm); color: var(--text-soft); margin-top: 4px; }
-body.senior .page-top h2 { font-size: 28px; }
-
-.progress-wrap { padding: 16px 20px 0; }
-.progress-label {
-  display: flex; justify-content: space-between;
-  font-size: var(--fs-sm);
-  color: var(--text-soft);
-  margin-bottom: 6px;
-}
-.progress-bar { background: var(--border); border-radius: 99px; height: 8px; overflow: hidden; }
-body.senior .progress-bar { height: 12px; }
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--sage-light), var(--sage));
-  border-radius: 99px;
-  transition: width 0.3s;
-}
-
-.cat-tabs {
-  display: flex; gap: 8px;
-  overflow-x: auto;
-  padding: 16px 20px 0;
-  scrollbar-width: none;
-}
-.cat-tabs::-webkit-scrollbar { display: none; }
-.tab {
-  flex-shrink: 0;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  border: 1.5px solid var(--border);
-  background: var(--white);
-  cursor: pointer;
-  color: var(--text-soft);
-  transition: all 0.15s;
-  font-family: inherit;
-}
-body.senior .tab { font-size: 16px; padding: 10px 20px; }
-.tab.on { background: var(--sage); border-color: var(--sage); color: white; }
-
-.svc-list { padding: 12px 20px; display: flex; flex-direction: column; gap: 10px; }
-body.senior .svc-list { gap: 14px; }
-
-.svc-item {
-  background: var(--white);
-  border-radius: 12px;
-  padding: 16px;
-  display: flex; align-items: center; gap: 14px;
-  border: 1.5px solid var(--border);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-body.senior .svc-item { padding: 20px 18px; border-radius: 14px; }
-.svc-item:hover { border-color: var(--sage-light); }
-.svc-item.on { background: #F2F8F1; border-color: var(--sage); }
-
-.svc-check {
-  width: 26px; height: 26px; flex-shrink: 0;
-  border: 2px solid var(--border);
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: transparent;
-  transition: all 0.15s;
-}
-body.senior .svc-check { width: 34px; height: 34px; border-radius: 9px; font-size: 17px; }
-.svc-item.on .svc-check { background: var(--sage); border-color: var(--sage); color: white; }
-
-.svc-logo {
-  width: 42px; height: 42px; flex-shrink: 0;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  background: var(--cream);
-}
-body.senior .svc-logo { width: 52px; height: 52px; font-size: 26px; border-radius: 12px; }
-
-.svc-info { flex: 1; min-width: 0; }
-.svc-name { font-size: var(--fs-body); font-weight: 700; margin-bottom: 2px; }
-.svc-type { font-size: var(--fs-sm); color: var(--text-soft); }
-
-.diff {
-  flex-shrink: 0;
-  font-size: 11px; font-weight: 700;
-  padding: 4px 9px; border-radius: 6px;
-}
-body.senior .diff { font-size: 14px; padding: 6px 12px; border-radius: 8px; }
-.diff-e { background: #E8F5E9; color: #2E7D32; }
-.diff-m { background: #FFF3E0; color: #E65100; }
-.diff-h { background: #FFEBEE; color: #C62828; }
-
-.checklist-bottom {
-  padding: 16px 20px 4px;
-  display: flex; flex-direction: column; gap: 10px;
-}
+.prog-wrap{padding:16px 20px 0;}
+.prog-label{display:flex;justify-content:space-between;font-size:var(--fs-sm);color:var(--text-soft);margin-bottom:6px;}
+.prog-bar{background:var(--border);border-radius:99px;height:8px;overflow:hidden;}
+body.senior .prog-bar{height:12px;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage-light),var(--sage));border-radius:99px;transition:width .3s;}
+.cat-tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 20px 0;scrollbar-width:none;}
+.cat-tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:8px 16px;border-radius:20px;font-size:var(--fs-sm);font-weight:600;border:1.5px solid var(--border);background:#fff;cursor:pointer;color:var(--text-soft);transition:all .15s;font-family:inherit;}
+body.senior .tab{font-size:16px;padding:10px 20px;}
+.tab.on{background:var(--sage);border-color:var(--sage);color:#fff;}
+.svc-list{padding:12px 20px;display:flex;flex-direction:column;gap:10px;}
+body.senior .svc-list{gap:14px;}
+.svc-item{background:#fff;border-radius:12px;padding:15px;display:flex;align-items:center;gap:13px;border:1.5px solid var(--border);cursor:pointer;transition:all .15s;}
+body.senior .svc-item{padding:20px 18px;border-radius:14px;}
+.svc-item:hover{border-color:var(--sage-light);}
+.svc-item.on{background:#F2F8F1;border-color:var(--sage);}
+.svc-check{width:26px;height:26px;flex-shrink:0;border:2px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;color:transparent;transition:all .15s;}
+body.senior .svc-check{width:34px;height:34px;border-radius:9px;font-size:17px;}
+.svc-item.on .svc-check{background:var(--sage);border-color:var(--sage);color:#fff;}
+.svc-logo{width:42px;height:42px;flex-shrink:0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--cream);}
+body.senior .svc-logo{width:52px;height:52px;font-size:26px;}
+.svc-info{flex:1;min-width:0;}
+.svc-name{font-size:var(--fs);font-weight:700;margin-bottom:2px;}
+.svc-type{font-size:var(--fs-sm);color:var(--text-soft);}
+.diff{flex-shrink:0;font-size:11px;font-weight:700;padding:4px 9px;border-radius:6px;}
+body.senior .diff{font-size:14px;padding:6px 12px;border-radius:8px;}
+.diff-e{background:#E8F5E9;color:#2E7D32;} .diff-m{background:#FFF3E0;color:#E65100;} .diff-h{background:#FFEBEE;color:#C62828;}
+.cl-bottom{padding:16px 20px 4px;display:flex;flex-direction:column;gap:10px;}
 
 /* ════════ 해지안내 ════════ */
-.guide-list { padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; }
+.guide-list{padding:14px 20px;display:flex;flex-direction:column;gap:10px;}
+.g-card{background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+.g-header{padding:15px;display:flex;align-items:center;gap:13px;cursor:pointer;}
+body.senior .g-header{padding:20px;}
+.g-arrow{margin-left:auto;font-size:14px;color:var(--text-soft);transition:transform .2s;flex-shrink:0;}
+.g-card.open .g-arrow{transform:rotate(180deg);}
+.g-body{display:none;padding:0 15px 15px;border-top:1px solid var(--border);}
+body.senior .g-body{padding:0 20px 20px;}
+.g-card.open .g-body{display:block;}
+.g-steps{display:flex;flex-direction:column;gap:10px;margin:12px 0;}
+.g-step{display:flex;gap:11px;align-items:flex-start;}
+.step-n{width:26px;height:26px;flex-shrink:0;background:var(--sage-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--sage-dark);}
+body.senior .step-n{width:34px;height:34px;font-size:15px;}
+.step-txt{font-size:var(--fs);color:var(--text);padding-top:3px;line-height:1.6;flex:1;}
+.doc-chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0;}
+.doc-chip{background:var(--cream);border-radius:8px;padding:6px 11px;font-size:var(--fs-sm);display:flex;align-items:center;gap:5px;}
+body.senior .doc-chip{font-size:16px;padding:9px 15px;}
+.warn-list{display:flex;flex-direction:column;gap:6px;margin:10px 0;}
+.warn-item{font-size:var(--fs-sm);color:#7a4a3f;display:flex;gap:6px;line-height:1.6;}
+body.senior .warn-item{font-size:16px;}
 
-.guide-card {
-  background: var(--white);
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-  cursor: pointer;
-  transition: box-shadow 0.15s;
-}
-.guide-card:hover { box-shadow: var(--shadow); }
+/* ════════ 서류 만들기 ════════ */
+.steps-nav{display:flex;align-items:center;padding:16px 20px;gap:0;background:#fff;border-bottom:1px solid var(--border);}
+.step-dot{width:28px;height:28px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text-soft);flex-shrink:0;}
+body.senior .step-dot{width:36px;height:36px;font-size:15px;}
+.step-dot.active{background:var(--sage);color:#fff;}
+.step-dot.done{background:var(--sage-dark);color:#fff;}
+.step-line{flex:1;height:2px;background:var(--border);}
+.step-line.done{background:var(--sage);}
 
-.guide-card-header {
-  padding: 16px;
-  display: flex; align-items: center; gap: 14px;
-}
-body.senior .guide-card-header { padding: 20px; }
+.doc-step{display:none;}
+.doc-step.active{display:block;}
 
-.guide-card-body {
-  display: none;
-  padding: 0 16px 16px;
-  border-top: 1px solid var(--border);
-}
-body.senior .guide-card-body { padding: 0 20px 20px; }
-.guide-card.open .guide-card-body { display: block; }
+.svc-pick-list{display:flex;flex-direction:column;gap:10px;}
+.svc-pick-item{background:#fff;border-radius:12px;padding:15px;display:flex;align-items:center;gap:13px;border:1.5px solid var(--border);cursor:pointer;}
+body.senior .svc-pick-item{padding:20px;border-radius:14px;}
+.svc-pick-item.on{background:#F2F8F1;border-color:var(--sage);}
+.svc-pick-item.on .svc-check{background:var(--sage);border-color:var(--sage);color:#fff;}
+.method-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;flex-shrink:0;}
+body.senior .method-badge{font-size:14px;padding:5px 11px;}
+.method-online{background:#E3F2FD;color:#1565C0;}
+.method-visit{background:#FFF3E0;color:#E65100;}
 
-.guide-arrow {
-  margin-left: auto;
-  font-size: 16px;
-  color: var(--text-soft);
-  transition: transform 0.2s;
-}
-.guide-card.open .guide-arrow { transform: rotate(180deg); }
-
-.guide-steps { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
-.guide-step {
-  display: flex; gap: 12px; align-items: flex-start;
-}
-.step-n {
-  width: 26px; height: 26px; flex-shrink: 0;
-  background: var(--sage-light);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700;
-  color: var(--sage-dark);
-}
-body.senior .step-n { width: 34px; height: 34px; font-size: 16px; }
-.step-txt { font-size: var(--fs-body); color: var(--text); padding-top: 3px; line-height: 1.6; flex: 1; }
-
-.doc-chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
-.doc-chip {
-  background: var(--cream);
-  border-radius: 8px;
-  padding: 6px 12px;
-  font-size: var(--fs-sm);
-  display: flex; align-items: center; gap: 5px;
-}
-body.senior .doc-chip { font-size: 16px; padding: 9px 16px; }
-
-.warn-list { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
-.warn-item { font-size: var(--fs-sm); color: #7a4a3f; display: flex; gap: 6px; line-height: 1.6; }
-body.senior .warn-item { font-size: 16px; }
-
-.guide-section-label {
-  font-size: var(--fs-sm); font-weight: 700;
-  color: var(--sage-dark);
-  margin: 16px 0 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-body.senior .guide-section-label { font-size: 15px; }
+/* 서류 미리보기 */
+.doc-preview{background:#fff;border:2px solid var(--sage);border-radius:12px;padding:24px;margin-bottom:16px;}
+.doc-preview-header{text-align:center;border-bottom:2px solid var(--text);padding-bottom:14px;margin-bottom:18px;}
+.doc-preview-title{font-size:18px;font-weight:800;margin-bottom:4px;}
+body.senior .doc-preview-title{font-size:22px;}
+.doc-preview-subtitle{font-size:var(--fs-sm);color:var(--text-soft);}
+.doc-table{width:100%;border-collapse:collapse;}
+.doc-table td{border:1px solid var(--border);padding:10px 12px;font-size:var(--fs-sm);vertical-align:top;}
+body.senior .doc-table td{font-size:16px;padding:14px;}
+.doc-table td:first-child{background:var(--cream);font-weight:700;width:35%;white-space:nowrap;}
+.doc-sign-area{border-top:2px solid var(--text);margin-top:24px;padding-top:14px;text-align:right;font-size:var(--fs-sm);}
+body.senior .doc-sign-area{font-size:16px;}
 
 /* ════════ 요금제 ════════ */
-.plan-grid { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
+.plan-grid{display:flex;flex-direction:column;gap:16px;padding:20px;}
+.plan-card{background:#fff;border-radius:16px;border:2px solid var(--border);overflow:hidden;}
+.plan-card.featured{border-color:var(--sage);}
+.plan-header{padding:var(--cp);border-bottom:1px solid var(--border);}
+.plan-badge{display:inline-block;font-size:var(--fs-sm);font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
+.badge-free{background:var(--sage-light);color:var(--sage-dark);}
+.badge-basic{background:var(--sage);color:#fff;}
+.badge-pro{background:var(--rose-light);color:var(--rose);}
+.plan-name{font-size:var(--fs-xl);font-weight:800;margin-bottom:4px;letter-spacing:-.3px;}
+body.senior .plan-name{font-size:28px;}
+.plan-price{font-size:28px;font-weight:800;color:var(--sage-dark);line-height:1;}
+body.senior .plan-price{font-size:36px;}
+.plan-price span{font-size:var(--fs);font-weight:400;color:var(--text-soft);}
+.plan-body{padding:var(--cp);}
+.plan-feats{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.plan-feat{display:flex;align-items:flex-start;gap:10px;font-size:var(--fs);}
+body.senior .plan-feat{font-size:18px;gap:12px;}
+.fi{flex-shrink:0;font-size:15px;margin-top:1px;}
+body.senior .fi{font-size:20px;}
+.plan-cta{background:#F5F3F0;border-radius:12px;padding:14px;font-size:var(--fs-sm);color:var(--text-soft);text-align:center;line-height:1.6;}
+body.senior .plan-cta{font-size:15px;padding:18px;}
 
-.plan-card {
-  background: var(--white);
-  border-radius: 16px;
-  border: 2px solid var(--border);
-  overflow: hidden;
-}
-.plan-card.featured { border-color: var(--sage); }
+/* ════════ 관리자 ════════ */
+.admin-login{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:40px 20px;text-align:center;}
+.admin-login h2{font-size:var(--fs-xl);font-weight:800;margin-bottom:8px;}
+.admin-login p{font-size:var(--fs-sm);color:var(--text-soft);margin-bottom:28px;}
+.admin-panel{padding:20px;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.stat-box{background:#fff;border-radius:12px;border:1px solid var(--border);padding:16px;text-align:center;}
+.stat-num{font-size:28px;font-weight:800;color:var(--sage-dark);line-height:1;}
+.stat-lbl{font-size:11px;color:var(--text-soft);margin-top:4px;}
+.case-list{display:flex;flex-direction:column;gap:10px;}
+.case-item{background:#fff;border-radius:12px;border:1px solid var(--border);padding:16px;}
+.case-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.case-name{font-size:var(--fs);font-weight:700;flex:1;}
+.status-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;}
+.s-new{background:#E3F2FD;color:#1565C0;}
+.s-progress{background:#FFF3E0;color:#E65100;}
+.s-done{background:#E8F5E9;color:#2E7D32;}
+.s-expert{background:var(--rose-light);color:var(--rose);}
+.case-info{font-size:var(--fs-sm);color:var(--text-soft);}
+.case-actions{display:flex;gap:8px;margin-top:12px;}
+.case-action-btn{flex:1;padding:8px;border-radius:8px;font-size:12px;font-weight:700;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-family:inherit;}
+.case-action-btn:hover{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);}
+.admin-filter{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-family:inherit;color:var(--text-soft);}
+.filter-btn.on{background:var(--sage);border-color:var(--sage);color:#fff;}
 
-.plan-header {
-  padding: var(--card-pad);
-  border-bottom: 1px solid var(--border);
-}
-.plan-badge {
-  display: inline-block;
-  font-size: var(--fs-sm); font-weight: 700;
-  padding: 3px 10px; border-radius: 20px;
-  margin-bottom: 10px;
-}
-.badge-free { background: var(--sage-light); color: var(--sage-dark); }
-.badge-basic { background: var(--sage); color: white; }
-.badge-pro { background: var(--rose-light); color: var(--rose); }
+/* ── 바텀 네비 ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 20px;z-index:100;}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 16px;border:none;background:none;font-family:inherit;}
+.nav-icon{font-size:22px;}
+body.senior .nav-icon{font-size:28px;}
+.nav-lbl{font-size:10px;font-weight:500;color:var(--text-soft);}
+body.senior .nav-lbl{font-size:13px;}
+.nav-btn.on .nav-lbl{color:var(--sage-dark);font-weight:800;}
 
-.plan-name { font-size: var(--fs-xl); font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
-body.senior .plan-name { font-size: 28px; }
-.plan-price { font-size: 28px; font-weight: 800; color: var(--sage-dark); line-height: 1; }
-body.senior .plan-price { font-size: 36px; }
-.plan-price span { font-size: var(--fs-body); font-weight: 400; color: var(--text-soft); }
-
-.plan-body { padding: var(--card-pad); }
-.plan-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-.plan-feat {
-  display: flex; align-items: flex-start; gap: 10px;
-  font-size: var(--fs-body);
+/* ── 인쇄 ── */
+@media print {
+  .top-bar,.header,.bottom-nav,.btn,.no-print{display:none!important;}
+  .doc-preview{border:none;padding:0;}
+  body{background:#fff;}
 }
-body.senior .plan-feat { font-size: 18px; gap: 12px; }
-.feat-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
-body.senior .feat-icon { font-size: 20px; }
-
-.plan-cta {
-  background: #F5F3F0;
-  border-radius: 12px;
-  padding: 16px;
-  font-size: var(--fs-sm);
-  color: var(--text-soft);
-  text-align: center;
-  line-height: 1.6;
-}
-body.senior .plan-cta { font-size: 15px; padding: 20px; }
-
-/* ════════ 바텀 네비 ════════ */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: var(--white);
-  border-top: 1px solid var(--border);
-  display: flex; justify-content: space-around;
-  padding: 8px 0 20px;
-  z-index: 100;
-}
-.nav-btn {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 3px; cursor: pointer; padding: 4px 20px;
-  border: none; background: none; font-family: inherit;
-}
-.nav-icon { font-size: 22px; }
-body.senior .nav-icon { font-size: 28px; }
-.nav-label { font-size: 10px; font-weight: 500; color: var(--text-soft); }
-body.senior .nav-label { font-size: 13px; }
-.nav-btn.on .nav-label { color: var(--sage-dark); font-weight: 800; }
-
-/* ════════ 공통 유틸 ════════ */
-.mt8 { margin-top: 8px; }
-.mt16 { margin-top: 16px; }
-.mt24 { margin-top: 24px; }
-.sec-title {
-  font-size: var(--fs-lg); font-weight: 800;
-  letter-spacing: -0.3px;
-  margin-bottom: 14px;
-}
-body.senior .sec-title { font-size: var(--fs-xl); }
-
-.notice {
-  background: var(--rose-light);
-  border-left: 4px solid var(--rose);
-  border-radius: 10px;
-  padding: 14px 16px;
-  font-size: var(--fs-sm);
-  color: #7a4a3f;
-  line-height: 1.7;
-}
-body.senior .notice { font-size: 16px; padding: 18px 20px; }
-
 </style>
 </head>
 <body>
 
-<!-- 큰 글자 토글 -->
-<div class="senior-bar">
+<!-- 상단 바 -->
+<div class="top-bar">
   <span id="senior-label">글자가 작으신가요?</span>
-  <button class="senior-toggle" onclick="toggleSenior()" id="senior-btn">🔠 큰 글자로 보기</button>
+  <button class="toggle-btn" onclick="toggleSenior()" id="senior-btn">🔠 큰 글자로 보기</button>
 </div>
 
 <!-- 헤더 -->
@@ -494,74 +267,48 @@ body.senior .notice { font-size: 16px; padding: 18px 20px; }
       <div class="logo-sub">사후 디지털 정리 지원</div>
     </div>
   </div>
+  <span class="admin-link" onclick="goPage('admin')">관리자</span>
 </header>
 
-<!-- ════════════════════ 홈 ════════════════════ -->
+<!-- ══════════════════════════════════════
+     홈
+══════════════════════════════════════ -->
 <div id="page-home" class="page active">
   <div class="hero">
     <div class="hero-badge">💚 유가족을 위한 서비스</div>
     <h1>장례는 끝났지만<br><em>남겨진 일들을</em><br>함께 정리해드립니다</h1>
-    <p>고인의 디지털 계정, 구독 서비스, 자동결제—<br>
-    혼자 감당하지 않으셔도 됩니다.<br>천천히, 함께 해결해 나가요.</p>
+    <p>고인의 디지털 계정, 구독 서비스, 자동결제—<br>혼자 감당하지 않으셔도 됩니다.<br>천천히, 함께 해결해 나가요.</p>
     <div class="home-btns">
       <button class="btn btn-primary btn-lg btn-full" onclick="goPage('checklist')">🌿 지금 시작하기</button>
       <button class="btn btn-outline btn-full" onclick="goPage('guide')">📋 해지 안내 바로 보기</button>
     </div>
   </div>
-
   <div class="container">
-    <div class="feature-grid mt24">
-      <div class="feature-card">
-        <div class="feature-icon">📋</div>
-        <div class="feature-title">30개 서비스<br>해지 안내</div>
-        <div class="feature-desc">무료로 전체 제공</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">✅</div>
-        <div class="feature-title">진행 현황<br>한눈에 관리</div>
-        <div class="feature-desc">완료·진행·미처리 구분</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔍</div>
-        <div class="feature-title">AI 계정<br>자동 탐지</div>
-        <div class="feature-desc">유료 기본형 제공</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">👨‍⚖️</div>
-        <div class="feature-title">법무사<br>전문가 연계</div>
-        <div class="feature-desc">유료 심화형 제공</div>
-      </div>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-title">30개 서비스<br>해지 안내</div><div class="feat-desc">무료 제공</div></div>
+      <div class="feat-card"><div class="feat-icon">📄</div><div class="feat-title">서류 자동<br>생성·출력</div><div class="feat-desc">유료 기본형</div></div>
+      <div class="feat-card"><div class="feat-icon">🔍</div><div class="feat-title">AI 계정<br>자동 탐지</div><div class="feat-desc">유료 기본형</div></div>
+      <div class="feat-card"><div class="feat-icon">👨‍⚖️</div><div class="feat-title">전문가<br>직접 연계</div><div class="feat-desc">유료 심화형</div></div>
     </div>
-
-    <div class="empathy-box mt16">
-      <p>이곳을 찾아오신 것, 얼마나 힘드셨을까요.<br>
-      <strong>혼자 감당하지 않으셔도 됩니다.</strong><br>
-      천천히, 준비되셨을 때 시작하세요.</p>
+    <div class="empathy-box">
+      <p>이곳을 찾아오신 것, 얼마나 힘드셨을까요.<br><strong>혼자 감당하지 않으셔도 됩니다.</strong><br>천천히, 준비되셨을 때 시작하세요.</p>
     </div>
-
-    <div class="notice mt16">
-      💡 <strong>무료로 이용하실 수 있습니다.</strong><br>
-      30개 주요 서비스 해지 절차 안내는 모두 무료예요.<br>
-      AI 탐지·전문가 연계가 필요하실 때 유료 전환하세요.
-    </div>
+    <div class="notice">💡 <strong>30개 서비스 해지 절차 안내는 모두 무료</strong>예요.<br>서류 자동 생성·AI 탐지가 필요하시면 유료 전환하세요.</div>
   </div>
 </div>
 
-<!-- ════════════════════ 정리하기 ════════════════════ -->
+<!-- ══════════════════════════════════════
+     정리하기
+══════════════════════════════════════ -->
 <div id="page-checklist" class="page">
   <div class="page-top">
     <h2>정리 대상 서비스 선택</h2>
     <p>해지할 서비스를 선택해 진행 현황을 관리하세요</p>
   </div>
-
-  <div class="progress-wrap">
-    <div class="progress-label">
-      <span>완료한 서비스</span>
-      <span id="prog-text">0 / 0개</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="prog-wrap">
+    <div class="prog-label"><span>완료한 서비스</span><span id="prog-text">0 / 30개</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
-
   <div class="cat-tabs">
     <button class="tab on" onclick="filterCat('all',this)">전체</button>
     <button class="tab" onclick="filterCat('sns',this)">SNS·소통</button>
@@ -570,688 +317,681 @@ body.senior .notice { font-size: 16px; padding: 18px 20px; }
     <button class="tab" onclick="filterCat('fin',this)">금융·통신</button>
     <button class="tab" onclick="filterCat('shop',this)">쇼핑·배달</button>
   </div>
-
   <div class="svc-list" id="svc-list">
-    <!-- SNS -->
-    <div class="svc-item" data-cat="sns" data-id="kakao" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">💬</div>
-      <div class="svc-info">
-        <div class="svc-name">카카오톡</div>
-        <div class="svc-type">SNS · 메신저</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <div class="svc-item" data-cat="sns" data-id="kakaostory" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">📖</div>
-      <div class="svc-info">
-        <div class="svc-name">카카오스토리</div>
-        <div class="svc-type">SNS</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="sns" data-id="naver-cafe" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🟢</div>
-      <div class="svc-info">
-        <div class="svc-name">네이버 (카페·블로그)</div>
-        <div class="svc-type">포털 · SNS</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <div class="svc-item" data-cat="sns" data-id="instagram" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">📸</div>
-      <div class="svc-info">
-        <div class="svc-name">인스타그램</div>
-        <div class="svc-type">SNS</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="sns" data-id="band" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🎵</div>
-      <div class="svc-info">
-        <div class="svc-name">밴드 (BAND)</div>
-        <div class="svc-type">SNS · 커뮤니티</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <!-- 구독 -->
-    <div class="svc-item" data-cat="sub" data-id="kakaopay" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">💳</div>
-      <div class="svc-info">
-        <div class="svc-name">카카오페이</div>
-        <div class="svc-type">간편결제 · 구독</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <div class="svc-item" data-cat="sub" data-id="naverpay" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">💚</div>
-      <div class="svc-info">
-        <div class="svc-name">네이버페이 · 네이버플러스</div>
-        <div class="svc-type">간편결제 · 멤버십</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <div class="svc-item" data-cat="sub" data-id="netflix" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🎬</div>
-      <div class="svc-info">
-        <div class="svc-name">넷플릭스</div>
-        <div class="svc-type">OTT 구독</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="sub" data-id="wavve" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">📺</div>
-      <div class="svc-info">
-        <div class="svc-name">웨이브 (Wavve)</div>
-        <div class="svc-type">OTT 구독</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="sub" data-id="tving" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🎞</div>
-      <div class="svc-info">
-        <div class="svc-name">티빙 (TVING)</div>
-        <div class="svc-type">OTT 구독</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="sub" data-id="melon" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🎵</div>
-      <div class="svc-info">
-        <div class="svc-name">멜론</div>
-        <div class="svc-type">음악 구독</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="sub" data-id="genie" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🎶</div>
-      <div class="svc-info">
-        <div class="svc-name">지니뮤직</div>
-        <div class="svc-type">음악 구독</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="sub" data-id="youtube" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">▶️</div>
-      <div class="svc-info">
-        <div class="svc-name">유튜브 프리미엄</div>
-        <div class="svc-type">구독</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <!-- 이메일·클라우드 -->
-    <div class="svc-item" data-cat="cloud" data-id="google" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">📧</div>
-      <div class="svc-info">
-        <div class="svc-name">구글 (Gmail · 드라이브)</div>
-        <div class="svc-type">이메일 · 클라우드</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <div class="svc-item" data-cat="cloud" data-id="apple" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🍎</div>
-      <div class="svc-info">
-        <div class="svc-name">애플 (iCloud · 앱스토어)</div>
-        <div class="svc-type">클라우드 · 구독</div>
-      </div>
-      <span class="diff diff-h">어려움</span>
-    </div>
-    <div class="svc-item" data-cat="cloud" data-id="naver-mail" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">📨</div>
-      <div class="svc-info">
-        <div class="svc-name">네이버 메일 · 클라우드</div>
-        <div class="svc-type">이메일 · 클라우드</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <div class="svc-item" data-cat="cloud" data-id="ms" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🪟</div>
-      <div class="svc-info">
-        <div class="svc-name">마이크로소프트 (OneDrive)</div>
-        <div class="svc-type">클라우드 · 구독</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <!-- 금융·통신 -->
-    <div class="svc-item" data-cat="fin" data-id="skt" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">📱</div>
-      <div class="svc-info">
-        <div class="svc-name">SKT (T월드)</div>
-        <div class="svc-type">통신 · 휴대폰 해지</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <div class="svc-item" data-cat="fin" data-id="kt" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">📶</div>
-      <div class="svc-info">
-        <div class="svc-name">KT</div>
-        <div class="svc-type">통신 · 휴대폰 해지</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <div class="svc-item" data-cat="fin" data-id="lgu" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">📡</div>
-      <div class="svc-info">
-        <div class="svc-name">LG U+</div>
-        <div class="svc-type">통신 · 휴대폰 해지</div>
-      </div>
-      <span class="diff diff-m">보통</span>
-    </div>
-    <div class="svc-item" data-cat="fin" data-id="card-point" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">💳</div>
-      <div class="svc-info">
-        <div class="svc-name">신용카드 포인트 상속</div>
-        <div class="svc-type">금융 · 상속</div>
-      </div>
-      <span class="diff diff-h">어려움</span>
-    </div>
-    <div class="svc-item" data-cat="fin" data-id="bank" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🏦</div>
-      <div class="svc-info">
-        <div class="svc-name">은행 앱 · 인터넷뱅킹</div>
-        <div class="svc-type">금융</div>
-      </div>
-      <span class="diff diff-h">어려움</span>
-    </div>
-    <!-- 쇼핑·배달 -->
-    <div class="svc-item" data-cat="shop" data-id="coupang" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🛒</div>
-      <div class="svc-info">
-        <div class="svc-name">쿠팡 (와우 멤버십)</div>
-        <div class="svc-type">쇼핑 · 구독</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="shop" data-id="baemin" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🍔</div>
-      <div class="svc-info">
-        <div class="svc-name">배달의민족</div>
-        <div class="svc-type">배달 · 멤버십</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="shop" data-id="yogiyo" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🛵</div>
-      <div class="svc-info">
-        <div class="svc-name">요기요</div>
-        <div class="svc-type">배달</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="shop" data-id="gmarket" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🏪</div>
-      <div class="svc-info">
-        <div class="svc-name">G마켓 · 옥션</div>
-        <div class="svc-type">쇼핑</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="shop" data-id="11st" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🔢</div>
-      <div class="svc-info">
-        <div class="svc-name">11번가</div>
-        <div class="svc-type">쇼핑</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="shop" data-id="karrot" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🥕</div>
-      <div class="svc-info">
-        <div class="svc-name">당근마켓</div>
-        <div class="svc-type">중고거래</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
-    <div class="svc-item" data-cat="shop" data-id="socar" onclick="toggleSvc(this)">
-      <div class="svc-check">✓</div>
-      <div class="svc-logo">🚗</div>
-      <div class="svc-info">
-        <div class="svc-name">쏘카 · 카카오T</div>
-        <div class="svc-type">모빌리티</div>
-      </div>
-      <span class="diff diff-e">쉬움</span>
-    </div>
+    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💬</div><div class="svc-info"><div class="svc-name">카카오톡</div><div class="svc-type">SNS · 메신저</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📖</div><div class="svc-info"><div class="svc-name">카카오스토리</div><div class="svc-type">SNS</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🟢</div><div class="svc-info"><div class="svc-name">네이버 (카페·블로그)</div><div class="svc-type">포털 · SNS</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📸</div><div class="svc-info"><div class="svc-name">인스타그램</div><div class="svc-type">SNS</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎵</div><div class="svc-info"><div class="svc-name">밴드 (BAND)</div><div class="svc-type">SNS · 커뮤니티</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💳</div><div class="svc-info"><div class="svc-name">카카오페이</div><div class="svc-type">간편결제</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💚</div><div class="svc-info"><div class="svc-name">네이버페이 · 플러스</div><div class="svc-type">간편결제 · 멤버십</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎬</div><div class="svc-info"><div class="svc-name">넷플릭스</div><div class="svc-type">OTT 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📺</div><div class="svc-info"><div class="svc-name">웨이브</div><div class="svc-type">OTT 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎞</div><div class="svc-info"><div class="svc-name">티빙</div><div class="svc-type">OTT 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎵</div><div class="svc-info"><div class="svc-name">멜론</div><div class="svc-type">음악 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎶</div><div class="svc-info"><div class="svc-name">지니뮤직</div><div class="svc-type">음악 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">▶️</div><div class="svc-info"><div class="svc-name">유튜브 프리미엄</div><div class="svc-type">구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="cloud" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📧</div><div class="svc-info"><div class="svc-name">구글 (Gmail·드라이브)</div><div class="svc-type">이메일 · 클라우드</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="cloud" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🍎</div><div class="svc-info"><div class="svc-name">애플 (iCloud·앱스토어)</div><div class="svc-type">클라우드 · 구독</div></div><span class="diff diff-h">어려움</span></div>
+    <div class="svc-item" data-cat="cloud" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📨</div><div class="svc-info"><div class="svc-name">네이버 메일·클라우드</div><div class="svc-type">이메일 · 클라우드</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="cloud" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🪟</div><div class="svc-info"><div class="svc-name">마이크로소프트 (OneDrive)</div><div class="svc-type">클라우드 · 구독</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📱</div><div class="svc-info"><div class="svc-name">SKT (T월드)</div><div class="svc-type">통신 해지</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📶</div><div class="svc-info"><div class="svc-name">KT</div><div class="svc-type">통신 해지</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📡</div><div class="svc-info"><div class="svc-name">LG U+</div><div class="svc-type">통신 해지</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💳</div><div class="svc-info"><div class="svc-name">신용카드 포인트 상속</div><div class="svc-type">금융 · 상속</div></div><span class="diff diff-h">어려움</span></div>
+    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏦</div><div class="svc-info"><div class="svc-name">은행 앱·인터넷뱅킹</div><div class="svc-type">금융</div></div><span class="diff diff-h">어려움</span></div>
+    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🛒</div><div class="svc-info"><div class="svc-name">쿠팡 (와우 멤버십)</div><div class="svc-type">쇼핑 · 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🍔</div><div class="svc-info"><div class="svc-name">배달의민족</div><div class="svc-type">배달 · 멤버십</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🛵</div><div class="svc-info"><div class="svc-name">요기요</div><div class="svc-type">배달</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏪</div><div class="svc-info"><div class="svc-name">G마켓·옥션</div><div class="svc-type">쇼핑</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🔢</div><div class="svc-info"><div class="svc-name">11번가</div><div class="svc-type">쇼핑</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🥕</div><div class="svc-info"><div class="svc-name">당근마켓</div><div class="svc-type">중고거래</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🚗</div><div class="svc-info"><div class="svc-name">쏘카·카카오T</div><div class="svc-type">모빌리티</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏋</div><div class="svc-info"><div class="svc-name">헬스장·필라테스 회원권</div><div class="svc-type">오프라인 구독</div></div><span class="diff diff-m">보통</span></div>
   </div>
-
-  <div class="checklist-bottom">
-    <button class="btn btn-primary btn-full btn-lg" onclick="goPage('guide')">
-      선택한 서비스 해지 안내 보기 →
-    </button>
-    <div class="notice">
-      💡 어려움(빨강) 표시 서비스는 전문가 연계를 권장해요.<br>
-      유료 심화형(150,000원)에서 법무사·행정사 연결을 도와드립니다.
-    </div>
+  <div class="cl-bottom">
+    <button class="btn btn-primary btn-full btn-lg" onclick="goPage('docs')">📄 선택한 서비스 서류 만들기 →</button>
+    <button class="btn btn-outline btn-full" onclick="goPage('guide')">해지 절차 안내만 보기</button>
+    <div class="notice">💡 <strong>어려움(빨강)</strong> 서비스는 전문가 연계를 권장합니다</div>
   </div>
 </div>
 
-<!-- ════════════════════ 해지 안내 ════════════════════ -->
+<!-- ══════════════════════════════════════
+     해지 안내
+══════════════════════════════════════ -->
 <div id="page-guide" class="page">
   <div class="page-top">
     <h2>해지 안내</h2>
-    <p>서비스를 눌러 절차를 확인하세요 — 모두 무료로 제공됩니다</p>
+    <p>서비스를 눌러 절차를 확인하세요 — 모두 무료</p>
+  </div>
+  <div class="guide-list">
+    <div class="g-card" onclick="toggleGuide(this)">
+      <div class="g-header"><div class="svc-logo">💬</div><div class="svc-info"><div class="svc-name">카카오톡 계정 해지</div><div class="svc-type">⏱ 20~30분 · 서류 2종</div></div><span class="diff diff-m">보통</span><span class="g-arrow">▼</span></div>
+      <div class="g-body">
+        <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div><div class="doc-chip">🪪 신청인 신분증</div></div>
+        <div class="sec-label">🔢 해지 절차</div>
+        <div class="g-steps">
+          <div class="g-step"><div class="step-n">1</div><div class="step-txt">카카오 고객센터 → '계정 서비스' → '사망자 계정 처리'</div></div>
+          <div class="g-step"><div class="step-n">2</div><div class="step-txt">신청인 정보 입력 + 서류 업로드 (온라인)</div></div>
+          <div class="g-step"><div class="step-n">3</div><div class="step-txt">3~5 영업일 내 처리 완료 문자 수신</div></div>
+          <div class="g-step"><div class="step-n">⚠</div><div class="step-txt"><strong>카카오페이 잔액 별도 신청 필요</strong></div></div>
+        </div>
+        <div class="warn-list"><div class="warn-item">⚠️ 해지 후 대화 내용 복구 불가 — 필요 내용 먼저 저장</div></div>
+        <button class="btn btn-primary btn-full mt12" onclick="startDocs('kakao')">📄 이 서비스 서류 자동 만들기</button>
+      </div>
+    </div>
+
+    <div class="g-card" onclick="toggleGuide(this)">
+      <div class="g-header"><div class="svc-logo">🟢</div><div class="svc-info"><div class="svc-name">네이버 계정 해지</div><div class="svc-type">⏱ 30분 · 서류 2종</div></div><span class="diff diff-m">보통</span><span class="g-arrow">▼</span></div>
+      <div class="g-body">
+        <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div></div>
+        <div class="sec-label">🔢 해지 절차</div>
+        <div class="g-steps">
+          <div class="g-step"><div class="step-n">1</div><div class="step-txt">네이버 고객센터 → '사망자 계정 처리 신청'</div></div>
+          <div class="g-step"><div class="step-n">2</div><div class="step-txt">온라인 신청서 + 서류 첨부</div></div>
+          <div class="g-step"><div class="step-n">3</div><div class="step-txt">5~7 영업일 내 처리</div></div>
+        </div>
+        <div class="warn-list"><div class="warn-item">⚠️ 네이버페이 포인트 상속은 별도 신청</div></div>
+        <button class="btn btn-primary btn-full mt12" onclick="startDocs('naver')">📄 이 서비스 서류 자동 만들기</button>
+      </div>
+    </div>
+
+    <div class="g-card" onclick="toggleGuide(this)">
+      <div class="g-header"><div class="svc-logo">📧</div><div class="svc-info"><div class="svc-name">구글 계정 처리</div><div class="svc-type">⏱ 1~2주 · 영문 신청</div></div><span class="diff diff-m">보통</span><span class="g-arrow">▼</span></div>
+      <div class="g-body">
+        <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서 (영문/번역)</div><div class="doc-chip">🪪 신청인 신분증</div></div>
+        <div class="g-steps">
+          <div class="g-step"><div class="step-n">1</div><div class="step-txt">Google 비활성 계정 관리자 페이지 접속</div></div>
+          <div class="g-step"><div class="step-n">2</div><div class="step-txt">사망자 계정 정보 신청 폼 작성 (영문)</div></div>
+          <div class="g-step"><div class="step-n">3</div><div class="step-txt">1~2주 후 이메일로 결과 안내</div></div>
+        </div>
+        <div class="warn-list"><div class="warn-item">⚠️ 계정 내용 제공보다 삭제 처리 위주로 진행</div></div>
+        <button class="btn btn-primary btn-full mt12" onclick="startDocs('google')">📄 이 서비스 서류 자동 만들기</button>
+      </div>
+    </div>
+
+    <div class="g-card" onclick="toggleGuide(this)">
+      <div class="g-header"><div class="svc-logo">🍎</div><div class="svc-info"><div class="svc-name">애플 계정 처리</div><div class="svc-type">⏱ 2~4주 · 고난도</div></div><span class="diff diff-h">어려움</span><span class="g-arrow">▼</span></div>
+      <div class="g-body">
+        <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div><div class="doc-chip">⚖️ 법원 상속서류</div></div>
+        <div class="g-steps">
+          <div class="g-step"><div class="step-n">1</div><div class="step-txt">Apple Digital Legacy 페이지에서 요청서 제출</div></div>
+          <div class="g-step"><div class="step-n">2</div><div class="step-txt">Apple 검토 후 연락 (2~4주)</div></div>
+        </div>
+        <div class="warn-list"><div class="warn-item">⚠️ 가장 까다로운 절차 — 전문가 연계 강력 권장</div></div>
+        <button class="btn btn-rose btn-full mt12" onclick="goPage('plan')">👨‍⚖️ 전문가 연계 신청 (유료 심화형)</button>
+      </div>
+    </div>
+
+    <div class="g-card" onclick="toggleGuide(this)">
+      <div class="g-header"><div class="svc-logo">📱</div><div class="svc-info"><div class="svc-name">휴대폰 통신 해지 (SKT·KT·LGU+)</div><div class="svc-type">⏱ 30분 · 대리점 방문</div></div><span class="diff diff-m">보통</span><span class="g-arrow">▼</span></div>
+      <div class="g-body">
+        <div class="sec-label">📄 필요 서류 (방문 지참)</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div><div class="doc-chip">🪪 신청인 신분증</div></div>
+        <div class="g-steps">
+          <div class="g-step"><div class="step-n">1</div><div class="step-txt">가까운 통신사 대리점 방문</div></div>
+          <div class="g-step"><div class="step-n">2</div><div class="step-txt">사망자 계약 해지 신청서 작성 (현장)</div></div>
+          <div class="g-step"><div class="step-n">3</div><div class="step-txt">당일 처리 완료</div></div>
+        </div>
+        <div class="warn-list"><div class="warn-item">⚠️ SKT: 1599-0011 / KT: 100 / LGU+: 101</div><div class="warn-item">⚠️ 요금 미납 시 상속인이 납부 책임질 수 있음</div></div>
+        <button class="btn btn-primary btn-full mt12" onclick="startDocs('telecom')">📄 방문 지참 서류 패키지 만들기</button>
+      </div>
+    </div>
+
+    <div class="g-card" onclick="toggleGuide(this)">
+      <div class="g-header"><div class="svc-logo">💳</div><div class="svc-info"><div class="svc-name">신용카드 포인트 상속</div><div class="svc-type">⏱ 2~4주 · 카드사별 상이</div></div><span class="diff diff-h">어려움</span><span class="g-arrow">▼</span></div>
+      <div class="g-body">
+        <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div><div class="doc-chip">⚖️ 상속인 확인서류</div></div>
+        <div class="g-steps">
+          <div class="g-step"><div class="step-n">1</div><div class="step-txt">카드사 고객센터 → 상속 담당 부서 연결</div></div>
+          <div class="g-step"><div class="step-n">2</div><div class="step-txt">서류 제출 + 포인트 현금 전환 또는 상속 신청</div></div>
+        </div>
+        <div class="warn-list"><div class="warn-item">⚠️ 카드사별 절차 달라 복잡 — 전문가 연계 권장</div></div>
+        <button class="btn btn-rose btn-full mt12" onclick="goPage('plan')">👨‍⚖️ 전문가 연계 신청 (유료 심화형)</button>
+      </div>
+    </div>
+
+    <div class="g-card" onclick="toggleGuide(this)">
+      <div class="g-header"><div class="svc-logo">🎬</div><div class="svc-info"><div class="svc-name">넷플릭스·웨이브·티빙 해지</div><div class="svc-type">⏱ 5분 · 서류 불필요</div></div><span class="diff diff-e">쉬움</span><span class="g-arrow">▼</span></div>
+      <div class="g-body">
+        <div class="g-steps">
+          <div class="g-step"><div class="step-n">1</div><div class="step-txt">각 서비스 고객센터 전화 (넷플릭스: 080-001-9800)</div></div>
+          <div class="g-step"><div class="step-n">2</div><div class="step-txt">사망자 이름·이메일 안내 후 해지 요청</div></div>
+          <div class="g-step"><div class="step-n">3</div><div class="step-txt">당일 처리</div></div>
+        </div>
+        <div class="warn-list"><div class="warn-item">⚠️ 이미 결제된 금액은 카드사에 취소 요청</div></div>
+      </div>
+    </div>
+
+    <div class="g-card" onclick="toggleGuide(this)">
+      <div class="g-header"><div class="svc-logo">🛒</div><div class="svc-info"><div class="svc-name">쿠팡·배달앱·쇼핑몰 해지</div><div class="svc-type">⏱ 5~10분 · 앱/전화</div></div><span class="diff diff-e">쉬움</span><span class="g-arrow">▼</span></div>
+      <div class="g-body">
+        <div class="g-steps">
+          <div class="g-step"><div class="step-n">1</div><div class="step-txt">계정 로그인 후 회원탈퇴 또는 고객센터 전화</div></div>
+          <div class="g-step"><div class="step-n">2</div><div class="step-txt">쿠팡: 1577-7011 / 배민: 1600-0987</div></div>
+          <div class="g-step"><div class="step-n">3</div><div class="step-txt">사망자 정보 안내 후 당일 처리</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     서류 만들기 (유료 기능)
+══════════════════════════════════════ -->
+<div id="page-docs" class="page">
+  <div class="page-top">
+    <h2>📄 서류 자동 만들기</h2>
+    <p>정보를 입력하면 서비스별 서류를 자동으로 완성해드립니다</p>
   </div>
 
-  <div class="guide-list">
+  <!-- 단계 표시 -->
+  <div class="steps-nav">
+    <div class="step-dot active" id="sdot1">1</div>
+    <div class="step-line" id="sline1"></div>
+    <div class="step-dot" id="sdot2">2</div>
+    <div class="step-line" id="sline2"></div>
+    <div class="step-dot" id="sdot3">3</div>
+  </div>
 
-    <!-- 카카오톡 -->
-    <div class="guide-card" onclick="toggleGuide(this)">
-      <div class="guide-card-header">
-        <div class="svc-logo">💬</div>
-        <div class="svc-info">
-          <div class="svc-name">카카오톡 계정 해지</div>
-          <div class="svc-type">⏱ 20~30분 · 서류 2종</div>
+  <div class="container" style="padding-top:20px;">
+
+    <!-- STEP 1: 정보 입력 -->
+    <div class="doc-step active" id="doc-step1">
+      <div class="card">
+        <div style="font-size:var(--fs-lg);font-weight:800;margin-bottom:4px;">고인·상속인 정보 입력</div>
+        <div style="font-size:var(--fs-sm);color:var(--text-soft);margin-bottom:20px;">입력 정보는 서류 생성에만 사용되며 저장되지 않습니다</div>
+
+        <div style="font-weight:700;margin-bottom:12px;color:var(--sage-dark);">▪ 고인 정보</div>
+        <div class="form-group">
+          <label class="form-label">성명</label>
+          <input class="form-input" type="text" id="d-name" placeholder="예: 홍길동">
         </div>
-        <span class="diff diff-m">보통</span>
-        <span class="guide-arrow">▼</span>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">생년월일</label>
+            <input class="form-input" type="date" id="d-birth">
+          </div>
+          <div class="form-group">
+            <label class="form-label">사망일</label>
+            <input class="form-input" type="date" id="d-death">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">마지막 주소 <span>(선택)</span></label>
+          <input class="form-input" type="text" id="d-addr" placeholder="예: 서울시 강남구 ...">
+        </div>
+
+        <div style="font-weight:700;margin:20px 0 12px;color:var(--sage-dark);">▪ 신청인(상속인) 정보</div>
+        <div class="form-group">
+          <label class="form-label">성명</label>
+          <input class="form-input" type="text" id="a-name" placeholder="신청인 성함">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">고인과의 관계</label>
+            <select class="form-select" id="a-rel">
+              <option>배우자</option><option>자녀 (장남/장녀)</option><option>자녀 (차남/차녀)</option>
+              <option>부모</option><option>형제·자매</option><option>기타</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">생년월일</label>
+            <input class="form-input" type="date" id="a-birth">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">연락처</label>
+          <input class="form-input" type="tel" id="a-phone" placeholder="010-0000-0000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">주소</label>
+          <input class="form-input" type="text" id="a-addr" placeholder="신청인 주소">
+        </div>
       </div>
-      <div class="guide-card-body">
-        <div class="guide-section-label">📄 필요 서류</div>
-        <div class="doc-chips">
-          <div class="doc-chip">📄 사망진단서</div>
-          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
-          <div class="doc-chip">🪪 신청인 신분증</div>
+      <button class="btn btn-primary btn-full btn-lg mt16" onclick="nextStep(2)">다음 단계 → 서비스 선택</button>
+    </div>
+
+    <!-- STEP 2: 서비스 선택 -->
+    <div class="doc-step" id="doc-step2">
+      <div style="font-size:var(--fs-lg);font-weight:800;margin-bottom:4px;">서류가 필요한 서비스 선택</div>
+      <div style="font-size:var(--fs-sm);color:var(--text-soft);margin-bottom:16px;">온라인 제출용 또는 방문 지참용 서류를 만들어드립니다</div>
+
+      <div class="svc-pick-list" id="svc-pick-list">
+        <div class="svc-pick-item" onclick="togglePick(this)" data-svc="kakao" data-method="online">
+          <div class="svc-check">✓</div>
+          <div class="svc-logo">💬</div>
+          <div class="svc-info"><div class="svc-name">카카오톡·카카오페이</div><div class="svc-type">온라인 제출</div></div>
+          <span class="method-badge method-online">온라인</span>
         </div>
-        <div class="guide-section-label">🔢 해지 절차</div>
-        <div class="guide-steps">
-          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">카카오 고객센터 접속 → '계정 서비스' → '사망자 계정 처리' 선택</div></div>
-          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">신청인 정보 입력 후 서류 업로드</div></div>
-          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">3~5 영업일 내 처리 완료 문자 수신</div></div>
-          <div class="guide-step"><div class="step-n">⚠</div><div class="step-txt"><strong>카카오페이 잔액은 별도 신청 필요</strong> (서류 동일)</div></div>
+        <div class="svc-pick-item" onclick="togglePick(this)" data-svc="naver" data-method="online">
+          <div class="svc-check">✓</div>
+          <div class="svc-logo">🟢</div>
+          <div class="svc-info"><div class="svc-name">네이버·네이버페이</div><div class="svc-type">온라인 제출</div></div>
+          <span class="method-badge method-online">온라인</span>
         </div>
-        <div class="warn-list">
-          <div class="warn-item">⚠️ 계정 해지 후 대화 내용 복구 불가 — 필요한 내용 먼저 저장하세요</div>
-          <div class="warn-item">⚠️ 카카오톡·카카오페이 각각 별도 신청</div>
+        <div class="svc-pick-item" onclick="togglePick(this)" data-svc="google" data-method="online">
+          <div class="svc-check">✓</div>
+          <div class="svc-logo">📧</div>
+          <div class="svc-info"><div class="svc-name">구글 (Gmail·드라이브)</div><div class="svc-type">온라인 제출 (영문)</div></div>
+          <span class="method-badge method-online">온라인</span>
         </div>
+        <div class="svc-pick-item" onclick="togglePick(this)" data-svc="telecom" data-method="visit">
+          <div class="svc-check">✓</div>
+          <div class="svc-logo">📱</div>
+          <div class="svc-info"><div class="svc-name">통신사 (SKT·KT·LGU+)</div><div class="svc-type">대리점 방문 지참</div></div>
+          <span class="method-badge method-visit">방문</span>
+        </div>
+        <div class="svc-pick-item" onclick="togglePick(this)" data-svc="card" data-method="visit">
+          <div class="svc-check">✓</div>
+          <div class="svc-logo">💳</div>
+          <div class="svc-info"><div class="svc-name">카드사 포인트 상속</div><div class="svc-type">지점 방문 지참</div></div>
+          <span class="method-badge method-visit">방문</span>
+        </div>
+        <div class="svc-pick-item" onclick="togglePick(this)" data-svc="bank" data-method="visit">
+          <div class="svc-check">✓</div>
+          <div class="svc-logo">🏦</div>
+          <div class="svc-info"><div class="svc-name">은행 계좌 정리</div><div class="svc-type">은행 지점 방문</div></div>
+          <span class="method-badge method-visit">방문</span>
+        </div>
+        <div class="svc-pick-item" onclick="togglePick(this)" data-svc="apple" data-method="online">
+          <div class="svc-check">✓</div>
+          <div class="svc-logo">🍎</div>
+          <div class="svc-info"><div class="svc-name">애플 (iCloud)</div><div class="svc-type">온라인 제출 · 고난도</div></div>
+          <span class="method-badge method-online">온라인</span>
+        </div>
+      </div>
+
+      <div class="gap12 mt16">
+        <button class="btn btn-primary btn-full btn-lg" onclick="nextStep(3)">📄 서류 생성하기</button>
+        <button class="btn btn-gray btn-full" onclick="nextStep(1)">← 이전</button>
       </div>
     </div>
 
-    <!-- 네이버 -->
-    <div class="guide-card" onclick="toggleGuide(this)">
-      <div class="guide-card-header">
-        <div class="svc-logo">🟢</div>
-        <div class="svc-info">
-          <div class="svc-name">네이버 계정 해지</div>
-          <div class="svc-type">⏱ 30분 · 서류 2종</div>
-        </div>
-        <span class="diff diff-m">보통</span>
-        <span class="guide-arrow">▼</span>
-      </div>
-      <div class="guide-card-body">
-        <div class="guide-section-label">📄 필요 서류</div>
-        <div class="doc-chips">
-          <div class="doc-chip">📄 사망진단서</div>
-          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
-        </div>
-        <div class="guide-section-label">🔢 해지 절차</div>
-        <div class="guide-steps">
-          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">네이버 고객센터 → '사망자 계정 처리 신청' 검색</div></div>
-          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">온라인 신청서 작성 + 서류 첨부</div></div>
-          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">영업일 기준 5~7일 내 처리</div></div>
-        </div>
-        <div class="warn-list">
-          <div class="warn-item">⚠️ 네이버페이 포인트·마일리지는 상속 신청 별도 진행</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 구글 -->
-    <div class="guide-card" onclick="toggleGuide(this)">
-      <div class="guide-card-header">
-        <div class="svc-logo">📧</div>
-        <div class="svc-info">
-          <div class="svc-name">구글 계정 처리</div>
-          <div class="svc-type">⏱ 1~2주 · 영문 신청</div>
-        </div>
-        <span class="diff diff-m">보통</span>
-        <span class="guide-arrow">▼</span>
-      </div>
-      <div class="guide-card-body">
-        <div class="guide-section-label">📄 필요 서류</div>
-        <div class="doc-chips">
-          <div class="doc-chip">📄 사망진단서 (영문 or 번역)</div>
-          <div class="doc-chip">🪪 신청인 신분증</div>
-        </div>
-        <div class="guide-section-label">🔢 해지 절차</div>
-        <div class="guide-steps">
-          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">Google '비활성 계정 관리자' 페이지 접속</div></div>
-          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">사망한 사용자 계정 정보 신청 폼 작성 (영문)</div></div>
-          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">구글 검토 후 이메일로 안내 (1~2주 소요)</div></div>
-        </div>
-        <div class="warn-list">
-          <div class="warn-item">⚠️ 구글은 계정 내용물 제공보다 계정 삭제 처리 위주로 진행됩니다</div>
-          <div class="warn-item">⚠️ 유튜브 채널, 드라이브 데이터는 삭제 전 다운로드 요청 가능</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 애플 -->
-    <div class="guide-card" onclick="toggleGuide(this)">
-      <div class="guide-card-header">
-        <div class="svc-logo">🍎</div>
-        <div class="svc-info">
-          <div class="svc-name">애플 계정 처리</div>
-          <div class="svc-type">⏱ 2~4주 · 서류 3종</div>
-        </div>
-        <span class="diff diff-h">어려움</span>
-        <span class="guide-arrow">▼</span>
-      </div>
-      <div class="guide-card-body">
-        <div class="guide-section-label">📄 필요 서류</div>
-        <div class="doc-chips">
-          <div class="doc-chip">📄 사망진단서</div>
-          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
-          <div class="doc-chip">⚖️ 법원 상속 서류 (경우에 따라)</div>
-        </div>
-        <div class="guide-section-label">🔢 해지 절차</div>
-        <div class="guide-steps">
-          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">Apple Digital Legacy 페이지 접속</div></div>
-          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">사망자 Apple ID 입력 후 요청서 제출</div></div>
-          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">Apple 검토 후 연락 (2~4주)</div></div>
-        </div>
-        <div class="warn-list">
-          <div class="warn-item">⚠️ 애플은 가장 까다로운 절차 중 하나 — 전문가 연계를 권장합니다</div>
-          <div class="warn-item">⚠️ iCloud 데이터 접근은 원칙적으로 허용되지 않음</div>
-        </div>
-        <button class="btn btn-rose btn-full mt16" onclick="alert('전문가 연계는 유료 심화형(150,000원)에서 제공됩니다.\n요금제 탭에서 확인해 보세요.')">
-          👨‍⚖️ 전문가 연계 신청
-        </button>
-      </div>
-    </div>
-
-    <!-- 넷플릭스 -->
-    <div class="guide-card" onclick="toggleGuide(this)">
-      <div class="guide-card-header">
-        <div class="svc-logo">🎬</div>
-        <div class="svc-info">
-          <div class="svc-name">넷플릭스 해지</div>
-          <div class="svc-type">⏱ 5분 · 서류 불필요</div>
-        </div>
-        <span class="diff diff-e">쉬움</span>
-        <span class="guide-arrow">▼</span>
-      </div>
-      <div class="guide-card-body">
-        <div class="guide-section-label">🔢 해지 절차</div>
-        <div class="guide-steps">
-          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">넷플릭스 고객센터 전화: 080-001-9800</div></div>
-          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">사망자 이름·이메일 안내 후 해지 요청</div></div>
-          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">당일 처리 완료</div></div>
-        </div>
-        <div class="warn-list">
-          <div class="warn-item">⚠️ 결제 카드에서 자동결제가 이미 되었다면 카드사에 취소 요청 가능</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 쿠팡 -->
-    <div class="guide-card" onclick="toggleGuide(this)">
-      <div class="guide-card-header">
-        <div class="svc-logo">🛒</div>
-        <div class="svc-info">
-          <div class="svc-name">쿠팡 와우 멤버십 해지</div>
-          <div class="svc-type">⏱ 5분 · 앱에서 바로 가능</div>
-        </div>
-        <span class="diff diff-e">쉬움</span>
-        <span class="guide-arrow">▼</span>
-      </div>
-      <div class="guide-card-body">
-        <div class="guide-section-label">🔢 해지 절차</div>
-        <div class="guide-steps">
-          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">고인의 쿠팡 계정으로 로그인 (비밀번호 모를 경우 고객센터 연락)</div></div>
-          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">마이쿠팡 → 로켓와우 → 멤버십 해지</div></div>
-          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">또는 쿠팡 고객센터(1577-7011) 전화 해지 가능</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 통신사 -->
-    <div class="guide-card" onclick="toggleGuide(this)">
-      <div class="guide-card-header">
-        <div class="svc-logo">📱</div>
-        <div class="svc-info">
-          <div class="svc-name">휴대폰 통신 해지 (SKT·KT·LGU+)</div>
-          <div class="svc-type">⏱ 30분 · 대리점 방문</div>
-        </div>
-        <span class="diff diff-m">보통</span>
-        <span class="guide-arrow">▼</span>
-      </div>
-      <div class="guide-card-body">
-        <div class="guide-section-label">📄 필요 서류</div>
-        <div class="doc-chips">
-          <div class="doc-chip">📄 사망진단서</div>
-          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
-          <div class="doc-chip">🪪 신청인 신분증</div>
-        </div>
-        <div class="guide-section-label">🔢 해지 절차</div>
-        <div class="guide-steps">
-          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">가까운 통신사 대리점 방문 (서류 지참)</div></div>
-          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">사망자 계약 해지 신청서 작성</div></div>
-          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">당일 처리 · 기기 반납은 별도 협의</div></div>
-        </div>
-        <div class="warn-list">
-          <div class="warn-item">⚠️ 요금 미납이 있는 경우 상속인이 납부 책임을 질 수 있음</div>
-          <div class="warn-item">⚠️ SKT: 1599-0011 / KT: 100 / LGU+: 101</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 카드 포인트 -->
-    <div class="guide-card" onclick="toggleGuide(this)">
-      <div class="guide-card-header">
-        <div class="svc-logo">💳</div>
-        <div class="svc-info">
-          <div class="svc-name">신용카드 포인트 상속</div>
-          <div class="svc-type">⏱ 2~4주 · 카드사별 상이</div>
-        </div>
-        <span class="diff diff-h">어려움</span>
-        <span class="guide-arrow">▼</span>
-      </div>
-      <div class="guide-card-body">
-        <div class="guide-section-label">📄 필요 서류</div>
-        <div class="doc-chips">
-          <div class="doc-chip">📄 사망진단서</div>
-          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
-          <div class="doc-chip">⚖️ 상속인 확인서류</div>
-        </div>
-        <div class="guide-section-label">🔢 해지 절차</div>
-        <div class="guide-steps">
-          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">카드사 고객센터 연락 → 상속 담당 부서 연결</div></div>
-          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">서류 제출 후 포인트 현금 전환 또는 상속 신청</div></div>
-          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">카드사별 처리 기간 상이 (2~4주)</div></div>
-        </div>
-        <div class="warn-list">
-          <div class="warn-item">⚠️ 카드별로 절차가 달라 복잡합니다 — 전문가 연계를 권장합니다</div>
-        </div>
-        <button class="btn btn-rose btn-full mt16" onclick="alert('전문가 연계는 유료 심화형(150,000원)에서 제공됩니다.\n요금제 탭에서 확인해 보세요.')">
-          👨‍⚖️ 전문가 연계 신청
-        </button>
+    <!-- STEP 3: 서류 결과 -->
+    <div class="doc-step" id="doc-step3">
+      <div id="docs-output"></div>
+      <div class="gap12 mt16 no-print">
+        <button class="btn btn-primary btn-full btn-lg" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+        <button class="btn btn-outline btn-full" onclick="nextStep(2)">← 다시 선택</button>
       </div>
     </div>
 
   </div>
 </div>
 
-<!-- ════════════════════ 요금제 ════════════════════ -->
+<!-- ══════════════════════════════════════
+     요금제
+══════════════════════════════════════ -->
 <div id="page-plan" class="page">
-  <div class="page-top">
-    <h2>요금제</h2>
-    <p>필요한 만큼만 선택하세요</p>
-  </div>
-
+  <div class="page-top"><h2>요금제</h2><p>필요한 만큼만 선택하세요</p></div>
   <div class="plan-grid">
-
-    <!-- 무료 -->
     <div class="plan-card">
-      <div class="plan-header">
-        <div class="plan-badge badge-free">무료</div>
-        <div class="plan-name">기본 안내</div>
-        <div class="plan-price">0원 <span>/ 무제한</span></div>
-      </div>
+      <div class="plan-header"><div class="plan-badge badge-free">무료</div><div class="plan-name">기본 안내</div><div class="plan-price">0원 <span>/ 무제한</span></div></div>
       <div class="plan-body">
-        <div class="plan-features">
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>30개 서비스 해지 절차 안내 전체 제공</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>필요 서류 목록 안내</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>정리 체크리스트 진행 관리</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>주의사항 및 팁 안내</span></div>
-          <div class="plan-feat"><span class="feat-icon">❌</span><span style="color:var(--text-soft)">AI 계정 자동 탐지</span></div>
-          <div class="plan-feat"><span class="feat-icon">❌</span><span style="color:var(--text-soft)">전문가 연계</span></div>
+        <div class="plan-feats">
+          <div class="plan-feat"><span class="fi">✅</span><span>30개 서비스 해지 절차 안내 전체</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span>필요 서류 목록 안내</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span>정리 체크리스트</span></div>
+          <div class="plan-feat"><span class="fi">❌</span><span style="color:var(--text-soft)">서류 자동 생성·출력</span></div>
+          <div class="plan-feat"><span class="fi">❌</span><span style="color:var(--text-soft)">AI 계정 자동 탐지</span></div>
         </div>
         <button class="btn btn-outline btn-full" onclick="goPage('guide')">무료로 시작하기</button>
       </div>
     </div>
 
-    <!-- 유료 기본형 -->
     <div class="plan-card featured">
-      <div class="plan-header">
-        <div class="plan-badge badge-basic">추천 · 유료 기본형</div>
-        <div class="plan-name">AI 정리 지원</div>
-        <div class="plan-price">39,000원 <span>/ 1회</span></div>
-      </div>
+      <div class="plan-header"><div class="plan-badge badge-basic">추천 · 유료 기본형</div><div class="plan-name">AI 정리 + 서류 생성</div><div class="plan-price">39,000원 <span>/ 1회</span></div></div>
       <div class="plan-body">
-        <div class="plan-features">
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>무료 기본 안내 전체 포함</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span><strong>AI 이메일 스캐닝</strong> — 가입 서비스 자동 탐지</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>맞춤형 정리 목록 자동 생성</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>진행 현황 대시보드 (누락 방지)</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>자동결제 중단 우선순위 안내</span></div>
-          <div class="plan-feat"><span class="feat-icon">❌</span><span style="color:var(--text-soft)">전문가 직접 연계</span></div>
+        <div class="plan-feats">
+          <div class="plan-feat"><span class="fi">✅</span><span>무료 기본 안내 전체 포함</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span><strong>서류 자동 생성</strong> — 서비스별 양식 완성</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span><strong>온라인 제출용</strong> 서류 즉시 발송 안내</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span><strong>방문 지참용</strong> 서류 패키지 출력</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span>AI 이메일 스캐닝 — 가입 서비스 자동 탐지</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span>진행 현황 대시보드</span></div>
         </div>
-        <button class="btn btn-primary btn-full" onclick="alert('AI 정리 지원 서비스는 곧 오픈됩니다.\n출시 알림을 신청해 두세요.')">
-          39,000원으로 시작하기
-        </button>
-        <div class="plan-cta mt8">
-          유가족 15명 인터뷰 결과<br><strong>80%가 적정 가격으로 응답</strong>한 요금제예요
-        </div>
+        <button class="btn btn-primary btn-full" onclick="goPage('docs')">39,000원으로 시작하기</button>
+        <div class="plan-cta mt8">유가족 인터뷰 결과 80%가 적정 가격으로 응답</div>
       </div>
     </div>
 
-    <!-- 유료 심화형 -->
     <div class="plan-card">
-      <div class="plan-header">
-        <div class="plan-badge badge-pro">유료 심화형</div>
-        <div class="plan-name">전문가 연계</div>
-        <div class="plan-price">150,000원 <span>/ 1회</span></div>
-      </div>
+      <div class="plan-header"><div class="plan-badge badge-pro">유료 심화형</div><div class="plan-name">전문가 직접 연계</div><div class="plan-price">150,000원 <span>/ 1회</span></div></div>
       <div class="plan-body">
-        <div class="plan-features">
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>기본형 전체 포함</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span><strong>1:1 전담 매니저</strong> 배정</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>법무사·행정사 직접 연계</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>서류 대리 작성 지원</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>복잡한 상속·금융 케이스 처리</span></div>
-          <div class="plan-feat"><span class="feat-icon">✅</span><span>애플·해외 계정 등 고난도 사례</span></div>
+        <div class="plan-feats">
+          <div class="plan-feat"><span class="fi">✅</span><span>기본형 전체 포함</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span><strong>1:1 전담 매니저</strong> 배정</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span>법무사·행정사 직접 처리</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span>대신 제출·방문 대행</span></div>
+          <div class="plan-feat"><span class="fi">✅</span><span>애플·카드 포인트 등 고난도 케이스</span></div>
         </div>
-        <button class="btn btn-rose btn-full" onclick="alert('전문가 연계 서비스는 곧 오픈됩니다.\n출시 알림을 신청해 두세요.')">
-          150,000원으로 시작하기
-        </button>
-        <div class="plan-cta mt8">
-          취약계층(기초수급·75세+ 1인가구)은<br><strong>무료 또는 9,900원</strong>으로 이용 가능합니다
+        <button class="btn btn-rose btn-full" onclick="alert('전문가 연계 서비스는 곧 오픈됩니다.')">150,000원으로 시작하기</button>
+        <div class="plan-cta mt8">취약계층(기초수급·75세+ 1인가구)은 <strong>무료 또는 9,900원</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     관리자
+══════════════════════════════════════ -->
+<div id="page-admin" class="page">
+  <!-- 로그인 -->
+  <div id="admin-login-view" class="admin-login">
+    <div style="font-size:36px;margin-bottom:16px;">🔐</div>
+    <h2>관리자 로그인</h2>
+    <p>Memory-Link 운영팀 전용 페이지입니다</p>
+    <div style="width:100%;max-width:320px;">
+      <input class="form-input" type="password" id="admin-pw" placeholder="비밀번호 입력" style="margin-bottom:12px;" onkeydown="if(event.key==='Enter')adminLogin()">
+      <button class="btn btn-primary btn-full btn-lg" onclick="adminLogin()">로그인</button>
+    </div>
+  </div>
+
+  <!-- 관리자 패널 -->
+  <div id="admin-panel-view" style="display:none;">
+    <div class="page-top" style="display:flex;align-items:center;justify-content:space-between;">
+      <div><h2>관리자 대시보드</h2><p>Memory-Link 케이스 현황</p></div>
+      <button class="btn btn-gray btn-sm" style="padding:8px 14px;font-size:12px;" onclick="adminLogout()">로그아웃</button>
+    </div>
+    <div class="admin-panel">
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-num">12</div><div class="stat-lbl">전체 케이스</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:#E65100;">4</div><div class="stat-lbl">진행 중</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:#2E7D32;">6</div><div class="stat-lbl">완료</div></div>
+      </div>
+
+      <div class="admin-filter">
+        <button class="filter-btn on" onclick="filterCase('all',this)">전체</button>
+        <button class="filter-btn" onclick="filterCase('new',this)">신규</button>
+        <button class="filter-btn" onclick="filterCase('progress',this)">진행중</button>
+        <button class="filter-btn" onclick="filterCase('expert',this)">전문가연계</button>
+        <button class="filter-btn" onclick="filterCase('done',this)">완료</button>
+      </div>
+
+      <div class="case-list" id="case-list">
+        <div class="case-item" data-status="new">
+          <div class="case-top">
+            <div class="case-name">이○○ 님 유가족</div>
+            <span class="status-badge s-new">신규</span>
+          </div>
+          <div class="case-info">신청일: 2026.05.13 · 플랜: 기본형(39,000원)<br>정리 서비스: 카카오, 네이버, SKT · 담당자 미배정</div>
+          <div class="case-actions">
+            <button class="case-action-btn" onclick="changeStatus(this,'진행중','s-progress')">진행중으로 변경</button>
+            <button class="case-action-btn" onclick="changeStatus(this,'완료','s-done')">완료 처리</button>
+            <button class="case-action-btn" onclick="assignExpert(this)">전문가 배정</button>
+          </div>
+        </div>
+
+        <div class="case-item" data-status="progress">
+          <div class="case-top">
+            <div class="case-name">박○○ 님 유가족</div>
+            <span class="status-badge s-progress">진행 중</span>
+          </div>
+          <div class="case-info">신청일: 2026.05.11 · 플랜: 심화형(150,000원)<br>정리 서비스: 애플, 카드 포인트 · 담당: 김매니저</div>
+          <div class="case-actions">
+            <button class="case-action-btn" onclick="changeStatus(this,'완료','s-done')">완료 처리</button>
+            <button class="case-action-btn">메모 작성</button>
+            <button class="case-action-btn">서류 확인</button>
+          </div>
+        </div>
+
+        <div class="case-item" data-status="expert">
+          <div class="case-top">
+            <div class="case-name">최○○ 님 유가족</div>
+            <span class="status-badge s-expert">전문가 연계</span>
+          </div>
+          <div class="case-info">신청일: 2026.05.10 · 플랜: 심화형<br>정리 서비스: 구글, 은행, 카드 3종 · 법무사: 연결 중</div>
+          <div class="case-actions">
+            <button class="case-action-btn" onclick="changeStatus(this,'진행중','s-progress')">진행중으로</button>
+            <button class="case-action-btn" onclick="changeStatus(this,'완료','s-done')">완료 처리</button>
+            <button class="case-action-btn">연락하기</button>
+          </div>
+        </div>
+
+        <div class="case-item" data-status="done">
+          <div class="case-top">
+            <div class="case-name">김○○ 님 유가족</div>
+            <span class="status-badge s-done">완료</span>
+          </div>
+          <div class="case-info">신청일: 2026.05.05 · 완료일: 2026.05.09<br>정리 서비스: 넷플릭스, 쿠팡, 배민 · 3건 완료</div>
+          <div class="case-actions">
+            <button class="case-action-btn">상세 보기</button>
+            <button class="case-action-btn">영수증 발행</button>
+          </div>
+        </div>
+
+        <div class="case-item" data-status="done">
+          <div class="case-top">
+            <div class="case-name">정○○ 님 유가족</div>
+            <span class="status-badge s-done">완료</span>
+          </div>
+          <div class="case-info">신청일: 2026.05.03 · 완료일: 2026.05.07<br>정리 서비스: 카카오, 네이버, SKT · 5건 완료</div>
+          <div class="case-actions">
+            <button class="case-action-btn">상세 보기</button>
+            <button class="case-action-btn">영수증 발행</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt24" style="text-align:center;">
+        <div style="font-size:var(--fs-sm);color:var(--text-soft);line-height:1.8;">
+          <strong>이번 달 매출</strong> 585,000원 (12건)<br>
+          완료율 50% · 평균 처리 4.2일<br>
+          취약계층 무료 제공 2건
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
 <!-- 바텀 네비 -->
-<nav class="bottom-nav">
-  <button class="nav-btn on" id="nav-home" onclick="goPage('home')">
-    <div class="nav-icon">🏠</div>
-    <div class="nav-label">홈</div>
-  </button>
-  <button class="nav-btn" id="nav-checklist" onclick="goPage('checklist')">
-    <div class="nav-icon">✅</div>
-    <div class="nav-label">정리하기</div>
-  </button>
-  <button class="nav-btn" id="nav-guide" onclick="goPage('guide')">
-    <div class="nav-icon">📋</div>
-    <div class="nav-label">해지안내</div>
-  </button>
-  <button class="nav-btn" id="nav-plan" onclick="goPage('plan')">
-    <div class="nav-icon">💚</div>
-    <div class="nav-label">요금제</div>
-  </button>
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="nav-btn on" id="nav-home" onclick="goPage('home')"><div class="nav-icon">🏠</div><div class="nav-lbl">홈</div></button>
+  <button class="nav-btn" id="nav-checklist" onclick="goPage('checklist')"><div class="nav-icon">✅</div><div class="nav-lbl">정리하기</div></button>
+  <button class="nav-btn" id="nav-guide" onclick="goPage('guide')"><div class="nav-icon">📋</div><div class="nav-lbl">해지안내</div></button>
+  <button class="nav-btn" id="nav-docs" onclick="goPage('docs')"><div class="nav-icon">📄</div><div class="nav-lbl">서류만들기</div></button>
+  <button class="nav-btn" id="nav-plan" onclick="goPage('plan')"><div class="nav-icon">💚</div><div class="nav-lbl">요금제</div></button>
 </nav>
 
 <script>
 // ── 페이지 전환
-function goPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  window.scrollTo(0, 0);
-  document.querySelectorAll('.nav-btn').forEach(n => n.classList.remove('on'));
-  const nav = document.getElementById('nav-' + id);
-  if (nav) nav.classList.add('on');
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  document.querySelectorAll('.nav-btn').forEach(n=>n.classList.remove('on'));
+  const nav=document.getElementById('nav-'+id);
+  if(nav) nav.classList.add('on');
+  // 관리자 페이지일 때 바텀 네비 숨김
+  document.getElementById('bottom-nav').style.display = id==='admin'?'none':'flex';
 }
 
 // ── 큰 글자 모드
-function toggleSenior() {
-  const body = document.body;
-  const btn = document.getElementById('senior-btn');
-  const label = document.getElementById('senior-label');
-  body.classList.toggle('senior');
-  if (body.classList.contains('senior')) {
-    btn.textContent = '✏️ 일반 화면으로';
-    label.textContent = '큰 글자 모드로 보고 있습니다';
-  } else {
-    btn.textContent = '🔠 큰 글자로 보기';
-    label.textContent = '글자가 작으신가요?';
-  }
+function toggleSenior(){
+  const b=document.body,btn=document.getElementById('senior-btn'),lbl=document.getElementById('senior-label');
+  b.classList.toggle('senior');
+  if(b.classList.contains('senior')){btn.textContent='✏️ 일반 화면으로';lbl.textContent='큰 글자 모드';}
+  else{btn.textContent='🔠 큰 글자로 보기';lbl.textContent='글자가 작으신가요?';}
 }
 
-// ── 서비스 체크
-function toggleSvc(el) {
-  el.classList.toggle('on');
-  updateProgress();
+// ── 체크리스트
+function toggleSvc(el){el.classList.toggle('on');updateProg();}
+function updateProg(){
+  const all=document.querySelectorAll('#svc-list .svc-item').length;
+  const done=document.querySelectorAll('#svc-list .svc-item.on').length;
+  document.getElementById('prog-text').textContent=done+' / '+all+'개';
+  document.getElementById('prog-fill').style.width=(done/all*100)+'%';
 }
-
-function updateProgress() {
-  const all = document.querySelectorAll('.svc-item');
-  const done = document.querySelectorAll('.svc-item.on');
-  document.getElementById('prog-text').textContent = done.length + ' / ' + all.length + '개';
-  document.getElementById('prog-fill').style.width = (done.length / all.length * 100) + '%';
-}
-
-// ── 카테고리 필터
-function filterCat(cat, btn) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
-  btn.classList.add('on');
-  document.querySelectorAll('.svc-item').forEach(item => {
-    item.style.display = (cat === 'all' || item.dataset.cat === cat) ? 'flex' : 'none';
-  });
+function filterCat(cat,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');
+  document.querySelectorAll('#svc-list .svc-item').forEach(i=>{i.style.display=(cat==='all'||i.dataset.cat===cat)?'flex':'none';});
 }
 
 // ── 해지 가이드 아코디언
-function toggleGuide(card) {
-  const isOpen = card.classList.contains('open');
-  document.querySelectorAll('.guide-card').forEach(c => c.classList.remove('open'));
-  if (!isOpen) card.classList.add('open');
+function toggleGuide(card){
+  const open=card.classList.contains('open');
+  document.querySelectorAll('.g-card').forEach(c=>c.classList.remove('open'));
+  if(!open) card.classList.add('open');
+}
+
+// ── 서류 만들기 단계
+function nextStep(n){
+  if(n===2){
+    const nm=document.getElementById('d-name').value;
+    if(!nm){alert('고인 성함을 입력해주세요.');return;}
+  }
+  if(n===3) generateDocs();
+  document.querySelectorAll('.doc-step').forEach((s,i)=>{s.classList.toggle('active',i+1===n);});
+  // 단계 점 업데이트
+  for(let i=1;i<=3;i++){
+    const dot=document.getElementById('sdot'+i);
+    if(i<n){dot.classList.add('done');dot.classList.remove('active');dot.textContent='✓';}
+    else if(i===n){dot.classList.add('active');dot.classList.remove('done');}
+    else{dot.classList.remove('active','done');dot.textContent=i;}
+  }
+  for(let i=1;i<=2;i++){
+    const line=document.getElementById('sline'+i);
+    if(line) line.classList.toggle('done',i<n);
+  }
+  window.scrollTo(0,0);
+}
+
+function startDocs(svc){
+  goPage('docs');
+  nextStep(1);
+}
+
+// ── 서류 토글
+function togglePick(el){el.classList.toggle('on');if(el.classList.contains('on'))el.querySelector('.svc-check').style.background='var(--sage)';else el.querySelector('.svc-check').style.background='';}
+
+// ── 서류 생성
+function generateDocs(){
+  const dName=document.getElementById('d-name').value||'홍길동';
+  const dBirth=formatDate(document.getElementById('d-birth').value)||'1945.01.01';
+  const dDeath=formatDate(document.getElementById('d-death').value)||'2025.01.01';
+  const dAddr=document.getElementById('d-addr').value||'서울시 ○○구 ○○동';
+  const aName=document.getElementById('a-name').value||'홍○○';
+  const aRel=document.getElementById('a-rel').value||'자녀';
+  const aBirth=formatDate(document.getElementById('a-birth').value)||'1975.01.01';
+  const aPhone=document.getElementById('a-phone').value||'010-0000-0000';
+  const aAddr=document.getElementById('a-addr').value||'서울시 ○○구 ○○동';
+
+  const picked=document.querySelectorAll('.svc-pick-item.on');
+  if(picked.length===0){alert('서비스를 하나 이상 선택해주세요.');nextStep(2);return;}
+
+  const today=formatDate(new Date().toISOString().slice(0,10));
+  let html='';
+
+  picked.forEach(item=>{
+    const svc=item.dataset.svc;
+    const method=item.dataset.method;
+    html+=buildDoc(svc,method,{dName,dBirth,dDeath,dAddr,aName,aRel,aBirth,aPhone,aAddr,today});
+  });
+
+  document.getElementById('docs-output').innerHTML=html;
+}
+
+function buildDoc(svc,method,d){
+  const titles={
+    kakao:'카카오 사망자 계정 처리 신청서',
+    naver:'네이버 사망자 계정 처리 신청서',
+    google:'Google Deceased User Account Request',
+    telecom:'통신 서비스 사망자 계약 해지 신청서',
+    card:'신용카드 사망자 계약 해지 및 포인트 상속 신청서',
+    bank:'금융거래 사망자 계좌 정리 신청서',
+    apple:'Apple Digital Legacy Request'
+  };
+  const notes={
+    kakao:'<p style="font-size:12px;color:#666;margin-top:10px;">※ 본 신청서와 함께 사망진단서, 가족관계증명서, 신청인 신분증 사본을 첨부하여<br>카카오 고객센터(1577-3754)에 이메일(privacy@kakao.com) 또는 우편으로 제출하세요.</p>',
+    naver:'<p style="font-size:12px;color:#666;margin-top:10px;">※ 본 신청서와 함께 사망진단서, 가족관계증명서를 첨부하여<br>네이버 고객센터 온라인 신청 또는 우편(13561 경기도 성남시 분당구 불정로 6 NAVER)으로 제출하세요.</p>',
+    google:'<p style="font-size:12px;color:#666;margin-top:10px;">※ Please submit this request through Google\'s official Inactive Account Manager page.<br>Required documents: Death certificate, Proof of relationship, Requester\'s ID</p>',
+    telecom:'<p style="font-size:12px;color:#666;margin-top:10px;">※ 본 서류 패키지(신청서 + 사망진단서 + 가족관계증명서 + 신청인 신분증)를 지참하여<br>가까운 통신사 대리점에 방문하시면 당일 처리가 가능합니다.</p>',
+    card:'<p style="font-size:12px;color:#666;margin-top:10px;">※ 각 카드사 고객센터에 연락 후 상속 담당 부서와 연결하여 서류 제출 방법을 확인하세요.<br>카드사별로 추가 서류가 필요할 수 있습니다.</p>',
+    bank:'<p style="font-size:12px;color:#666;margin-top:10px;">※ 거래 은행 지점을 방문하여 상속 담당 창구에 본 서류 패키지를 제출하세요.<br>은행별로 추가 서류(인감증명서, 상속포기 등)가 필요할 수 있습니다.</p>',
+    apple:'<p style="font-size:12px;color:#666;margin-top:10px;">※ Submit through Apple\'s Digital Legacy program at appleid.apple.com/account/manage<br>Additional legal documentation may be required by Apple.</p>'
+  };
+  const methodLabel=method==='online'?'<span style="background:#E3F2FD;color:#1565C0;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:700;">온라인 제출용</span>':'<span style="background:#FFF3E0;color:#E65100;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:700;">방문 지참용</span>';
+
+  return `
+  <div class="doc-preview" style="margin-bottom:24px;page-break-after:always;">
+    <div style="text-align:right;margin-bottom:8px;" class="no-print">${methodLabel}</div>
+    <div class="doc-preview-header">
+      <div class="doc-preview-title">${titles[svc]||'서비스 해지 신청서'}</div>
+      <div class="doc-preview-subtitle">작성일: ${d.today}</div>
+    </div>
+    <div style="font-weight:700;margin:14px 0 8px;font-size:13px;">▪ 고인 정보</div>
+    <table class="doc-table">
+      <tr><td>성명</td><td>${d.dName}</td></tr>
+      <tr><td>생년월일</td><td>${d.dBirth}</td></tr>
+      <tr><td>사망일</td><td>${d.dDeath}</td></tr>
+      <tr><td>최종 주소</td><td>${d.dAddr}</td></tr>
+    </table>
+    <div style="font-weight:700;margin:14px 0 8px;font-size:13px;">▪ 신청인(상속인) 정보</div>
+    <table class="doc-table">
+      <tr><td>성명</td><td>${d.aName}</td></tr>
+      <tr><td>고인과의 관계</td><td>${d.aRel}</td></tr>
+      <tr><td>생년월일</td><td>${d.aBirth}</td></tr>
+      <tr><td>연락처</td><td>${d.aPhone}</td></tr>
+      <tr><td>주소</td><td>${d.aAddr}</td></tr>
+    </table>
+    <div style="font-weight:700;margin:14px 0 8px;font-size:13px;">▪ 신청 내용</div>
+    <table class="doc-table">
+      <tr><td>신청 구분</td><td>사망자 계정 처리 (해지·정리) 신청</td></tr>
+      <tr><td>신청인 자격</td><td>법정 상속인 (${d.aRel})</td></tr>
+      <tr><td>처리 요청 사항</td><td>계정 해지 및 잔여 포인트·자산 상속 처리</td></tr>
+    </table>
+    <div class="doc-sign-area">
+      <p>위 내용이 사실임을 확인하며 위와 같이 신청합니다.</p>
+      <p style="margin-top:12px;">${d.today}</p>
+      <p style="margin-top:12px;">신청인: ${d.aName} <span style="display:inline-block;width:80px;border-bottom:1px solid #000;margin-left:8px;">&nbsp;</span> (서명 또는 인)</p>
+    </div>
+    ${notes[svc]||''}
+  </div>`;
+}
+
+function formatDate(s){
+  if(!s) return '';
+  const p=s.split('-');
+  return p.length===3?`${p[0]}.${p[1]}.${p[2]}`:s;
+}
+
+// ── 관리자
+function adminLogin(){
+  const pw=document.getElementById('admin-pw').value;
+  if(pw==='ml2026admin'){
+    document.getElementById('admin-login-view').style.display='none';
+    document.getElementById('admin-panel-view').style.display='block';
+  } else {
+    alert('비밀번호가 올바르지 않습니다.');
+  }
+}
+function adminLogout(){
+  document.getElementById('admin-pw').value='';
+  document.getElementById('admin-login-view').style.display='flex';
+  document.getElementById('admin-panel-view').style.display='none';
+  goPage('home');
+}
+function filterCase(status,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.querySelectorAll('.case-item').forEach(item=>{
+    item.style.display=(status==='all'||item.dataset.status===status)?'block':'none';
+  });
+}
+function changeStatus(btn,label,cls){
+  const item=btn.closest('.case-item');
+  const badge=item.querySelector('.status-badge');
+  badge.textContent=label;badge.className='status-badge '+cls;
+  const statusMap={'s-new':'new','s-progress':'progress','s-done':'done','s-expert':'expert'};
+  item.dataset.status=statusMap[cls]||'new';
+}
+function assignExpert(btn){
+  const name=prompt('배정할 전문가 이름을 입력하세요:');
+  if(name){
+    const item=btn.closest('.case-item');
+    const info=item.querySelector('.case-info');
+    info.innerHTML=info.innerHTML.replace('담당자 미배정','전문가: '+name);
+    changeStatus(btn,'전문가 연계','s-expert');
+  }
 }
 </script>
 </body>
