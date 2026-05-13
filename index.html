@@ -255,7 +255,7 @@ body.senior .nav-lbl{font-size:13px;}
 <!-- 상단 바 -->
 <div class="top-bar">
   <span id="senior-label">글자가 작으신가요?</span>
-  <button class="toggle-btn" onclick="toggleSenior()" id="senior-btn">🔠 큰 글자로 보기</button>
+  <button class="toggle-btn" onclick="toggleSenior()" id="senior-btn">🔠 큰글자</button>
 </div>
 
 <!-- 헤더 -->
@@ -811,7 +811,7 @@ function toggleSenior(){
   const b=document.body,btn=document.getElementById('senior-btn'),lbl=document.getElementById('senior-label');
   b.classList.toggle('senior');
   if(b.classList.contains('senior')){btn.textContent='✏️ 일반 화면으로';lbl.textContent='큰 글자 모드';}
-  else{btn.textContent='🔠 큰 글자로 보기';lbl.textContent='글자가 작으신가요?';}
+  else{btn.textContent='🔠 큰글자';lbl.textContent='글자가 작으신가요?';}
 }
 
 // ── 체크리스트
