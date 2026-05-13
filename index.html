@@ -81,6 +81,7 @@ body.senior .form-input, body.senior .form-select{padding:16px;font-size:18px;bo
 .form-input:focus,.form-select:focus{outline:none;border-color:var(--sage);}
 .form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B635C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.date-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;}
 
 /* ════════ 홈 ════════ */
 .hero{background:linear-gradient(160deg,#EEF5ED 0%,#FAF8F5 65%);padding:36px 20px 28px;text-align:center;}
@@ -524,15 +525,13 @@ body.senior .nav-icon{font-size:28px;}
           <label class="form-label">성명</label>
           <input class="form-input" type="text" id="d-name" placeholder="예: 홍길동">
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">생년월일</label>
-            <input class="form-input" type="date" id="d-birth">
-          </div>
-          <div class="form-group">
-            <label class="form-label">사망일</label>
-            <input class="form-input" type="date" id="d-death">
-          </div>
+        <div class="form-group">
+          <label class="form-label">생년월일</label>
+          <div class="date-row" id="d-birth-wrap"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">사망일</label>
+          <div class="date-row" id="d-death-wrap"></div>
         </div>
         <div class="form-group">
           <label class="form-label">마지막 주소 <span>(선택)</span></label>
@@ -554,7 +553,7 @@ body.senior .nav-icon{font-size:28px;}
           </div>
           <div class="form-group">
             <label class="form-label">생년월일</label>
-            <input class="form-input" type="date" id="a-birth">
+            <div class="date-row" id="a-birth-wrap"></div>
           </div>
         </div>
         <div class="form-group">
@@ -976,8 +975,8 @@ function togglePick(el){el.classList.toggle('on');if(el.classList.contains('on')
 // ── 서류 생성
 function generateDocs(){
   const dName=document.getElementById('d-name').value||'고인 성함';
-  const dBirth=formatDate(document.getElementById('d-birth').value)||'';
-  const dDeath=formatDate(document.getElementById('d-death').value)||'';
+  const dBirth=getDateVal('d-birth');
+  const dDeath=getDateVal('d-death');
   const dAddr=document.getElementById('d-addr').value||'';
   const aName=document.getElementById('a-name').value||'신청인 성함';
   const aRel=document.getElementById('a-rel').value||'자녀';
@@ -1046,6 +1045,45 @@ function formatDate(s){
   const p=s.split('-');
   return p.length===3?`${p[0]}.${p[1]}.${p[2]}`:s;
 }
+
+// ── 날짜 드롭다운 생성
+function buildDateSelect(wrapperId, yearFrom, yearTo){
+  const wrap=document.getElementById(wrapperId);
+  if(!wrap) return;
+  const prefix=wrapperId.replace('-wrap','');
+  const curYear=new Date().getFullYear();
+
+  // 년
+  let yOpts='<option value="">년</option>';
+  for(let y=yearTo;y>=yearFrom;y--) yOpts+=`<option value="${y}">${y}년</option>`;
+  // 월
+  let mOpts='<option value="">월</option>';
+  for(let m=1;m<=12;m++) mOpts+=`<option value="${String(m).padStart(2,'0')}">${m}월</option>`;
+  // 일
+  let dOpts='<option value="">일</option>';
+  for(let d=1;d<=31;d++) dOpts+=`<option value="${String(d).padStart(2,'0')}">${d}일</option>`;
+
+  wrap.innerHTML=
+    `<select class="form-select" id="${prefix}-y">${yOpts}</select>`+
+    `<select class="form-select" id="${prefix}-m">${mOpts}</select>`+
+    `<select class="form-select" id="${prefix}-d">${dOpts}</select>`;
+}
+
+function getDateVal(prefix){
+  const y=document.getElementById(prefix+'-y');
+  const m=document.getElementById(prefix+'-m');
+  const d=document.getElementById(prefix+'-d');
+  if(!y||!y.value) return '';
+  return `${y.value}.${m.value||'00'}.${d.value||'00'}`;
+}
+
+// 날짜 드롭다운 초기화
+document.addEventListener('DOMContentLoaded',function(){
+  const curY=new Date().getFullYear();
+  buildDateSelect('d-birth-wrap',1910,curY-1);
+  buildDateSelect('d-death-wrap',1910,curY);
+  buildDateSelect('a-birth-wrap',1910,curY-10);
+});
 
 // ── 관리자
 function adminLogin(){
