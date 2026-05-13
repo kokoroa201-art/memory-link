@@ -331,37 +331,41 @@ body.senior .nav-icon{font-size:28px;}
     <button class="tab" onclick="filterCat('fin',this)">금융·통신</button>
     <button class="tab" onclick="filterCat('shop',this)">쇼핑·배달</button>
   </div>
+  <div style="display:flex;gap:8px;padding:10px max(20px,calc((100% - 680px)/2)) 0;">
+    <button class="tab" onclick="selectAllSvc(true)">✅ 전체 선택</button>
+    <button class="tab" onclick="selectAllSvc(false)">☐ 전체 해제</button>
+  </div>
   <div class="svc-list" id="svc-list">
-    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💬</div><div class="svc-info"><div class="svc-name">카카오톡</div><div class="svc-type">SNS · 메신저</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📖</div><div class="svc-info"><div class="svc-name">카카오스토리</div><div class="svc-type">SNS</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🟢</div><div class="svc-info"><div class="svc-name">네이버 (카페·블로그)</div><div class="svc-type">포털 · SNS</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📸</div><div class="svc-info"><div class="svc-name">인스타그램</div><div class="svc-type">SNS</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="sns" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎵</div><div class="svc-info"><div class="svc-name">밴드 (BAND)</div><div class="svc-type">SNS · 커뮤니티</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💳</div><div class="svc-info"><div class="svc-name">카카오페이</div><div class="svc-type">간편결제</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💚</div><div class="svc-info"><div class="svc-name">네이버페이 · 플러스</div><div class="svc-type">간편결제 · 멤버십</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎬</div><div class="svc-info"><div class="svc-name">넷플릭스</div><div class="svc-type">OTT 구독</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📺</div><div class="svc-info"><div class="svc-name">웨이브</div><div class="svc-type">OTT 구독</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎞</div><div class="svc-info"><div class="svc-name">티빙</div><div class="svc-type">OTT 구독</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎵</div><div class="svc-info"><div class="svc-name">멜론</div><div class="svc-type">음악 구독</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎶</div><div class="svc-info"><div class="svc-name">지니뮤직</div><div class="svc-type">음악 구독</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="sub" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">▶️</div><div class="svc-info"><div class="svc-name">유튜브 프리미엄</div><div class="svc-type">구독</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="cloud" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📧</div><div class="svc-info"><div class="svc-name">구글 (Gmail·드라이브)</div><div class="svc-type">이메일 · 클라우드</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="cloud" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🍎</div><div class="svc-info"><div class="svc-name">애플 (iCloud·앱스토어)</div><div class="svc-type">클라우드 · 구독</div></div><span class="diff diff-h">어려움</span></div>
-    <div class="svc-item" data-cat="cloud" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📨</div><div class="svc-info"><div class="svc-name">네이버 메일·클라우드</div><div class="svc-type">이메일 · 클라우드</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="cloud" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🪟</div><div class="svc-info"><div class="svc-name">마이크로소프트 (OneDrive)</div><div class="svc-type">클라우드 · 구독</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📱</div><div class="svc-info"><div class="svc-name">SKT (T월드)</div><div class="svc-type">통신 해지</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📶</div><div class="svc-info"><div class="svc-name">KT</div><div class="svc-type">통신 해지</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📡</div><div class="svc-info"><div class="svc-name">LG U+</div><div class="svc-type">통신 해지</div></div><span class="diff diff-m">보통</span></div>
-    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💳</div><div class="svc-info"><div class="svc-name">신용카드 포인트 상속</div><div class="svc-type">금융 · 상속</div></div><span class="diff diff-h">어려움</span></div>
-    <div class="svc-item" data-cat="fin" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏦</div><div class="svc-info"><div class="svc-name">은행 앱·인터넷뱅킹</div><div class="svc-type">금융</div></div><span class="diff diff-h">어려움</span></div>
-    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🛒</div><div class="svc-info"><div class="svc-name">쿠팡 (와우 멤버십)</div><div class="svc-type">쇼핑 · 구독</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🍔</div><div class="svc-info"><div class="svc-name">배달의민족</div><div class="svc-type">배달 · 멤버십</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🛵</div><div class="svc-info"><div class="svc-name">요기요</div><div class="svc-type">배달</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏪</div><div class="svc-info"><div class="svc-name">G마켓·옥션</div><div class="svc-type">쇼핑</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🔢</div><div class="svc-info"><div class="svc-name">11번가</div><div class="svc-type">쇼핑</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🥕</div><div class="svc-info"><div class="svc-name">당근마켓</div><div class="svc-type">중고거래</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🚗</div><div class="svc-info"><div class="svc-name">쏘카·카카오T</div><div class="svc-type">모빌리티</div></div><span class="diff diff-e">쉬움</span></div>
-    <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏋</div><div class="svc-info"><div class="svc-name">헬스장·필라테스 회원권</div><div class="svc-type">오프라인 구독</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="sns" data-guide="카카오" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💬</div><div class="svc-info"><div class="svc-name">카카오톡</div><div class="svc-type">SNS · 메신저</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="sns" data-guide="카카오" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📖</div><div class="svc-info"><div class="svc-name">카카오스토리</div><div class="svc-type">SNS</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sns" data-guide="네이버" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🟢</div><div class="svc-info"><div class="svc-name">네이버 (카페·블로그)</div><div class="svc-type">포털 · SNS</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="sns" data-guide="쿠팡" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📸</div><div class="svc-info"><div class="svc-name">인스타그램</div><div class="svc-type">SNS</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sns" data-guide="쿠팡" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎵</div><div class="svc-info"><div class="svc-name">밴드 (BAND)</div><div class="svc-type">SNS · 커뮤니티</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" data-guide="카카오" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💳</div><div class="svc-info"><div class="svc-name">카카오페이</div><div class="svc-type">간편결제</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="sub" data-guide="네이버" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💚</div><div class="svc-info"><div class="svc-name">네이버페이 · 플러스</div><div class="svc-type">간편결제 · 멤버십</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="sub" data-guide="넷플릭스" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎬</div><div class="svc-info"><div class="svc-name">넷플릭스</div><div class="svc-type">OTT 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" data-guide="웨이브" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📺</div><div class="svc-info"><div class="svc-name">웨이브</div><div class="svc-type">OTT 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" data-guide="티빙" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎞</div><div class="svc-info"><div class="svc-name">티빙</div><div class="svc-type">OTT 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" data-guide="멜론" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎵</div><div class="svc-info"><div class="svc-name">멜론</div><div class="svc-type">음악 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" data-guide="지니" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🎶</div><div class="svc-info"><div class="svc-name">지니뮤직</div><div class="svc-type">음악 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="sub" data-guide="유튜브" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">▶️</div><div class="svc-info"><div class="svc-name">유튜브 프리미엄</div><div class="svc-type">구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="cloud" data-guide="구글" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📧</div><div class="svc-info"><div class="svc-name">구글 (Gmail·드라이브)</div><div class="svc-type">이메일 · 클라우드</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="cloud" data-guide="애플" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🍎</div><div class="svc-info"><div class="svc-name">애플 (iCloud·앱스토어)</div><div class="svc-type">클라우드 · 구독</div></div><span class="diff diff-h">어려움</span></div>
+    <div class="svc-item" data-cat="cloud" data-guide="네이버" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📨</div><div class="svc-info"><div class="svc-name">네이버 메일·클라우드</div><div class="svc-type">이메일 · 클라우드</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="cloud" data-guide="쿠팡" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🪟</div><div class="svc-info"><div class="svc-name">마이크로소프트 (OneDrive)</div><div class="svc-type">클라우드 · 구독</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="fin" data-guide="SKT" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📱</div><div class="svc-info"><div class="svc-name">SKT (T월드)</div><div class="svc-type">통신 해지</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="fin" data-guide="KT" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📶</div><div class="svc-info"><div class="svc-name">KT</div><div class="svc-type">통신 해지</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="fin" data-guide="LG" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">📡</div><div class="svc-info"><div class="svc-name">LG U+</div><div class="svc-type">통신 해지</div></div><span class="diff diff-m">보통</span></div>
+    <div class="svc-item" data-cat="fin" data-guide="신용카드" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">💳</div><div class="svc-info"><div class="svc-name">신용카드 포인트 상속</div><div class="svc-type">금융 · 상속</div></div><span class="diff diff-h">어려움</span></div>
+    <div class="svc-item" data-cat="fin" data-guide="은행" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏦</div><div class="svc-info"><div class="svc-name">은행 앱·인터넷뱅킹</div><div class="svc-type">금융</div></div><span class="diff diff-h">어려움</span></div>
+    <div class="svc-item" data-cat="shop" data-guide="쿠팡" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🛒</div><div class="svc-info"><div class="svc-name">쿠팡 (와우 멤버십)</div><div class="svc-type">쇼핑 · 구독</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" data-guide="배달의민족" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🍔</div><div class="svc-info"><div class="svc-name">배달의민족</div><div class="svc-type">배달 · 멤버십</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" data-guide="요기요" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🛵</div><div class="svc-info"><div class="svc-name">요기요</div><div class="svc-type">배달</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" data-guide="G마켓" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏪</div><div class="svc-info"><div class="svc-name">G마켓·옥션</div><div class="svc-type">쇼핑</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" data-guide="11번가" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🔢</div><div class="svc-info"><div class="svc-name">11번가</div><div class="svc-type">쇼핑</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" data-guide="당근" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🥕</div><div class="svc-info"><div class="svc-name">당근마켓</div><div class="svc-type">중고거래</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" data-guide="쏘카" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🚗</div><div class="svc-info"><div class="svc-name">쏘카·카카오T</div><div class="svc-type">모빌리티</div></div><span class="diff diff-e">쉬움</span></div>
+    <div class="svc-item" data-cat="shop" data-guide="헬스장" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏋</div><div class="svc-info"><div class="svc-name">헬스장·필라테스 회원권</div><div class="svc-type">오프라인 구독</div></div><span class="diff diff-m">보통</span></div>
   </div>
   <div class="cl-bottom">
     <button class="btn btn-primary btn-full btn-lg" onclick="goDocsFiltered()">📄 선택한 서비스 서류 만들기 →</button>
@@ -850,24 +854,33 @@ function toggleSenior(){
 
 // ── 선택 서비스만 서류 만들기
 function goDocsFiltered(){
-  const selected=[...document.querySelectorAll('.svc-item.on .svc-name')].map(el=>el.textContent.trim());
+  var guides=getSelectedGuides();
   goPage('docs');
-  if(selected.length===0) return;
-  // 체크리스트 서비스명 → 서류 data-svc 매핑
-  const map={kakao:'카카오',naver:'네이버',google:'구글',apple:'애플',telecom:'SKT,KT,LG U',card:'신용카드',bank:'은행'};
-  document.querySelectorAll('.svc-pick-item').forEach(item=>{
-    const svc=item.dataset.svc;
-    const keys=(map[svc]||'').split(',').map(k=>k.trim());
-    const match=keys.some(k=>selected.some(s=>s.includes(k)));
+  if(guides.size===0) return;
+  // data-guide → 서류 data-svc 매핑
+  var guideToSvc={카카오:'kakao',네이버:'naver',구글:'google',애플:'apple',SKT:'telecom',KT:'telecom',LG:'telecom',신용카드:'card',은행:'bank'};
+  var targetSvcs=new Set();
+  guides.forEach(function(g){ if(guideToSvc[g]) targetSvcs.add(guideToSvc[g]); });
+  document.querySelectorAll('.svc-pick-item').forEach(function(item){
+    var svc=item.getAttribute('data-svc');
+    var match=targetSvcs.has(svc);
     if(match && !item.classList.contains('on')) item.click();
     if(!match && item.classList.contains('on')) item.click();
   });
 }
 
 // ── 선택 서비스만 해지안내 보기
+function getSelectedGuides(){
+  var guides=new Set();
+  Array.from(document.querySelectorAll('#svc-list .svc-item.on')).forEach(function(item){
+    var g=item.getAttribute('data-guide');
+    if(g) guides.add(g);
+  });
+  return guides;
+}
+
 function goGuideFiltered(){
-  var onItems=document.querySelectorAll('#svc-list .svc-item.on .svc-name');
-  var selected=Array.from(onItems).map(function(el){return el.textContent.trim();});
+  var guides=getSelectedGuides();
   goPage('guide');
   requestAnimationFrame(function(){
     requestAnimationFrame(function(){
@@ -875,14 +888,11 @@ function goGuideFiltered(){
       cards.forEach(function(c){c.classList.remove('hidden');});
       var oldBtn=document.getElementById('guide-reset-btn');
       if(oldBtn) oldBtn.remove();
-      if(selected.length===0) return;
+      if(guides.size===0) return;
       var anyHidden=false;
       cards.forEach(function(c){
-        var keysStr=c.getAttribute('data-keys')||'';
-        var keys=keysStr.split(',').map(function(k){return k.trim();});
-        var match=keys.some(function(k){
-          return k&&selected.some(function(s){return s.indexOf(k)!==-1;});
-        });
+        var keys=(c.getAttribute('data-keys')||'').split(',').map(function(k){return k.trim();});
+        var match=keys.some(function(k){return guides.has(k);});
         if(!match){c.classList.add('hidden');anyHidden=true;}
       });
       if(anyHidden){
@@ -895,6 +905,14 @@ function goGuideFiltered(){
         document.querySelector('.guide-list').prepend(resetBtn);
       }
     });
+  });
+}
+
+function selectAllSvc(on){
+  Array.from(document.querySelectorAll('#svc-list .svc-item')).forEach(function(item){
+    if(item.style.display==='none') return;
+    if(on && !item.classList.contains('on')) item.click();
+    if(!on && item.classList.contains('on')) item.click();
   });
 }
 
