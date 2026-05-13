@@ -566,6 +566,22 @@ body.senior .nav-lbl{font-size:13px;}
           <label class="form-label">주소</label>
           <input class="form-input" type="text" id="a-addr" placeholder="신청인 주소">
         </div>
+
+        <div style="border-top:1px solid var(--border);margin-top:20px;padding-top:20px;">
+          <div style="font-weight:700;margin-bottom:12px;color:var(--sage-dark);">▪ 취약계층 할인 신청 <span style="font-weight:400;color:var(--text-soft);font-size:var(--fs-sm);">(해당 시 체크)</span></div>
+          <label style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--cream);border-radius:10px;cursor:pointer;margin-bottom:8px;">
+            <input type="checkbox" id="chk-senior" style="width:20px;height:20px;accent-color:var(--sage-dark);cursor:pointer;">
+            <span style="font-size:var(--fs);">신청인이 <strong>75세 이상</strong>입니다</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--cream);border-radius:10px;cursor:pointer;">
+            <input type="checkbox" id="chk-welfare" style="width:20px;height:20px;accent-color:var(--sage-dark);cursor:pointer;">
+            <span style="font-size:var(--fs);">신청인이 <strong>기초생활수급자</strong>입니다</span>
+          </label>
+          <div id="kakao-hint" style="display:none;margin-top:12px;background:#FEF9C3;border-radius:10px;padding:14px;font-size:var(--fs-sm);line-height:1.7;">
+            💛 할인 적용을 위해 카카오톡 채널로 신분증(앞면) 사진을 보내주세요.<br>확인 후 할인 요금으로 안내드립니다.
+            <button class="btn btn-full mt12" style="background:#FEE500;color:#3A1D1D;font-weight:800;border-radius:10px;padding:12px;" onclick="window.open('https://pf.kakao.com/_memorylink','_blank')">💬 카카오톡 채널로 서류 제출</button>
+          </div>
+        </div>
       </div>
       <button class="btn btn-primary btn-full btn-lg mt16" onclick="nextStep(2)">다음 단계 → 서비스 선택</button>
     </div>
@@ -670,6 +686,7 @@ body.senior .nav-lbl{font-size:13px;}
           <div class="plan-feat"><span class="fi">✅</span><span>진행 현황 대시보드</span></div>
         </div>
         <button class="btn btn-primary btn-full" onclick="goPage('docs')">39,000원으로 시작하기</button>
+        <button class="btn btn-full mt8" style="background:#FEE500;color:#3A1D1D;font-weight:800;border-radius:10px;" onclick="window.open('https://pf.kakao.com/_memorylink','_blank')">💬 카카오톡으로 문의하기</button>
         <div class="plan-cta mt8">유가족 인터뷰 결과 80%가 적정 가격으로 응답</div>
       </div>
     </div>
@@ -685,6 +702,7 @@ body.senior .nav-lbl{font-size:13px;}
           <div class="plan-feat"><span class="fi">✅</span><span>애플·카드 포인트 등 고난도 케이스</span></div>
         </div>
         <button class="btn btn-rose btn-full" onclick="alert('전문가 연계 서비스는 곧 오픈됩니다.')">150,000원으로 시작하기</button>
+        <button class="btn btn-full mt8" style="background:#FEE500;color:#3A1D1D;font-weight:800;border-radius:10px;" onclick="window.open('https://pf.kakao.com/_memorylink','_blank')">💬 카카오톡으로 문의하기</button>
         <div class="plan-cta mt8">취약계층(기초수급·75세+ 1인가구)은 <strong>무료 또는 9,900원</strong></div>
       </div>
     </div>
@@ -834,6 +852,14 @@ function toggleSenior(){
   if(b.classList.contains('senior')){btn.textContent='✏️ 일반 화면으로';lbl.textContent='큰 글자 모드';}
   else{btn.textContent='🔠 큰글자';lbl.textContent='글자가 작으신가요?';}
 }
+
+// ── 취약계층 체크박스
+document.addEventListener('change', function(e){
+  if(e.target.id==='chk-senior'||e.target.id==='chk-welfare'){
+    const show = document.getElementById('chk-senior').checked || document.getElementById('chk-welfare').checked;
+    document.getElementById('kakao-hint').style.display = show ? 'block' : 'none';
+  }
+});
 
 // ── 체크리스트
 function toggleSvc(el){el.classList.toggle('on');updateProg();}
