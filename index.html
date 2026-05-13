@@ -36,8 +36,8 @@ body.senior .toggle-btn{font-size:15px;padding:7px 18px;}
 body.senior .logo-icon{width:42px;height:42px;font-size:21px;}
 .logo-name{font-size:var(--fs-lg);font-weight:800;letter-spacing:-.3px;}
 .logo-sub{font-size:var(--fs-sm);color:var(--text-soft);}
-.admin-link{font-size:11px;color:var(--text-soft);cursor:pointer;padding:4px 8px;border-radius:6px;}
-.admin-link:hover{background:var(--border);}
+.admin-link{font-size:10px;color:var(--border);cursor:pointer;padding:4px 8px;border-radius:6px;user-select:none;}
+.admin-link:hover{color:var(--text-soft);}
 
 /* ── 버튼 ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:var(--bp);border-radius:12px;font-size:var(--fs);font-weight:700;cursor:pointer;border:none;transition:all .18s;gap:6px;font-family:inherit;}
@@ -259,11 +259,6 @@ body.senior .nav-lbl{font-size:13px;}
 <div class="top-bar">
   <span id="senior-label">글자가 작으신가요?</span>
   <button class="toggle-btn" onclick="toggleSenior()" id="senior-btn">🔠 큰글자</button>
-</div>
-
-<!-- 취약계층 배너 -->
-<div class="vulnerable-banner">
-  취약계층(기초수급 · 75세+ 1인가구)은 <strong>무료 또는 9,900원</strong>
 </div>
 
 <!-- 헤더 -->
