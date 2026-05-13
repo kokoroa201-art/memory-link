@@ -5,1159 +5,1254 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Memory-Link · 메모리링크</title>
 <style>
-  :root {
-    --cream: #FAF8F5;
-    --sage: #8BA888;
-    --sage-light: #C5D9C3;
-    --sage-dark: #5C7A59;
-    --rose: #C4897B;
-    --rose-light: #EDD8D3;
-    --text: #3A3530;
-    --text-soft: #6B635C;
-    --white: #FFFFFF;
-    --border: #E8E2DC;
-    --shadow: 0 2px 20px rgba(0,0,0,0.06);
-  }
+:root {
+  --cream: #FAF8F5;
+  --sage: #8BA888;
+  --sage-light: #C5D9C3;
+  --sage-dark: #5C7A59;
+  --rose: #C4897B;
+  --rose-light: #EDD8D3;
+  --text: #3A3530;
+  --text-soft: #6B635C;
+  --white: #FFFFFF;
+  --border: #E8E2DC;
+  --radius: 14px;
+  --shadow: 0 2px 16px rgba(0,0,0,0.07);
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* 일반 모드 */
+  --fs-body: 14px;
+  --fs-sm: 12px;
+  --fs-lg: 16px;
+  --fs-xl: 22px;
+  --fs-hero: 28px;
+  --btn-pad: 13px 24px;
+  --card-pad: 20px;
+}
 
-  body {
-    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    line-height: 1.7;
-  }
+/* ── 큰 글자 모드 ── */
+body.senior {
+  --fs-body: 18px;
+  --fs-sm: 15px;
+  --fs-lg: 20px;
+  --fs-xl: 26px;
+  --fs-hero: 34px;
+  --btn-pad: 18px 32px;
+  --card-pad: 28px;
+}
 
-  /* ── 페이지 전환 ── */
-  .page { display: none; min-height: 100vh; }
-  .page.active { display: block; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ── 공통 레이아웃 ── */
-  .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+}
 
-  /* ── 헤더 ── */
-  .header {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-  .logo-icon {
-    width: 32px; height: 32px;
-    background: var(--sage);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-  .logo-text { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
-  .logo-sub { font-size: 11px; color: var(--text-soft); }
+.page { display: none; min-height: 100vh; padding-bottom: 90px; }
+.page.active { display: block; }
+.container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
 
-  /* ── 버튼 ── */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-size: 15px; font-weight: 600;
-    cursor: pointer; border: none;
-    transition: all 0.2s;
-    text-decoration: none;
-    gap: 6px;
-  }
-  .btn-primary {
-    background: var(--sage);
-    color: var(--white);
-  }
-  .btn-primary:hover { background: var(--sage-dark); transform: translateY(-1px); }
-  .btn-outline {
-    background: transparent;
-    color: var(--sage-dark);
-    border: 1.5px solid var(--sage);
-  }
-  .btn-outline:hover { background: var(--sage-light); }
-  .btn-sm { padding: 8px 16px; font-size: 13px; border-radius: 8px; }
-  .btn-rose {
-    background: var(--rose);
-    color: var(--white);
-  }
-  .btn-rose:hover { background: #b37568; }
+/* ── 큰 글자 토글 바 ── */
+.senior-bar {
+  background: var(--sage-dark);
+  color: white;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+body.senior .senior-bar { background: #3d5e3a; font-size: 16px; }
+.senior-toggle {
+  background: white;
+  color: var(--sage-dark);
+  border: none;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+body.senior .senior-toggle { font-size: 15px; padding: 7px 18px; }
 
-  /* ── 카드 ── */
-  .card {
-    background: var(--white);
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-  }
+/* ── 헤더 ── */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.logo-icon {
+  width: 34px; height: 34px;
+  background: var(--sage);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+}
+body.senior .logo-icon { width: 42px; height: 42px; font-size: 20px; }
+.logo-name { font-size: var(--fs-lg); font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+.logo-sub { font-size: var(--fs-sm); color: var(--text-soft); }
 
-  /* ════════════════════════════════════
-     페이지 1: 홈
-  ════════════════════════════════════ */
-  .hero {
-    background: linear-gradient(160deg, #EEF5ED 0%, #FAF8F5 60%);
-    padding: 60px 24px 48px;
-    text-align: center;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: var(--rose-light);
-    color: var(--rose);
-    font-size: 12px; font-weight: 600;
-    padding: 5px 14px; border-radius: 20px;
-    margin-bottom: 20px;
-    letter-spacing: 0.3px;
-  }
-  .hero h1 {
-    font-size: 28px; font-weight: 800;
-    color: var(--text);
-    line-height: 1.4;
-    margin-bottom: 14px;
-    letter-spacing: -0.5px;
-  }
-  .hero h1 em { color: var(--sage-dark); font-style: normal; }
-  .hero p {
-    font-size: 16px; color: var(--text-soft);
-    max-width: 400px; margin: 0 auto 32px;
-    line-height: 1.8;
-  }
+/* ── 버튼 ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: var(--btn-pad);
+  border-radius: 12px;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  cursor: pointer; border: none;
+  transition: all 0.18s;
+  text-decoration: none;
+  gap: 6px;
+  font-family: inherit;
+}
+.btn-primary { background: var(--sage); color: white; }
+.btn-primary:hover { background: var(--sage-dark); transform: translateY(-1px); }
+.btn-outline { background: white; color: var(--sage-dark); border: 2px solid var(--sage); }
+.btn-outline:hover { background: var(--sage-light); }
+.btn-rose { background: var(--rose); color: white; }
+.btn-rose:hover { background: #b37568; }
+.btn-full { width: 100%; }
+.btn-lg { padding: 18px 32px; font-size: var(--fs-lg); border-radius: 14px; }
+body.senior .btn-lg { padding: 22px 40px; font-size: var(--fs-xl); border-radius: 16px; }
 
-  .promise-cards {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 12px; margin: 40px 0;
-  }
-  .promise-card {
-    background: var(--white);
-    border-radius: 14px; padding: 20px 16px;
-    text-align: center;
-    border: 1px solid var(--border);
-  }
-  .promise-icon { font-size: 28px; margin-bottom: 10px; }
-  .promise-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-  .promise-desc { font-size: 12px; color: var(--text-soft); line-height: 1.6; }
+/* ── 카드 ── */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: var(--card-pad);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
 
-  .section { padding: 40px 0; }
-  .section-title {
-    font-size: 20px; font-weight: 700;
-    margin-bottom: 6px; letter-spacing: -0.3px;
-  }
-  .section-sub { font-size: 14px; color: var(--text-soft); margin-bottom: 24px; }
+/* ════════ 홈 ════════ */
+.hero {
+  background: linear-gradient(160deg, #EEF5ED 0%, #FAF8F5 65%);
+  padding: 48px 20px 40px;
+  text-align: center;
+}
+body.senior .hero { padding: 56px 20px 48px; }
 
-  .flow-steps { display: flex; flex-direction: column; gap: 0; }
-  .flow-step {
-    display: flex; gap: 16px; align-items: flex-start;
-    position: relative;
-  }
-  .flow-step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 19px; top: 44px;
-    width: 2px; height: calc(100% - 8px);
-    background: var(--sage-light);
-  }
-  .step-num {
-    width: 40px; height: 40px; flex-shrink: 0;
-    background: var(--sage);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 15px; font-weight: 700;
-    position: relative; z-index: 1;
-  }
-  .step-content { padding: 8px 0 32px; }
-  .step-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .step-desc { font-size: 13px; color: var(--text-soft); }
+.hero-badge {
+  display: inline-block;
+  background: var(--rose-light);
+  color: var(--rose);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+.hero h1 em { color: var(--sage-dark); font-style: normal; }
+.hero p {
+  font-size: var(--fs-body);
+  color: var(--text-soft);
+  max-width: 380px;
+  margin: 0 auto 32px;
+  line-height: 1.85;
+}
+body.senior .hero p { max-width: 460px; }
 
-  .notice-box {
-    background: var(--rose-light);
-    border-radius: 12px; padding: 18px 20px;
-    border-left: 4px solid var(--rose);
-    margin: 24px 0;
-  }
-  .notice-box p { font-size: 13px; color: #7a4a3f; line-height: 1.7; }
-  .notice-box strong { color: var(--rose); }
+.home-btns { display: flex; flex-direction: column; gap: 12px; max-width: 320px; margin: 0 auto; }
+body.senior .home-btns { max-width: 400px; gap: 14px; }
 
-  /* ════════════════════════════════════
-     페이지 2: 시작하기
-  ════════════════════════════════════ */
-  .page-header {
-    background: var(--white);
-    padding: 24px;
-    border-bottom: 1px solid var(--border);
-  }
-  .page-header h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
-  .page-header p { font-size: 14px; color: var(--text-soft); margin-top: 4px; }
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 32px 0;
+}
+body.senior .feature-grid { gap: 16px; }
 
-  .form-section { padding: 32px 0; }
-  .form-group { margin-bottom: 20px; }
-  .form-label {
-    display: block;
-    font-size: 14px; font-weight: 600;
-    margin-bottom: 8px; color: var(--text);
-  }
-  .form-label span { font-weight: 400; color: var(--text-soft); font-size: 12px; margin-left: 6px; }
-  .form-input {
-    width: 100%;
-    padding: 13px 16px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-size: 15px;
-    background: var(--white);
-    color: var(--text);
-    transition: border-color 0.2s;
-    font-family: inherit;
-  }
-  .form-input:focus { outline: none; border-color: var(--sage); }
-  .form-select {
-    width: 100%;
-    padding: 13px 16px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-size: 15px;
-    background: var(--white);
-    color: var(--text);
-    cursor: pointer;
-    font-family: inherit;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B635C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-  }
-  .form-select:focus { outline: none; border-color: var(--sage); }
+.feature-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: var(--card-pad);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.feature-icon { font-size: 28px; margin-bottom: 10px; }
+body.senior .feature-icon { font-size: 36px; }
+.feature-title { font-size: var(--fs-body); font-weight: 700; margin-bottom: 5px; }
+.feature-desc { font-size: var(--fs-sm); color: var(--text-soft); line-height: 1.6; }
 
-  .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    padding: 8px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    border: 1.5px solid var(--border);
-    background: var(--white);
-    cursor: pointer;
-    transition: all 0.15s;
-    color: var(--text-soft);
-  }
-  .chip.selected {
-    background: var(--sage-light);
-    border-color: var(--sage);
-    color: var(--sage-dark);
-    font-weight: 600;
-  }
+.empathy-box {
+  background: linear-gradient(135deg, #EEF5ED, #EDD8D3);
+  border-radius: var(--radius);
+  padding: var(--card-pad);
+  text-align: center;
+  margin: 0 0 32px;
+}
+.empathy-box p { font-size: var(--fs-body); color: var(--text-soft); line-height: 1.85; }
+.empathy-box strong { color: var(--sage-dark); }
 
-  .empathy-message {
-    background: linear-gradient(135deg, #EEF5ED, #EDD8D3);
-    border-radius: 16px; padding: 24px;
-    margin: 24px 0;
-    text-align: center;
-  }
-  .empathy-message .icon { font-size: 32px; margin-bottom: 10px; }
-  .empathy-message p { font-size: 14px; color: var(--text-soft); line-height: 1.8; }
-  .empathy-message strong { color: var(--sage-dark); }
+/* ════════ 정리하기 ════════ */
+.page-top {
+  background: var(--white);
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.page-top h2 { font-size: var(--fs-xl); font-weight: 800; letter-spacing: -0.3px; }
+.page-top p { font-size: var(--fs-sm); color: var(--text-soft); margin-top: 4px; }
+body.senior .page-top h2 { font-size: 28px; }
 
-  /* ════════════════════════════════════
-     페이지 3: 서비스 체크리스트
-  ════════════════════════════════════ */
-  .category-tabs {
-    display: flex; gap: 8px;
-    overflow-x: auto; padding-bottom: 4px;
-    margin: 20px 0;
-    scrollbar-width: none;
-  }
-  .category-tabs::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    flex-shrink: 0;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 13px; font-weight: 500;
-    border: 1.5px solid var(--border);
-    background: var(--white);
-    cursor: pointer;
-    color: var(--text-soft);
-    transition: all 0.15s;
-  }
-  .tab-btn.active {
-    background: var(--sage);
-    border-color: var(--sage);
-    color: var(--white);
-    font-weight: 600;
-  }
+.progress-wrap { padding: 16px 20px 0; }
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+  margin-bottom: 6px;
+}
+.progress-bar { background: var(--border); border-radius: 99px; height: 8px; overflow: hidden; }
+body.senior .progress-bar { height: 12px; }
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sage-light), var(--sage));
+  border-radius: 99px;
+  transition: width 0.3s;
+}
 
-  .service-list { display: flex; flex-direction: column; gap: 10px; }
-  .service-item {
-    background: var(--white);
-    border-radius: 12px;
-    padding: 16px;
-    display: flex; align-items: center; gap: 14px;
-    border: 1.5px solid var(--border);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .service-item:hover { border-color: var(--sage-light); }
-  .service-item.checked {
-    background: #F2F8F1;
-    border-color: var(--sage);
-  }
-  .service-check {
-    width: 24px; height: 24px; flex-shrink: 0;
-    border: 2px solid var(--border);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-  }
-  .service-item.checked .service-check {
-    background: var(--sage);
-    border-color: var(--sage);
-    color: white;
-  }
-  .service-logo {
-    width: 40px; height: 40px; flex-shrink: 0;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-    background: var(--cream);
-  }
-  .service-info { flex: 1; }
-  .service-name { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
-  .service-type { font-size: 12px; color: var(--text-soft); }
-  .service-difficulty {
-    flex-shrink: 0;
-    font-size: 11px; font-weight: 600;
-    padding: 4px 8px; border-radius: 6px;
-  }
-  .diff-easy { background: #E8F5E9; color: #2E7D32; }
-  .diff-mid { background: #FFF3E0; color: #E65100; }
-  .diff-hard { background: #FFEBEE; color: #C62828; }
+.cat-tabs {
+  display: flex; gap: 8px;
+  overflow-x: auto;
+  padding: 16px 20px 0;
+  scrollbar-width: none;
+}
+.cat-tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  cursor: pointer;
+  color: var(--text-soft);
+  transition: all 0.15s;
+  font-family: inherit;
+}
+body.senior .tab { font-size: 16px; padding: 10px 20px; }
+.tab.on { background: var(--sage); border-color: var(--sage); color: white; }
 
-  .progress-bar-wrap {
-    background: var(--border);
-    border-radius: 999px; height: 8px;
-    overflow: hidden; margin: 16px 0 8px;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--sage-light), var(--sage));
-    border-radius: 999px;
-    transition: width 0.3s;
-  }
+.svc-list { padding: 12px 20px; display: flex; flex-direction: column; gap: 10px; }
+body.senior .svc-list { gap: 14px; }
 
-  /* ════════════════════════════════════
-     페이지 4: 해지 가이드
-  ════════════════════════════════════ */
-  .guide-hero {
-    background: linear-gradient(135deg, var(--sage-light), #EEF5ED);
-    padding: 28px 24px;
-    border-radius: 0;
-  }
-  .guide-badge {
-    display: inline-block;
-    background: var(--sage);
-    color: white;
-    font-size: 11px; font-weight: 700;
-    padding: 4px 10px; border-radius: 20px;
-    margin-bottom: 12px;
-    letter-spacing: 0.3px;
-  }
-  .guide-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.3px; }
-  .guide-meta { display: flex; gap: 16px; flex-wrap: wrap; }
-  .guide-meta-item {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 12px; color: var(--text-soft);
-  }
+.svc-item {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex; align-items: center; gap: 14px;
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+body.senior .svc-item { padding: 20px 18px; border-radius: 14px; }
+.svc-item:hover { border-color: var(--sage-light); }
+.svc-item.on { background: #F2F8F1; border-color: var(--sage); }
 
-  .guide-section { padding: 24px 0; border-bottom: 1px solid var(--border); }
-  .guide-section:last-child { border-bottom: none; }
-  .guide-section-title {
-    font-size: 13px; font-weight: 700;
-    color: var(--sage-dark);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    margin-bottom: 14px;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .guide-steps { display: flex; flex-direction: column; gap: 10px; }
-  .guide-step {
-    display: flex; gap: 12px; align-items: flex-start;
-  }
-  .guide-step-num {
-    width: 26px; height: 26px; flex-shrink: 0;
-    background: var(--sage-light);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700;
-    color: var(--sage-dark);
-  }
-  .guide-step-text {
-    flex: 1;
-    font-size: 14px; color: var(--text);
-    padding-top: 3px; line-height: 1.6;
-  }
-  .guide-step-text a {
-    color: var(--sage-dark);
-    text-decoration: underline;
-    cursor: pointer;
-  }
+.svc-check {
+  width: 26px; height: 26px; flex-shrink: 0;
+  border: 2px solid var(--border);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: transparent;
+  transition: all 0.15s;
+}
+body.senior .svc-check { width: 34px; height: 34px; border-radius: 9px; font-size: 17px; }
+.svc-item.on .svc-check { background: var(--sage); border-color: var(--sage); color: white; }
 
-  .required-docs { display: flex; flex-direction: column; gap: 8px; }
-  .doc-item {
-    display: flex; align-items: center; gap: 10px;
-    background: var(--cream);
-    border-radius: 10px; padding: 12px 14px;
-    font-size: 14px;
-  }
-  .doc-icon { font-size: 16px; }
+.svc-logo {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  background: var(--cream);
+}
+body.senior .svc-logo { width: 52px; height: 52px; font-size: 26px; border-radius: 12px; }
 
-  .caution-list { display: flex; flex-direction: column; gap: 8px; }
-  .caution-item {
-    display: flex; gap: 8px;
-    font-size: 13px; color: #7a4a3f;
-    line-height: 1.6;
-  }
-  .caution-item::before { content: '⚠️'; flex-shrink: 0; }
+.svc-info { flex: 1; min-width: 0; }
+.svc-name { font-size: var(--fs-body); font-weight: 700; margin-bottom: 2px; }
+.svc-type { font-size: var(--fs-sm); color: var(--text-soft); }
 
-  .expert-connect {
-    background: linear-gradient(135deg, #EDD8D3, #FAF0EE);
-    border-radius: 14px; padding: 20px;
-    text-align: center; margin-top: 24px;
-  }
-  .expert-connect p { font-size: 14px; color: var(--text-soft); margin-bottom: 14px; line-height: 1.7; }
+.diff {
+  flex-shrink: 0;
+  font-size: 11px; font-weight: 700;
+  padding: 4px 9px; border-radius: 6px;
+}
+body.senior .diff { font-size: 14px; padding: 6px 12px; border-radius: 8px; }
+.diff-e { background: #E8F5E9; color: #2E7D32; }
+.diff-m { background: #FFF3E0; color: #E65100; }
+.diff-h { background: #FFEBEE; color: #C62828; }
 
-  /* ════════════════════════════════════
-     페이지 5: 대시보드
-  ════════════════════════════════════ */
-  .dashboard-hero {
-    background: linear-gradient(160deg, #EEF5ED 0%, #FAF8F5 100%);
-    padding: 32px 24px 24px;
-  }
-  .dashboard-greeting { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
-  .dashboard-greeting em { color: var(--sage-dark); font-style: normal; }
-  .dashboard-sub { font-size: 14px; color: var(--text-soft); }
+.checklist-bottom {
+  padding: 16px 20px 4px;
+  display: flex; flex-direction: column; gap: 10px;
+}
 
-  .stat-cards {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 10px; margin: 24px 0;
-  }
-  .stat-card {
-    background: var(--white);
-    border-radius: 14px; padding: 16px 12px;
-    text-align: center;
-    border: 1px solid var(--border);
-  }
-  .stat-num { font-size: 28px; font-weight: 800; color: var(--sage-dark); line-height: 1; margin-bottom: 4px; }
-  .stat-label { font-size: 11px; color: var(--text-soft); }
+/* ════════ 해지안내 ════════ */
+.guide-list { padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; }
 
-  .task-list { display: flex; flex-direction: column; gap: 10px; }
-  .task-item {
-    background: var(--white);
-    border-radius: 12px; padding: 16px;
-    display: flex; align-items: center; gap: 14px;
-    border: 1px solid var(--border);
-  }
-  .task-status-dot {
-    width: 10px; height: 10px; flex-shrink: 0;
-    border-radius: 50%;
-  }
-  .dot-done { background: var(--sage); }
-  .dot-progress { background: #F4A261; }
-  .dot-todo { background: var(--border); }
+.guide-card {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+.guide-card:hover { box-shadow: var(--shadow); }
 
-  .task-info { flex: 1; }
-  .task-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-  .task-detail { font-size: 12px; color: var(--text-soft); }
-  .task-action {
-    font-size: 12px; font-weight: 600;
-    color: var(--sage-dark);
-    cursor: pointer;
-    background: var(--sage-light);
-    padding: 5px 10px; border-radius: 6px;
-    border: none; font-family: inherit;
-  }
-  .task-action:hover { background: var(--sage); color: white; }
-  .task-done-badge {
-    font-size: 11px; font-weight: 600;
-    color: var(--sage-dark);
-    background: #E8F5E9;
-    padding: 4px 8px; border-radius: 6px;
-  }
+.guide-card-header {
+  padding: 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+body.senior .guide-card-header { padding: 20px; }
 
-  .section-divider { height: 8px; background: var(--cream); margin: 0 -24px; }
+.guide-card-body {
+  display: none;
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--border);
+}
+body.senior .guide-card-body { padding: 0 20px 20px; }
+.guide-card.open .guide-card-body { display: block; }
 
-  /* ── 바텀 네비 ── */
-  .bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: var(--white);
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-around;
-    padding: 10px 0 20px;
-    z-index: 100;
-  }
-  .nav-item {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 3px; cursor: pointer; padding: 4px 16px;
-    border: none; background: none;
-    font-family: inherit;
-  }
-  .nav-icon { font-size: 22px; }
-  .nav-label { font-size: 10px; font-weight: 500; color: var(--text-soft); }
-  .nav-item.active .nav-label { color: var(--sage-dark); font-weight: 700; }
+.guide-arrow {
+  margin-left: auto;
+  font-size: 16px;
+  color: var(--text-soft);
+  transition: transform 0.2s;
+}
+.guide-card.open .guide-arrow { transform: rotate(180deg); }
 
-  .page-content { padding-bottom: 90px; }
+.guide-steps { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+.guide-step {
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.step-n {
+  width: 26px; height: 26px; flex-shrink: 0;
+  background: var(--sage-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  color: var(--sage-dark);
+}
+body.senior .step-n { width: 34px; height: 34px; font-size: 16px; }
+.step-txt { font-size: var(--fs-body); color: var(--text); padding-top: 3px; line-height: 1.6; flex: 1; }
 
-  /* ── 뒤로가기 버튼 ── */
-  .back-btn {
-    background: none; border: none;
-    cursor: pointer; padding: 4px;
-    color: var(--text); font-size: 18px;
-    display: flex; align-items: center;
-  }
+.doc-chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
+.doc-chip {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: var(--fs-sm);
+  display: flex; align-items: center; gap: 5px;
+}
+body.senior .doc-chip { font-size: 16px; padding: 9px 16px; }
 
-  /* ── 태그 ── */
-  .tag {
-    display: inline-block;
-    font-size: 11px; font-weight: 600;
-    padding: 3px 8px; border-radius: 5px;
-    margin-right: 4px;
-  }
-  .tag-green { background: #E8F5E9; color: #2E7D32; }
-  .tag-orange { background: #FFF3E0; color: #E65100; }
-  .tag-blue { background: #E3F2FD; color: #1565C0; }
+.warn-list { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+.warn-item { font-size: var(--fs-sm); color: #7a4a3f; display: flex; gap: 6px; line-height: 1.6; }
+body.senior .warn-item { font-size: 16px; }
 
-  @media (max-width: 380px) {
-    .promise-cards { grid-template-columns: 1fr; }
-    .stat-cards { grid-template-columns: repeat(3, 1fr); }
-    .hero h1 { font-size: 24px; }
-  }
+.guide-section-label {
+  font-size: var(--fs-sm); font-weight: 700;
+  color: var(--sage-dark);
+  margin: 16px 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+body.senior .guide-section-label { font-size: 15px; }
+
+/* ════════ 요금제 ════════ */
+.plan-grid { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
+
+.plan-card {
+  background: var(--white);
+  border-radius: 16px;
+  border: 2px solid var(--border);
+  overflow: hidden;
+}
+.plan-card.featured { border-color: var(--sage); }
+
+.plan-header {
+  padding: var(--card-pad);
+  border-bottom: 1px solid var(--border);
+}
+.plan-badge {
+  display: inline-block;
+  font-size: var(--fs-sm); font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  margin-bottom: 10px;
+}
+.badge-free { background: var(--sage-light); color: var(--sage-dark); }
+.badge-basic { background: var(--sage); color: white; }
+.badge-pro { background: var(--rose-light); color: var(--rose); }
+
+.plan-name { font-size: var(--fs-xl); font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+body.senior .plan-name { font-size: 28px; }
+.plan-price { font-size: 28px; font-weight: 800; color: var(--sage-dark); line-height: 1; }
+body.senior .plan-price { font-size: 36px; }
+.plan-price span { font-size: var(--fs-body); font-weight: 400; color: var(--text-soft); }
+
+.plan-body { padding: var(--card-pad); }
+.plan-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.plan-feat {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: var(--fs-body);
+}
+body.senior .plan-feat { font-size: 18px; gap: 12px; }
+.feat-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+body.senior .feat-icon { font-size: 20px; }
+
+.plan-cta {
+  background: #F5F3F0;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+  text-align: center;
+  line-height: 1.6;
+}
+body.senior .plan-cta { font-size: 15px; padding: 20px; }
+
+/* ════════ 바텀 네비 ════════ */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-around;
+  padding: 8px 0 20px;
+  z-index: 100;
+}
+.nav-btn {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 3px; cursor: pointer; padding: 4px 20px;
+  border: none; background: none; font-family: inherit;
+}
+.nav-icon { font-size: 22px; }
+body.senior .nav-icon { font-size: 28px; }
+.nav-label { font-size: 10px; font-weight: 500; color: var(--text-soft); }
+body.senior .nav-label { font-size: 13px; }
+.nav-btn.on .nav-label { color: var(--sage-dark); font-weight: 800; }
+
+/* ════════ 공통 유틸 ════════ */
+.mt8 { margin-top: 8px; }
+.mt16 { margin-top: 16px; }
+.mt24 { margin-top: 24px; }
+.sec-title {
+  font-size: var(--fs-lg); font-weight: 800;
+  letter-spacing: -0.3px;
+  margin-bottom: 14px;
+}
+body.senior .sec-title { font-size: var(--fs-xl); }
+
+.notice {
+  background: var(--rose-light);
+  border-left: 4px solid var(--rose);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: var(--fs-sm);
+  color: #7a4a3f;
+  line-height: 1.7;
+}
+body.senior .notice { font-size: 16px; padding: 18px 20px; }
+
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════
-     헤더 (공통)
-════════════════════════════════════ -->
+<!-- 큰 글자 토글 -->
+<div class="senior-bar">
+  <span id="senior-label">글자가 작으신가요?</span>
+  <button class="senior-toggle" onclick="toggleSenior()" id="senior-btn">🔠 큰 글자로 보기</button>
+</div>
+
+<!-- 헤더 -->
 <header class="header">
-  <a class="logo" onclick="goPage('home')">
+  <div class="logo" onclick="goPage('home')">
     <div class="logo-icon">🌿</div>
     <div>
-      <div class="logo-text">Memory-Link</div>
+      <div class="logo-name">Memory-Link</div>
       <div class="logo-sub">사후 디지털 정리 지원</div>
     </div>
-  </a>
-  <button class="btn btn-outline btn-sm" onclick="goPage('start')">시작하기</button>
+  </div>
 </header>
 
-<!-- ════════════════════════════════════
-     페이지 1: 홈
-════════════════════════════════════ -->
+<!-- ════════════════════ 홈 ════════════════════ -->
 <div id="page-home" class="page active">
   <div class="hero">
-    <div class="hero-badge">💚 사별 가족을 위한 서비스</div>
-    <h1>장례는 끝났지만,<br><em>남겨진 일들을</em><br>함께 정리해드립니다</h1>
+    <div class="hero-badge">💚 유가족을 위한 서비스</div>
+    <h1>장례는 끝났지만<br><em>남겨진 일들을</em><br>함께 정리해드립니다</h1>
     <p>고인의 디지털 계정, 구독 서비스, 자동결제—<br>
-    혼자 감당하지 않으셔도 됩니다.<br>
-    천천히, 함께 해결해 나가요.</p>
-    <button class="btn btn-primary" onclick="goPage('start')" style="font-size:16px; padding:16px 40px;">
-      🌿 지금 시작하기
-    </button>
-    <br><br>
-    <button class="btn btn-outline btn-sm" onclick="goPage('dashboard')">
-      진행 현황 보기
-    </button>
+    혼자 감당하지 않으셔도 됩니다.<br>천천히, 함께 해결해 나가요.</p>
+    <div class="home-btns">
+      <button class="btn btn-primary btn-lg btn-full" onclick="goPage('checklist')">🌿 지금 시작하기</button>
+      <button class="btn btn-outline btn-full" onclick="goPage('guide')">📋 해지 안내 바로 보기</button>
+    </div>
   </div>
 
   <div class="container">
-    <div class="promise-cards">
-      <div class="promise-card">
-        <div class="promise-icon">🔍</div>
-        <div class="promise-title">정리 대상 확인</div>
-        <div class="promise-desc">가입된 서비스를 체계적으로 파악해요</div>
+    <div class="feature-grid mt24">
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <div class="feature-title">30개 서비스<br>해지 안내</div>
+        <div class="feature-desc">무료로 전체 제공</div>
       </div>
-      <div class="promise-card">
-        <div class="promise-icon">📋</div>
-        <div class="promise-title">단계별 안내</div>
-        <div class="promise-desc">플랫폼별 해지 절차를 쉽게 안내해요</div>
+      <div class="feature-card">
+        <div class="feature-icon">✅</div>
+        <div class="feature-title">진행 현황<br>한눈에 관리</div>
+        <div class="feature-desc">완료·진행·미처리 구분</div>
       </div>
-      <div class="promise-card">
-        <div class="promise-icon">✅</div>
-        <div class="promise-title">진행 관리</div>
-        <div class="promise-desc">완료된 것과 남은 것을 한눈에 봐요</div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">AI 계정<br>자동 탐지</div>
+        <div class="feature-desc">유료 기본형 제공</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👨‍⚖️</div>
+        <div class="feature-title">법무사<br>전문가 연계</div>
+        <div class="feature-desc">유료 심화형 제공</div>
       </div>
     </div>
 
-    <div class="notice-box">
-      <p><strong>이 서비스를 찾아오신 것, 혼자 얼마나 힘드셨을까요.</strong><br>
-      Memory-Link는 여러분 곁에서 실질적인 도움을 드리기 위해 만들어졌습니다.
-      필요한 만큼만, 준비되셨을 때 천천히 이용하세요.</p>
+    <div class="empathy-box mt16">
+      <p>이곳을 찾아오신 것, 얼마나 힘드셨을까요.<br>
+      <strong>혼자 감당하지 않으셔도 됩니다.</strong><br>
+      천천히, 준비되셨을 때 시작하세요.</p>
     </div>
 
-    <div class="section">
-      <div class="section-title">이렇게 도와드려요</div>
-      <div class="section-sub">4단계로 정리를 완성해 나가요</div>
-      <div class="flow-steps">
-        <div class="flow-step">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <div class="step-title">고인 정보 입력</div>
-            <div class="step-desc">간단한 정보를 입력해 정리 목록을 생성해요</div>
-          </div>
-        </div>
-        <div class="flow-step">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <div class="step-title">정리 대상 서비스 선택</div>
-            <div class="step-desc">카카오, 네이버, 넷플릭스 등 해지할 서비스를 확인해요</div>
-          </div>
-        </div>
-        <div class="flow-step">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <div class="step-title">단계별 해지 가이드</div>
-            <div class="step-desc">서비스별 정확한 절차와 필요 서류를 안내해요</div>
-          </div>
-        </div>
-        <div class="flow-step">
-          <div class="step-num">4</div>
-          <div class="step-content">
-            <div class="step-title">진행 현황 관리</div>
-            <div class="step-desc">완료·진행중·미처리를 대시보드에서 관리해요</div>
-          </div>
-        </div>
-      </div>
+    <div class="notice mt16">
+      💡 <strong>무료로 이용하실 수 있습니다.</strong><br>
+      30개 주요 서비스 해지 절차 안내는 모두 무료예요.<br>
+      AI 탐지·전문가 연계가 필요하실 때 유료 전환하세요.
     </div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════
-     페이지 2: 시작하기
-════════════════════════════════════ -->
-<div id="page-start" class="page">
-  <div class="page-header">
-    <h2>고인 정보 입력</h2>
-    <p>입력하신 정보는 정리 목록 생성에만 사용되며 안전하게 보호됩니다</p>
-  </div>
-  <div class="container page-content">
-    <div class="empathy-message">
-      <div class="icon">🌿</div>
-      <p>많이 지치셨죠. 여기에 오신 것만으로도<br>
-      <strong>이미 용감한 한 걸음</strong>을 내딛으셨어요.<br>
-      천천히 함께 정리해 나가요.</p>
-    </div>
-
-    <div class="form-section">
-      <div class="form-group">
-        <label class="form-label">고인 성함 <span>(별칭도 가능해요)</span></label>
-        <input class="form-input" type="text" placeholder="예: 아버지, 김○○" id="deceased-name">
-      </div>
-      <div class="form-group">
-        <label class="form-label">고인과의 관계</label>
-        <select class="form-select" id="relationship">
-          <option value="">선택해주세요</option>
-          <option>부모님 (아버지/어머니)</option>
-          <option>배우자</option>
-          <option>형제·자매</option>
-          <option>자녀</option>
-          <option>조부모님</option>
-          <option>기타</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">사망 시기 <span>(대략적으로)</span></label>
-        <select class="form-select">
-          <option value="">선택해주세요</option>
-          <option>1주 이내</option>
-          <option>1개월 이내</option>
-          <option>3개월 이내</option>
-          <option>6개월 이내</option>
-          <option>1년 이내</option>
-          <option>1년 이상</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">고인이 주로 사용하셨던 서비스 <span>(해당하는 것 모두 선택)</span></label>
-        <div class="chip-group" id="service-chips">
-          <div class="chip" onclick="toggleChip(this)">📱 카카오</div>
-          <div class="chip" onclick="toggleChip(this)">🟢 네이버</div>
-          <div class="chip" onclick="toggleChip(this)">📧 구글</div>
-          <div class="chip" onclick="toggleChip(this)">🍎 애플</div>
-          <div class="chip" onclick="toggleChip(this)">🎬 넷플릭스</div>
-          <div class="chip" onclick="toggleChip(this)">🛒 쿠팡</div>
-          <div class="chip" onclick="toggleChip(this)">🎵 멜론</div>
-          <div class="chip" onclick="toggleChip(this)">📦 배달의민족</div>
-          <div class="chip" onclick="toggleChip(this)">💳 카드 포인트</div>
-          <div class="chip" onclick="toggleChip(this)">🏦 은행 앱</div>
-          <div class="chip" onclick="toggleChip(this)">📺 유튜브 프리미엄</div>
-          <div class="chip" onclick="toggleChip(this)">잘 모르겠어요</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">현재 가장 급한 것이 있으신가요? <span>(선택)</span></label>
-        <div class="chip-group">
-          <div class="chip" onclick="toggleChip(this)">💳 자동결제 중단</div>
-          <div class="chip" onclick="toggleChip(this)">📱 휴대폰 해지</div>
-          <div class="chip" onclick="toggleChip(this)">💰 포인트/자산 상속</div>
-          <div class="chip" onclick="toggleChip(this)">🔐 계정 잠금 해제</div>
-          <div class="chip" onclick="toggleChip(this)">전체적으로 정리</div>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn btn-primary" style="width:100%; font-size:16px; padding:16px;" onclick="goPage('checklist')">
-      정리 목록 확인하기 →
-    </button>
-    <br><br>
-    <p style="font-size:12px; color:var(--text-soft); text-align:center;">
-      입력하신 정보는 서비스 이용 목적으로만 사용되며<br>30일 이내 완전 파기됩니다
-    </p>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════
-     페이지 3: 서비스 체크리스트
-════════════════════════════════════ -->
+<!-- ════════════════════ 정리하기 ════════════════════ -->
 <div id="page-checklist" class="page">
-  <div class="page-header">
-    <h2>정리 대상 서비스</h2>
-    <p>정리가 필요한 서비스를 선택해주세요</p>
+  <div class="page-top">
+    <h2>정리 대상 서비스 선택</h2>
+    <p>해지할 서비스를 선택해 진행 현황을 관리하세요</p>
   </div>
 
-  <div class="container page-content">
-    <div style="padding: 16px 0 0;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-        <span style="font-size:13px; color:var(--text-soft);">선택한 서비스</span>
-        <span style="font-size:13px; font-weight:700; color:var(--sage-dark);" id="check-count">0개 선택됨</span>
-      </div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="check-progress" style="width:0%"></div>
-      </div>
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>완료한 서비스</span>
+      <span id="prog-text">0 / 0개</span>
     </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
 
-    <div class="category-tabs">
-      <button class="tab-btn active" onclick="filterCategory('all', this)">전체</button>
-      <button class="tab-btn" onclick="filterCategory('sns', this)">SNS·소통</button>
-      <button class="tab-btn" onclick="filterCategory('subscribe', this)">구독·결제</button>
-      <button class="tab-btn" onclick="filterCategory('cloud', this)">클라우드·이메일</button>
-      <button class="tab-btn" onclick="filterCategory('finance', this)">금융·포인트</button>
+  <div class="cat-tabs">
+    <button class="tab on" onclick="filterCat('all',this)">전체</button>
+    <button class="tab" onclick="filterCat('sns',this)">SNS·소통</button>
+    <button class="tab" onclick="filterCat('sub',this)">구독·결제</button>
+    <button class="tab" onclick="filterCat('cloud',this)">이메일·클라우드</button>
+    <button class="tab" onclick="filterCat('fin',this)">금융·통신</button>
+    <button class="tab" onclick="filterCat('shop',this)">쇼핑·배달</button>
+  </div>
+
+  <div class="svc-list" id="svc-list">
+    <!-- SNS -->
+    <div class="svc-item" data-cat="sns" data-id="kakao" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">💬</div>
+      <div class="svc-info">
+        <div class="svc-name">카카오톡</div>
+        <div class="svc-type">SNS · 메신저</div>
+      </div>
+      <span class="diff diff-m">보통</span>
     </div>
-
-    <div class="service-list" id="service-list">
-      <!-- SNS -->
-      <div class="service-item" data-cat="sns" onclick="toggleService(this)" data-id="kakao">
-        <div class="service-check">✓</div>
-        <div class="service-logo">💬</div>
-        <div class="service-info">
-          <div class="service-name">카카오 (카카오톡·카카오페이)</div>
-          <div class="service-type">SNS · 간편결제</div>
-        </div>
-        <span class="service-difficulty diff-mid">보통</span>
+    <div class="svc-item" data-cat="sns" data-id="kakaostory" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">📖</div>
+      <div class="svc-info">
+        <div class="svc-name">카카오스토리</div>
+        <div class="svc-type">SNS</div>
       </div>
-      <div class="service-item" data-cat="sns" onclick="toggleService(this)" data-id="naver">
-        <div class="service-check">✓</div>
-        <div class="service-logo">🟢</div>
-        <div class="service-info">
-          <div class="service-name">네이버 (네이버페이 포함)</div>
-          <div class="service-type">포털 · 간편결제</div>
-        </div>
-        <span class="service-difficulty diff-mid">보통</span>
-      </div>
-      <div class="service-item" data-cat="sns" onclick="toggleService(this)" data-id="instagram">
-        <div class="service-check">✓</div>
-        <div class="service-logo">📸</div>
-        <div class="service-info">
-          <div class="service-name">인스타그램</div>
-          <div class="service-type">SNS</div>
-        </div>
-        <span class="service-difficulty diff-easy">쉬움</span>
-      </div>
-      <!-- 구독 -->
-      <div class="service-item" data-cat="subscribe" onclick="toggleService(this)" data-id="netflix">
-        <div class="service-check">✓</div>
-        <div class="service-logo">🎬</div>
-        <div class="service-info">
-          <div class="service-name">넷플릭스</div>
-          <div class="service-type">OTT 구독</div>
-        </div>
-        <span class="service-difficulty diff-easy">쉬움</span>
-      </div>
-      <div class="service-item" data-cat="subscribe" onclick="toggleService(this)" data-id="coupang">
-        <div class="service-check">✓</div>
-        <div class="service-logo">🛒</div>
-        <div class="service-info">
-          <div class="service-name">쿠팡 (쿠팡와우)</div>
-          <div class="service-type">쇼핑 · 구독</div>
-        </div>
-        <span class="service-difficulty diff-easy">쉬움</span>
-      </div>
-      <div class="service-item" data-cat="subscribe" onclick="toggleService(this)" data-id="melon">
-        <div class="service-check">✓</div>
-        <div class="service-logo">🎵</div>
-        <div class="service-info">
-          <div class="service-name">멜론</div>
-          <div class="service-type">음악 구독</div>
-        </div>
-        <span class="service-difficulty diff-easy">쉬움</span>
-      </div>
-      <div class="service-item" data-cat="subscribe" onclick="toggleService(this)" data-id="baemin">
-        <div class="service-check">✓</div>
-        <div class="service-logo">🍔</div>
-        <div class="service-info">
-          <div class="service-name">배달의민족</div>
-          <div class="service-type">배달 · 멤버십</div>
-        </div>
-        <span class="service-difficulty diff-easy">쉬움</span>
-      </div>
-      <!-- 클라우드 -->
-      <div class="service-item" data-cat="cloud" onclick="toggleService(this)" data-id="google">
-        <div class="service-check">✓</div>
-        <div class="service-logo">📧</div>
-        <div class="service-info">
-          <div class="service-name">구글 (Gmail·유튜브)</div>
-          <div class="service-type">이메일 · 클라우드</div>
-        </div>
-        <span class="service-difficulty diff-mid">보통</span>
-      </div>
-      <div class="service-item" data-cat="cloud" onclick="toggleService(this)" data-id="apple">
-        <div class="service-check">✓</div>
-        <div class="service-logo">🍎</div>
-        <div class="service-info">
-          <div class="service-name">애플 (iCloud·앱스토어)</div>
-          <div class="service-type">클라우드 · 구독</div>
-        </div>
-        <span class="service-difficulty diff-hard">어려움</span>
-      </div>
-      <!-- 금융 -->
-      <div class="service-item" data-cat="finance" onclick="toggleService(this)" data-id="card">
-        <div class="service-check">✓</div>
-        <div class="service-logo">💳</div>
-        <div class="service-info">
-          <div class="service-name">신용카드 포인트·마일리지</div>
-          <div class="service-type">금융 · 상속</div>
-        </div>
-        <span class="service-difficulty diff-hard">어려움</span>
-      </div>
-      <div class="service-item" data-cat="finance" onclick="toggleService(this)" data-id="phone">
-        <div class="service-check">✓</div>
-        <div class="service-logo">📱</div>
-        <div class="service-info">
-          <div class="service-name">휴대폰 (통신사 해지)</div>
-          <div class="service-type">통신 · 계약 해지</div>
-        </div>
-        <span class="service-difficulty diff-mid">보통</span>
-      </div>
+      <span class="diff diff-e">쉬움</span>
     </div>
+    <div class="svc-item" data-cat="sns" data-id="naver-cafe" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🟢</div>
+      <div class="svc-info">
+        <div class="svc-name">네이버 (카페·블로그)</div>
+        <div class="svc-type">포털 · SNS</div>
+      </div>
+      <span class="diff diff-m">보통</span>
+    </div>
+    <div class="svc-item" data-cat="sns" data-id="instagram" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">📸</div>
+      <div class="svc-info">
+        <div class="svc-name">인스타그램</div>
+        <div class="svc-type">SNS</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="sns" data-id="band" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🎵</div>
+      <div class="svc-info">
+        <div class="svc-name">밴드 (BAND)</div>
+        <div class="svc-type">SNS · 커뮤니티</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <!-- 구독 -->
+    <div class="svc-item" data-cat="sub" data-id="kakaopay" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">💳</div>
+      <div class="svc-info">
+        <div class="svc-name">카카오페이</div>
+        <div class="svc-type">간편결제 · 구독</div>
+      </div>
+      <span class="diff diff-m">보통</span>
+    </div>
+    <div class="svc-item" data-cat="sub" data-id="naverpay" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">💚</div>
+      <div class="svc-info">
+        <div class="svc-name">네이버페이 · 네이버플러스</div>
+        <div class="svc-type">간편결제 · 멤버십</div>
+      </div>
+      <span class="diff diff-m">보통</span>
+    </div>
+    <div class="svc-item" data-cat="sub" data-id="netflix" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🎬</div>
+      <div class="svc-info">
+        <div class="svc-name">넷플릭스</div>
+        <div class="svc-type">OTT 구독</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="sub" data-id="wavve" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">📺</div>
+      <div class="svc-info">
+        <div class="svc-name">웨이브 (Wavve)</div>
+        <div class="svc-type">OTT 구독</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="sub" data-id="tving" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🎞</div>
+      <div class="svc-info">
+        <div class="svc-name">티빙 (TVING)</div>
+        <div class="svc-type">OTT 구독</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="sub" data-id="melon" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🎵</div>
+      <div class="svc-info">
+        <div class="svc-name">멜론</div>
+        <div class="svc-type">음악 구독</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="sub" data-id="genie" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🎶</div>
+      <div class="svc-info">
+        <div class="svc-name">지니뮤직</div>
+        <div class="svc-type">음악 구독</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="sub" data-id="youtube" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">▶️</div>
+      <div class="svc-info">
+        <div class="svc-name">유튜브 프리미엄</div>
+        <div class="svc-type">구독</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <!-- 이메일·클라우드 -->
+    <div class="svc-item" data-cat="cloud" data-id="google" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">📧</div>
+      <div class="svc-info">
+        <div class="svc-name">구글 (Gmail · 드라이브)</div>
+        <div class="svc-type">이메일 · 클라우드</div>
+      </div>
+      <span class="diff diff-m">보통</span>
+    </div>
+    <div class="svc-item" data-cat="cloud" data-id="apple" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🍎</div>
+      <div class="svc-info">
+        <div class="svc-name">애플 (iCloud · 앱스토어)</div>
+        <div class="svc-type">클라우드 · 구독</div>
+      </div>
+      <span class="diff diff-h">어려움</span>
+    </div>
+    <div class="svc-item" data-cat="cloud" data-id="naver-mail" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">📨</div>
+      <div class="svc-info">
+        <div class="svc-name">네이버 메일 · 클라우드</div>
+        <div class="svc-type">이메일 · 클라우드</div>
+      </div>
+      <span class="diff diff-m">보통</span>
+    </div>
+    <div class="svc-item" data-cat="cloud" data-id="ms" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🪟</div>
+      <div class="svc-info">
+        <div class="svc-name">마이크로소프트 (OneDrive)</div>
+        <div class="svc-type">클라우드 · 구독</div>
+      </div>
+      <span class="diff diff-m">보통</span>
+    </div>
+    <!-- 금융·통신 -->
+    <div class="svc-item" data-cat="fin" data-id="skt" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">📱</div>
+      <div class="svc-info">
+        <div class="svc-name">SKT (T월드)</div>
+        <div class="svc-type">통신 · 휴대폰 해지</div>
+      </div>
+      <span class="diff diff-m">보통</span>
+    </div>
+    <div class="svc-item" data-cat="fin" data-id="kt" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">📶</div>
+      <div class="svc-info">
+        <div class="svc-name">KT</div>
+        <div class="svc-type">통신 · 휴대폰 해지</div>
+      </div>
+      <span class="diff diff-m">보통</span>
+    </div>
+    <div class="svc-item" data-cat="fin" data-id="lgu" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">📡</div>
+      <div class="svc-info">
+        <div class="svc-name">LG U+</div>
+        <div class="svc-type">통신 · 휴대폰 해지</div>
+      </div>
+      <span class="diff diff-m">보통</span>
+    </div>
+    <div class="svc-item" data-cat="fin" data-id="card-point" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">💳</div>
+      <div class="svc-info">
+        <div class="svc-name">신용카드 포인트 상속</div>
+        <div class="svc-type">금융 · 상속</div>
+      </div>
+      <span class="diff diff-h">어려움</span>
+    </div>
+    <div class="svc-item" data-cat="fin" data-id="bank" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🏦</div>
+      <div class="svc-info">
+        <div class="svc-name">은행 앱 · 인터넷뱅킹</div>
+        <div class="svc-type">금융</div>
+      </div>
+      <span class="diff diff-h">어려움</span>
+    </div>
+    <!-- 쇼핑·배달 -->
+    <div class="svc-item" data-cat="shop" data-id="coupang" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🛒</div>
+      <div class="svc-info">
+        <div class="svc-name">쿠팡 (와우 멤버십)</div>
+        <div class="svc-type">쇼핑 · 구독</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="shop" data-id="baemin" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🍔</div>
+      <div class="svc-info">
+        <div class="svc-name">배달의민족</div>
+        <div class="svc-type">배달 · 멤버십</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="shop" data-id="yogiyo" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🛵</div>
+      <div class="svc-info">
+        <div class="svc-name">요기요</div>
+        <div class="svc-type">배달</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="shop" data-id="gmarket" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🏪</div>
+      <div class="svc-info">
+        <div class="svc-name">G마켓 · 옥션</div>
+        <div class="svc-type">쇼핑</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="shop" data-id="11st" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🔢</div>
+      <div class="svc-info">
+        <div class="svc-name">11번가</div>
+        <div class="svc-type">쇼핑</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="shop" data-id="karrot" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🥕</div>
+      <div class="svc-info">
+        <div class="svc-name">당근마켓</div>
+        <div class="svc-type">중고거래</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+    <div class="svc-item" data-cat="shop" data-id="socar" onclick="toggleSvc(this)">
+      <div class="svc-check">✓</div>
+      <div class="svc-logo">🚗</div>
+      <div class="svc-info">
+        <div class="svc-name">쏘카 · 카카오T</div>
+        <div class="svc-type">모빌리티</div>
+      </div>
+      <span class="diff diff-e">쉬움</span>
+    </div>
+  </div>
 
-    <div style="margin-top: 24px;">
-      <button class="btn btn-primary" style="width:100%; font-size:15px; padding:15px;" onclick="goPage('guide')">
-        선택한 서비스 해지 안내 보기 →
-      </button>
+  <div class="checklist-bottom">
+    <button class="btn btn-primary btn-full btn-lg" onclick="goPage('guide')">
+      선택한 서비스 해지 안내 보기 →
+    </button>
+    <div class="notice">
+      💡 어려움(빨강) 표시 서비스는 전문가 연계를 권장해요.<br>
+      유료 심화형(150,000원)에서 법무사·행정사 연결을 도와드립니다.
     </div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════
-     페이지 4: 해지 가이드
-════════════════════════════════════ -->
+<!-- ════════════════════ 해지 안내 ════════════════════ -->
 <div id="page-guide" class="page">
-  <div class="guide-hero">
-    <div class="guide-badge">해지 가이드</div>
-    <div class="guide-title">카카오 계정 정리</div>
-    <div class="guide-meta">
-      <div class="guide-meta-item">⏱ 예상 소요시간: 20~30분</div>
-      <div class="guide-meta-item">📄 필요 서류: 2종</div>
-    </div>
-    <div style="margin-top: 12px;">
-      <span class="tag tag-orange">카카오페이 별도</span>
-      <span class="tag tag-blue">온라인 신청 가능</span>
-    </div>
+  <div class="page-top">
+    <h2>해지 안내</h2>
+    <p>서비스를 눌러 절차를 확인하세요 — 모두 무료로 제공됩니다</p>
   </div>
 
-  <div class="container page-content">
-    <div class="guide-section">
-      <div class="guide-section-title">📋 필요 서류</div>
-      <div class="required-docs">
-        <div class="doc-item">
-          <div class="doc-icon">📄</div>
-          <div>
-            <strong>사망진단서 또는 사체검안서</strong>
-            <div style="font-size:12px; color:var(--text-soft);">병원·장례식장에서 발급 (스캔본 가능)</div>
-          </div>
+  <div class="guide-list">
+
+    <!-- 카카오톡 -->
+    <div class="guide-card" onclick="toggleGuide(this)">
+      <div class="guide-card-header">
+        <div class="svc-logo">💬</div>
+        <div class="svc-info">
+          <div class="svc-name">카카오톡 계정 해지</div>
+          <div class="svc-type">⏱ 20~30분 · 서류 2종</div>
         </div>
-        <div class="doc-item">
-          <div class="doc-icon">👨‍👩‍👧</div>
-          <div>
-            <strong>가족관계증명서</strong>
-            <div style="font-size:12px; color:var(--text-soft);">정부24에서 무료 발급 가능</div>
-          </div>
+        <span class="diff diff-m">보통</span>
+        <span class="guide-arrow">▼</span>
+      </div>
+      <div class="guide-card-body">
+        <div class="guide-section-label">📄 필요 서류</div>
+        <div class="doc-chips">
+          <div class="doc-chip">📄 사망진단서</div>
+          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
+          <div class="doc-chip">🪪 신청인 신분증</div>
         </div>
-        <div class="doc-item">
-          <div class="doc-icon">🪪</div>
-          <div>
-            <strong>신청인 신분증</strong>
-            <div style="font-size:12px; color:var(--text-soft);">신청자(유가족) 본인 신분증</div>
-          </div>
+        <div class="guide-section-label">🔢 해지 절차</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">카카오 고객센터 접속 → '계정 서비스' → '사망자 계정 처리' 선택</div></div>
+          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">신청인 정보 입력 후 서류 업로드</div></div>
+          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">3~5 영업일 내 처리 완료 문자 수신</div></div>
+          <div class="guide-step"><div class="step-n">⚠</div><div class="step-txt"><strong>카카오페이 잔액은 별도 신청 필요</strong> (서류 동일)</div></div>
+        </div>
+        <div class="warn-list">
+          <div class="warn-item">⚠️ 계정 해지 후 대화 내용 복구 불가 — 필요한 내용 먼저 저장하세요</div>
+          <div class="warn-item">⚠️ 카카오톡·카카오페이 각각 별도 신청</div>
         </div>
       </div>
     </div>
 
-    <div class="guide-section">
-      <div class="guide-section-title">🔢 해지 절차</div>
-      <div class="guide-steps">
-        <div class="guide-step">
-          <div class="guide-step-num">1</div>
-          <div class="guide-step-text">
-            카카오 고객센터 접속 → '계정 서비스' → '사망자 계정 처리' 메뉴 선택
-          </div>
+    <!-- 네이버 -->
+    <div class="guide-card" onclick="toggleGuide(this)">
+      <div class="guide-card-header">
+        <div class="svc-logo">🟢</div>
+        <div class="svc-info">
+          <div class="svc-name">네이버 계정 해지</div>
+          <div class="svc-type">⏱ 30분 · 서류 2종</div>
         </div>
-        <div class="guide-step">
-          <div class="guide-step-num">2</div>
-          <div class="guide-step-text">
-            '사망자 카카오계정 정보 열람 및 해지 신청' 선택
-          </div>
+        <span class="diff diff-m">보통</span>
+        <span class="guide-arrow">▼</span>
+      </div>
+      <div class="guide-card-body">
+        <div class="guide-section-label">📄 필요 서류</div>
+        <div class="doc-chips">
+          <div class="doc-chip">📄 사망진단서</div>
+          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
         </div>
-        <div class="guide-step">
-          <div class="guide-step-num">3</div>
-          <div class="guide-step-text">
-            신청인 정보 입력 후 사망진단서, 가족관계증명서 업로드
-          </div>
+        <div class="guide-section-label">🔢 해지 절차</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">네이버 고객센터 → '사망자 계정 처리 신청' 검색</div></div>
+          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">온라인 신청서 작성 + 서류 첨부</div></div>
+          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">영업일 기준 5~7일 내 처리</div></div>
         </div>
-        <div class="guide-step">
-          <div class="guide-step-num">4</div>
-          <div class="guide-step-text">
-            카카오 심사 후 3~5 영업일 내 처리 완료 문자 수신
-          </div>
-        </div>
-        <div class="guide-step">
-          <div class="guide-step-num">5</div>
-          <div class="guide-step-text">
-            <strong>카카오페이 잔액이 있는 경우</strong>: 별도로 카카오페이 고객센터에 상속 신청 필요 (서류 동일)
-          </div>
+        <div class="warn-list">
+          <div class="warn-item">⚠️ 네이버페이 포인트·마일리지는 상속 신청 별도 진행</div>
         </div>
       </div>
     </div>
 
-    <div class="guide-section">
-      <div class="guide-section-title">⚠️ 주의사항</div>
-      <div class="caution-list">
-        <div class="caution-item">계정 해지 후에는 대화 내용 복구가 불가능합니다. 필요한 내용이 있다면 먼저 백업하세요.</div>
-        <div class="caution-item">카카오톡과 카카오페이는 별도 신청이 필요합니다. 같이 처리되지 않아요.</div>
-        <div class="caution-item">처리 기간 중 자동결제가 발생할 수 있으니 카드사에도 별도 연락을 권장합니다.</div>
+    <!-- 구글 -->
+    <div class="guide-card" onclick="toggleGuide(this)">
+      <div class="guide-card-header">
+        <div class="svc-logo">📧</div>
+        <div class="svc-info">
+          <div class="svc-name">구글 계정 처리</div>
+          <div class="svc-type">⏱ 1~2주 · 영문 신청</div>
+        </div>
+        <span class="diff diff-m">보통</span>
+        <span class="guide-arrow">▼</span>
+      </div>
+      <div class="guide-card-body">
+        <div class="guide-section-label">📄 필요 서류</div>
+        <div class="doc-chips">
+          <div class="doc-chip">📄 사망진단서 (영문 or 번역)</div>
+          <div class="doc-chip">🪪 신청인 신분증</div>
+        </div>
+        <div class="guide-section-label">🔢 해지 절차</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">Google '비활성 계정 관리자' 페이지 접속</div></div>
+          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">사망한 사용자 계정 정보 신청 폼 작성 (영문)</div></div>
+          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">구글 검토 후 이메일로 안내 (1~2주 소요)</div></div>
+        </div>
+        <div class="warn-list">
+          <div class="warn-item">⚠️ 구글은 계정 내용물 제공보다 계정 삭제 처리 위주로 진행됩니다</div>
+          <div class="warn-item">⚠️ 유튜브 채널, 드라이브 데이터는 삭제 전 다운로드 요청 가능</div>
+        </div>
       </div>
     </div>
 
-    <div class="expert-connect">
-      <p>서류 준비나 법적 절차가<br>어려우신가요?</p>
-      <button class="btn btn-rose btn-sm" onclick="alert('전문가 연계 기능 준비 중입니다.\nMVP 다음 단계에서 연결해드릴게요.')">
-        법무사·행정사 연결하기
-      </button>
+    <!-- 애플 -->
+    <div class="guide-card" onclick="toggleGuide(this)">
+      <div class="guide-card-header">
+        <div class="svc-logo">🍎</div>
+        <div class="svc-info">
+          <div class="svc-name">애플 계정 처리</div>
+          <div class="svc-type">⏱ 2~4주 · 서류 3종</div>
+        </div>
+        <span class="diff diff-h">어려움</span>
+        <span class="guide-arrow">▼</span>
+      </div>
+      <div class="guide-card-body">
+        <div class="guide-section-label">📄 필요 서류</div>
+        <div class="doc-chips">
+          <div class="doc-chip">📄 사망진단서</div>
+          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
+          <div class="doc-chip">⚖️ 법원 상속 서류 (경우에 따라)</div>
+        </div>
+        <div class="guide-section-label">🔢 해지 절차</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">Apple Digital Legacy 페이지 접속</div></div>
+          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">사망자 Apple ID 입력 후 요청서 제출</div></div>
+          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">Apple 검토 후 연락 (2~4주)</div></div>
+        </div>
+        <div class="warn-list">
+          <div class="warn-item">⚠️ 애플은 가장 까다로운 절차 중 하나 — 전문가 연계를 권장합니다</div>
+          <div class="warn-item">⚠️ iCloud 데이터 접근은 원칙적으로 허용되지 않음</div>
+        </div>
+        <button class="btn btn-rose btn-full mt16" onclick="alert('전문가 연계는 유료 심화형(150,000원)에서 제공됩니다.\n요금제 탭에서 확인해 보세요.')">
+          👨‍⚖️ 전문가 연계 신청
+        </button>
+      </div>
     </div>
 
-    <div style="margin-top:20px; display:flex; gap:10px;">
-      <button class="btn btn-outline" style="flex:1;" onclick="goPage('checklist')">← 목록으로</button>
-      <button class="btn btn-primary" style="flex:1;" onclick="markDone()">완료 처리하기 ✓</button>
+    <!-- 넷플릭스 -->
+    <div class="guide-card" onclick="toggleGuide(this)">
+      <div class="guide-card-header">
+        <div class="svc-logo">🎬</div>
+        <div class="svc-info">
+          <div class="svc-name">넷플릭스 해지</div>
+          <div class="svc-type">⏱ 5분 · 서류 불필요</div>
+        </div>
+        <span class="diff diff-e">쉬움</span>
+        <span class="guide-arrow">▼</span>
+      </div>
+      <div class="guide-card-body">
+        <div class="guide-section-label">🔢 해지 절차</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">넷플릭스 고객센터 전화: 080-001-9800</div></div>
+          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">사망자 이름·이메일 안내 후 해지 요청</div></div>
+          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">당일 처리 완료</div></div>
+        </div>
+        <div class="warn-list">
+          <div class="warn-item">⚠️ 결제 카드에서 자동결제가 이미 되었다면 카드사에 취소 요청 가능</div>
+        </div>
+      </div>
     </div>
+
+    <!-- 쿠팡 -->
+    <div class="guide-card" onclick="toggleGuide(this)">
+      <div class="guide-card-header">
+        <div class="svc-logo">🛒</div>
+        <div class="svc-info">
+          <div class="svc-name">쿠팡 와우 멤버십 해지</div>
+          <div class="svc-type">⏱ 5분 · 앱에서 바로 가능</div>
+        </div>
+        <span class="diff diff-e">쉬움</span>
+        <span class="guide-arrow">▼</span>
+      </div>
+      <div class="guide-card-body">
+        <div class="guide-section-label">🔢 해지 절차</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">고인의 쿠팡 계정으로 로그인 (비밀번호 모를 경우 고객센터 연락)</div></div>
+          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">마이쿠팡 → 로켓와우 → 멤버십 해지</div></div>
+          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">또는 쿠팡 고객센터(1577-7011) 전화 해지 가능</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 통신사 -->
+    <div class="guide-card" onclick="toggleGuide(this)">
+      <div class="guide-card-header">
+        <div class="svc-logo">📱</div>
+        <div class="svc-info">
+          <div class="svc-name">휴대폰 통신 해지 (SKT·KT·LGU+)</div>
+          <div class="svc-type">⏱ 30분 · 대리점 방문</div>
+        </div>
+        <span class="diff diff-m">보통</span>
+        <span class="guide-arrow">▼</span>
+      </div>
+      <div class="guide-card-body">
+        <div class="guide-section-label">📄 필요 서류</div>
+        <div class="doc-chips">
+          <div class="doc-chip">📄 사망진단서</div>
+          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
+          <div class="doc-chip">🪪 신청인 신분증</div>
+        </div>
+        <div class="guide-section-label">🔢 해지 절차</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">가까운 통신사 대리점 방문 (서류 지참)</div></div>
+          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">사망자 계약 해지 신청서 작성</div></div>
+          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">당일 처리 · 기기 반납은 별도 협의</div></div>
+        </div>
+        <div class="warn-list">
+          <div class="warn-item">⚠️ 요금 미납이 있는 경우 상속인이 납부 책임을 질 수 있음</div>
+          <div class="warn-item">⚠️ SKT: 1599-0011 / KT: 100 / LGU+: 101</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 카드 포인트 -->
+    <div class="guide-card" onclick="toggleGuide(this)">
+      <div class="guide-card-header">
+        <div class="svc-logo">💳</div>
+        <div class="svc-info">
+          <div class="svc-name">신용카드 포인트 상속</div>
+          <div class="svc-type">⏱ 2~4주 · 카드사별 상이</div>
+        </div>
+        <span class="diff diff-h">어려움</span>
+        <span class="guide-arrow">▼</span>
+      </div>
+      <div class="guide-card-body">
+        <div class="guide-section-label">📄 필요 서류</div>
+        <div class="doc-chips">
+          <div class="doc-chip">📄 사망진단서</div>
+          <div class="doc-chip">👨‍👩‍👧 가족관계증명서</div>
+          <div class="doc-chip">⚖️ 상속인 확인서류</div>
+        </div>
+        <div class="guide-section-label">🔢 해지 절차</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="step-n">1</div><div class="step-txt">카드사 고객센터 연락 → 상속 담당 부서 연결</div></div>
+          <div class="guide-step"><div class="step-n">2</div><div class="step-txt">서류 제출 후 포인트 현금 전환 또는 상속 신청</div></div>
+          <div class="guide-step"><div class="step-n">3</div><div class="step-txt">카드사별 처리 기간 상이 (2~4주)</div></div>
+        </div>
+        <div class="warn-list">
+          <div class="warn-item">⚠️ 카드별로 절차가 달라 복잡합니다 — 전문가 연계를 권장합니다</div>
+        </div>
+        <button class="btn btn-rose btn-full mt16" onclick="alert('전문가 연계는 유료 심화형(150,000원)에서 제공됩니다.\n요금제 탭에서 확인해 보세요.')">
+          👨‍⚖️ 전문가 연계 신청
+        </button>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- ════════════════════════════════════
-     페이지 5: 대시보드
-════════════════════════════════════ -->
-<div id="page-dashboard" class="page">
-  <div class="dashboard-hero">
-    <div class="dashboard-greeting">
-      천천히, 잘 하고 계세요 <em>🌿</em>
-    </div>
-    <div class="dashboard-sub">장례 이후의 정리는 쉽지 않아요. 오늘도 수고하셨습니다.</div>
-
-    <div class="stat-cards">
-      <div class="stat-card">
-        <div class="stat-num" style="color:var(--sage-dark);">3</div>
-        <div class="stat-label">완료</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" style="color:#F4A261;">2</div>
-        <div class="stat-label">진행 중</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" style="color:var(--border);">5</div>
-        <div class="stat-label">미처리</div>
-      </div>
-    </div>
-
-    <div class="progress-bar-wrap">
-      <div class="progress-bar-fill" style="width: 30%;"></div>
-    </div>
-    <p style="font-size:12px; color:var(--text-soft);">전체 10개 중 3개 완료 (30%)</p>
+<!-- ════════════════════ 요금제 ════════════════════ -->
+<div id="page-plan" class="page">
+  <div class="page-top">
+    <h2>요금제</h2>
+    <p>필요한 만큼만 선택하세요</p>
   </div>
 
-  <div class="container page-content">
+  <div class="plan-grid">
 
-    <div class="section">
-      <div class="section-title" style="font-size:16px;">⚡ 지금 급한 것</div>
-      <div style="height:12px;"></div>
-      <div class="task-list">
-        <div class="task-item" style="border-color:#F4A261; background:#FFFAF5;">
-          <div class="task-status-dot dot-progress"></div>
-          <div class="task-info">
-            <div class="task-name">💳 카카오페이 잔액 상속</div>
-            <div class="task-detail">자동결제 중단 필요 · 서류 업로드 중</div>
-          </div>
-          <button class="task-action" onclick="goPage('guide')">이어보기</button>
+    <!-- 무료 -->
+    <div class="plan-card">
+      <div class="plan-header">
+        <div class="plan-badge badge-free">무료</div>
+        <div class="plan-name">기본 안내</div>
+        <div class="plan-price">0원 <span>/ 무제한</span></div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-features">
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>30개 서비스 해지 절차 안내 전체 제공</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>필요 서류 목록 안내</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>정리 체크리스트 진행 관리</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>주의사항 및 팁 안내</span></div>
+          <div class="plan-feat"><span class="feat-icon">❌</span><span style="color:var(--text-soft)">AI 계정 자동 탐지</span></div>
+          <div class="plan-feat"><span class="feat-icon">❌</span><span style="color:var(--text-soft)">전문가 연계</span></div>
         </div>
-        <div class="task-item" style="border-color:#F4A261; background:#FFFAF5;">
-          <div class="task-status-dot dot-progress"></div>
-          <div class="task-info">
-            <div class="task-name">📱 SKT 통신 해지</div>
-            <div class="task-detail">대리점 방문 예약 완료 · 방문 대기 중</div>
-          </div>
-          <button class="task-action" onclick="goPage('guide')">안내보기</button>
+        <button class="btn btn-outline btn-full" onclick="goPage('guide')">무료로 시작하기</button>
+      </div>
+    </div>
+
+    <!-- 유료 기본형 -->
+    <div class="plan-card featured">
+      <div class="plan-header">
+        <div class="plan-badge badge-basic">추천 · 유료 기본형</div>
+        <div class="plan-name">AI 정리 지원</div>
+        <div class="plan-price">39,000원 <span>/ 1회</span></div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-features">
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>무료 기본 안내 전체 포함</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span><strong>AI 이메일 스캐닝</strong> — 가입 서비스 자동 탐지</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>맞춤형 정리 목록 자동 생성</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>진행 현황 대시보드 (누락 방지)</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>자동결제 중단 우선순위 안내</span></div>
+          <div class="plan-feat"><span class="feat-icon">❌</span><span style="color:var(--text-soft)">전문가 직접 연계</span></div>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="alert('AI 정리 지원 서비스는 곧 오픈됩니다.\n출시 알림을 신청해 두세요.')">
+          39,000원으로 시작하기
+        </button>
+        <div class="plan-cta mt8">
+          유가족 15명 인터뷰 결과<br><strong>80%가 적정 가격으로 응답</strong>한 요금제예요
         </div>
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-title" style="font-size:16px;">✅ 완료된 항목</div>
-      <div style="height:12px;"></div>
-      <div class="task-list">
-        <div class="task-item" style="opacity:0.7;">
-          <div class="task-status-dot dot-done"></div>
-          <div class="task-info">
-            <div class="task-name">🎬 넷플릭스 해지</div>
-            <div class="task-detail">완료 · 2025.05.08</div>
-          </div>
-          <span class="task-done-badge">완료 ✓</span>
+    <!-- 유료 심화형 -->
+    <div class="plan-card">
+      <div class="plan-header">
+        <div class="plan-badge badge-pro">유료 심화형</div>
+        <div class="plan-name">전문가 연계</div>
+        <div class="plan-price">150,000원 <span>/ 1회</span></div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-features">
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>기본형 전체 포함</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span><strong>1:1 전담 매니저</strong> 배정</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>법무사·행정사 직접 연계</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>서류 대리 작성 지원</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>복잡한 상속·금융 케이스 처리</span></div>
+          <div class="plan-feat"><span class="feat-icon">✅</span><span>애플·해외 계정 등 고난도 사례</span></div>
         </div>
-        <div class="task-item" style="opacity:0.7;">
-          <div class="task-status-dot dot-done"></div>
-          <div class="task-info">
-            <div class="task-name">🛒 쿠팡 와우 해지</div>
-            <div class="task-detail">완료 · 2025.05.09</div>
-          </div>
-          <span class="task-done-badge">완료 ✓</span>
-        </div>
-        <div class="task-item" style="opacity:0.7;">
-          <div class="task-status-dot dot-done"></div>
-          <div class="task-info">
-            <div class="task-name">🎵 멜론 구독 해지</div>
-            <div class="task-detail">완료 · 2025.05.10</div>
-          </div>
-          <span class="task-done-badge">완료 ✓</span>
+        <button class="btn btn-rose btn-full" onclick="alert('전문가 연계 서비스는 곧 오픈됩니다.\n출시 알림을 신청해 두세요.')">
+          150,000원으로 시작하기
+        </button>
+        <div class="plan-cta mt8">
+          취약계층(기초수급·75세+ 1인가구)은<br><strong>무료 또는 9,900원</strong>으로 이용 가능합니다
         </div>
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title" style="font-size:16px;">📋 남은 항목</div>
-      <div style="height:12px;"></div>
-      <div class="task-list">
-        <div class="task-item">
-          <div class="task-status-dot dot-todo"></div>
-          <div class="task-info">
-            <div class="task-name">💬 카카오톡 계정 해지</div>
-            <div class="task-detail">서류 준비 필요</div>
-          </div>
-          <button class="task-action" onclick="goPage('guide')">시작하기</button>
-        </div>
-        <div class="task-item">
-          <div class="task-status-dot dot-todo"></div>
-          <div class="task-info">
-            <div class="task-name">📧 구글 계정 처리</div>
-            <div class="task-detail">비활성 계정 관리자 신청</div>
-          </div>
-          <button class="task-action" onclick="goPage('guide')">시작하기</button>
-        </div>
-        <div class="task-item">
-          <div class="task-status-dot dot-todo"></div>
-          <div class="task-info">
-            <div class="task-name">💳 카드 포인트 상속</div>
-            <div class="task-detail">전문가 연계 권장</div>
-          </div>
-          <button class="task-action" style="background:var(--rose-light); color:var(--rose);" onclick="alert('전문가 연계 기능은 곧 연결됩니다.')">전문가 연결</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:8px; text-align:center; background: linear-gradient(135deg, #EEF5ED, #EDD8D3);">
-      <div style="font-size:24px; margin-bottom:8px;">🌱</div>
-      <p style="font-size:14px; color:var(--text-soft); line-height:1.8;">
-        <strong style="color:var(--sage-dark);">이 과정이 쉽지 않다는 걸 알아요.</strong><br>
-        정리하다 지치면 잠시 쉬어도 괜찮아요.<br>
-        언제든지 다시 돌아오면 이어서 도와드릴게요.
-      </p>
     </div>
 
   </div>
 </div>
 
-<!-- ════════════════════════════════════
-     바텀 네비게이션
-════════════════════════════════════ -->
-<nav class="bottom-nav" id="bottom-nav">
-  <button class="nav-item active" id="nav-home" onclick="goPage('home')">
+<!-- 바텀 네비 -->
+<nav class="bottom-nav">
+  <button class="nav-btn on" id="nav-home" onclick="goPage('home')">
     <div class="nav-icon">🏠</div>
     <div class="nav-label">홈</div>
   </button>
-  <button class="nav-item" id="nav-start" onclick="goPage('start')">
-    <div class="nav-icon">✏️</div>
-    <div class="nav-label">시작하기</div>
+  <button class="nav-btn" id="nav-checklist" onclick="goPage('checklist')">
+    <div class="nav-icon">✅</div>
+    <div class="nav-label">정리하기</div>
   </button>
-  <button class="nav-item" id="nav-checklist" onclick="goPage('checklist')">
+  <button class="nav-btn" id="nav-guide" onclick="goPage('guide')">
     <div class="nav-icon">📋</div>
-    <div class="nav-label">정리목록</div>
+    <div class="nav-label">해지안내</div>
   </button>
-  <button class="nav-item" id="nav-dashboard" onclick="goPage('dashboard')">
-    <div class="nav-icon">📊</div>
-    <div class="nav-label">현황</div>
+  <button class="nav-btn" id="nav-plan" onclick="goPage('plan')">
+    <div class="nav-icon">💚</div>
+    <div class="nav-label">요금제</div>
   </button>
 </nav>
 
 <script>
-  // ── 페이지 전환
-  function goPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + id).classList.add('active');
-    window.scrollTo(0, 0);
+// ── 페이지 전환
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+  document.querySelectorAll('.nav-btn').forEach(n => n.classList.remove('on'));
+  const nav = document.getElementById('nav-' + id);
+  if (nav) nav.classList.add('on');
+}
 
-    // 네비 활성
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    const nav = document.getElementById('nav-' + id);
-    if (nav) nav.classList.add('active');
+// ── 큰 글자 모드
+function toggleSenior() {
+  const body = document.body;
+  const btn = document.getElementById('senior-btn');
+  const label = document.getElementById('senior-label');
+  body.classList.toggle('senior');
+  if (body.classList.contains('senior')) {
+    btn.textContent = '✏️ 일반 화면으로';
+    label.textContent = '큰 글자 모드로 보고 있습니다';
+  } else {
+    btn.textContent = '🔠 큰 글자로 보기';
+    label.textContent = '글자가 작으신가요?';
   }
+}
 
-  // ── 칩 토글
-  function toggleChip(el) {
-    el.classList.toggle('selected');
-  }
+// ── 서비스 체크
+function toggleSvc(el) {
+  el.classList.toggle('on');
+  updateProgress();
+}
 
-  // ── 서비스 체크
-  let checkedCount = 0;
-  const totalServices = document.querySelectorAll('.service-item').length;
+function updateProgress() {
+  const all = document.querySelectorAll('.svc-item');
+  const done = document.querySelectorAll('.svc-item.on');
+  document.getElementById('prog-text').textContent = done.length + ' / ' + all.length + '개';
+  document.getElementById('prog-fill').style.width = (done.length / all.length * 100) + '%';
+}
 
-  function toggleService(el) {
-    el.classList.toggle('checked');
-    checkedCount = document.querySelectorAll('.service-item.checked').length;
-    document.getElementById('check-count').textContent = checkedCount + '개 선택됨';
-    const pct = Math.round((checkedCount / totalServices) * 100);
-    document.getElementById('check-progress').style.width = pct + '%';
-  }
+// ── 카테고리 필터
+function filterCat(cat, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.svc-item').forEach(item => {
+    item.style.display = (cat === 'all' || item.dataset.cat === cat) ? 'flex' : 'none';
+  });
+}
 
-  // ── 카테고리 필터
-  function filterCategory(cat, btn) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    document.querySelectorAll('.service-item').forEach(item => {
-      if (cat === 'all' || item.dataset.cat === cat) {
-        item.style.display = 'flex';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  }
-
-  // ── 완료 처리
-  function markDone() {
-    alert('완료 처리되었습니다! 대시보드에서 확인하세요.');
-    goPage('dashboard');
-  }
+// ── 해지 가이드 아코디언
+function toggleGuide(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.guide-card').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
 </script>
 </body>
 </html>
