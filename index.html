@@ -132,6 +132,7 @@ body.senior .diff{font-size:14px;padding:6px 12px;border-radius:8px;}
 /* ════════ 해지안내 ════════ */
 .guide-list{padding:14px max(20px,calc((100% - 680px)/2));display:flex;flex-direction:column;gap:10px;}
 .g-card{background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+.g-card.hidden{display:none;}
 .g-header{padding:15px;display:flex;align-items:center;gap:13px;cursor:pointer;}
 body.senior .g-header{padding:20px;}
 .g-arrow{margin-left:auto;font-size:14px;color:var(--text-soft);transition:transform .2s;flex-shrink:0;}
@@ -867,25 +868,29 @@ function goDocsFiltered(){
 function goGuideFiltered(){
   const selected=[...document.querySelectorAll('.svc-item.on .svc-name')].map(el=>el.textContent.trim());
   goPage('guide');
-  const cards=document.querySelectorAll('.g-card');
-  if(selected.length===0){cards.forEach(c=>c.style.display='');return;}
-  cards.forEach(c=>{
-    const keys=(c.dataset.keys||'').split(',').map(k=>k.trim());
-    const match=keys.some(k=>selected.some(s=>s.includes(k)));
-    c.style.display=match?'':'none';
-  });
-  // 필터 리셋 버튼
-  const list=document.querySelector('.guide-list');
-  let resetBtn=document.getElementById('guide-reset-btn');
-  if(!resetBtn){
-    resetBtn=document.createElement('button');
-    resetBtn.id='guide-reset-btn';
-    resetBtn.className='btn btn-gray btn-full';
-    resetBtn.style.margin='0 0 10px';
-    resetBtn.textContent='전체 안내 보기';
-    resetBtn.onclick=()=>{cards.forEach(c=>c.style.display='');resetBtn.remove();};
-    list.prepend(resetBtn);
-  }
+  setTimeout(()=>{
+    const cards=document.querySelectorAll('.g-card');
+    // 기존 필터 초기화
+    cards.forEach(c=>c.classList.remove('hidden'));
+    const oldBtn=document.getElementById('guide-reset-btn');
+    if(oldBtn) oldBtn.remove();
+    if(selected.length===0) return;
+    let anyHidden=false;
+    cards.forEach(c=>{
+      const keys=(c.dataset.keys||'').split(',').map(k=>k.trim());
+      const match=keys.some(k=>selected.some(s=>s.includes(k)));
+      if(!match){c.classList.add('hidden');anyHidden=true;}
+    });
+    if(anyHidden){
+      const resetBtn=document.createElement('button');
+      resetBtn.id='guide-reset-btn';
+      resetBtn.className='btn btn-gray btn-full';
+      resetBtn.style.margin='0 0 10px';
+      resetBtn.textContent='전체 안내 보기';
+      resetBtn.onclick=()=>{cards.forEach(c=>c.classList.remove('hidden'));resetBtn.remove();};
+      document.querySelector('.guide-list').prepend(resetBtn);
+    }
+  },0);
 }
 
 // ── 취약계층 체크박스
