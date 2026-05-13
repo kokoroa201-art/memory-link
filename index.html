@@ -29,7 +29,8 @@ body.senior .top-bar{font-size:16px;}
 body.senior .toggle-btn{font-size:15px;padding:7px 18px;}
 
 /* ── 헤더 ── */
-.header{background:#fff;border-bottom:1px solid var(--border);padding:13px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.header-inner{max-width:680px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;}
 .logo{display:flex;align-items:center;gap:8px;cursor:pointer;}
 .logo-icon{width:34px;height:34px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;}
 body.senior .logo-icon{width:42px;height:42px;font-size:21px;}
@@ -232,7 +233,8 @@ body.senior .plan-cta{font-size:15px;padding:18px;}
 .filter-btn.on{background:var(--sage);border-color:var(--sage);color:#fff;}
 
 /* ── 바텀 네비 ── */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 20px;z-index:100;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);z-index:100;padding:8px 0 20px;}
+.bottom-nav-inner{max-width:680px;margin:0 auto;display:flex;justify-content:space-around;}
 .nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 16px;border:none;background:none;font-family:inherit;}
 .nav-icon{font-size:22px;}
 body.senior .nav-icon{font-size:28px;}
@@ -258,14 +260,16 @@ body.senior .nav-lbl{font-size:13px;}
 
 <!-- 헤더 -->
 <header class="header">
-  <div class="logo" onclick="goPage('home')">
-    <div class="logo-icon">🌿</div>
-    <div>
-      <div class="logo-name">Memory-Link</div>
-      <div class="logo-sub">사후 디지털 정리 지원</div>
+  <div class="header-inner">
+    <div class="logo" onclick="goPage('home')">
+      <div class="logo-icon">🌿</div>
+      <div>
+        <div class="logo-name">Memory-Link</div>
+        <div class="logo-sub">사후 디지털 정리 지원</div>
+      </div>
     </div>
+    <span class="admin-link" onclick="goPage('admin')">관리자</span>
   </div>
-  <span class="admin-link" onclick="goPage('admin')">관리자</span>
 </header>
 
 <!-- ══════════════════════════════════════
@@ -793,11 +797,13 @@ body.senior .nav-lbl{font-size:13px;}
 
 <!-- 바텀 네비 -->
 <nav class="bottom-nav" id="bottom-nav">
-  <button class="nav-btn on" id="nav-home" onclick="goPage('home')"><div class="nav-icon">🏠</div><div class="nav-lbl">홈</div></button>
-  <button class="nav-btn" id="nav-checklist" onclick="goPage('checklist')"><div class="nav-icon">✅</div><div class="nav-lbl">정리하기</div></button>
-  <button class="nav-btn" id="nav-guide" onclick="goPage('guide')"><div class="nav-icon">📋</div><div class="nav-lbl">해지안내</div></button>
-  <button class="nav-btn" id="nav-docs" onclick="goPage('docs')"><div class="nav-icon">📄</div><div class="nav-lbl">서류만들기</div></button>
-  <button class="nav-btn" id="nav-plan" onclick="goPage('plan')"><div class="nav-icon">💚</div><div class="nav-lbl">요금제</div></button>
+  <div class="bottom-nav-inner">
+    <button class="nav-btn on" id="nav-home" onclick="goPage('home')"><div class="nav-icon">🏠</div><div class="nav-lbl">홈</div></button>
+    <button class="nav-btn" id="nav-checklist" onclick="goPage('checklist')"><div class="nav-icon">✅</div><div class="nav-lbl">정리하기</div></button>
+    <button class="nav-btn" id="nav-guide" onclick="goPage('guide')"><div class="nav-icon">📋</div><div class="nav-lbl">해지안내</div></button>
+    <button class="nav-btn" id="nav-docs" onclick="goPage('docs')"><div class="nav-icon">📄</div><div class="nav-lbl">서류만들기</div></button>
+    <button class="nav-btn" id="nav-plan" onclick="goPage('plan')"><div class="nav-icon">💚</div><div class="nav-lbl">요금제</div></button>
+  </div>
 </nav>
 
 <script>
