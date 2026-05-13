@@ -363,8 +363,8 @@ body.senior .nav-icon{font-size:28px;}
     <div class="svc-item" data-cat="shop" onclick="toggleSvc(this)"><div class="svc-check">✓</div><div class="svc-logo">🏋</div><div class="svc-info"><div class="svc-name">헬스장·필라테스 회원권</div><div class="svc-type">오프라인 구독</div></div><span class="diff diff-m">보통</span></div>
   </div>
   <div class="cl-bottom">
-    <button class="btn btn-primary btn-full btn-lg" onclick="goPage('docs')">📄 선택한 서비스 서류 만들기 →</button>
-    <button class="btn btn-outline btn-full" onclick="goPage('guide')">해지 절차 안내만 보기</button>
+    <button class="btn btn-primary btn-full btn-lg" onclick="goDocsFiltered()">📄 선택한 서비스 서류 만들기 →</button>
+    <button class="btn btn-outline btn-full" onclick="goGuideFiltered()">해지 절차 안내만 보기</button>
     <div class="notice">💡 <strong>어려움(빨강)</strong> 서비스는 전문가 연계를 권장합니다</div>
   </div>
 </div>
@@ -378,7 +378,7 @@ body.senior .nav-icon{font-size:28px;}
     <p>서비스를 눌러 절차를 확인하세요 — 모두 무료</p>
   </div>
   <div class="guide-list">
-    <div class="g-card" onclick="toggleGuide(this)">
+    <div class="g-card" data-keys="카카오" onclick="toggleGuide(this)">
       <div class="g-header"><div class="svc-logo">💬</div><div class="svc-info"><div class="svc-name">카카오톡 계정 해지</div><div class="svc-type">⏱ 20~30분 · 서류 2종</div></div><span class="diff diff-m">보통</span><span class="g-arrow">▼</span></div>
       <div class="g-body">
         <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div><div class="doc-chip">🪪 신청인 신분증</div></div>
@@ -394,7 +394,7 @@ body.senior .nav-icon{font-size:28px;}
       </div>
     </div>
 
-    <div class="g-card" onclick="toggleGuide(this)">
+    <div class="g-card" data-keys="네이버" onclick="toggleGuide(this)">
       <div class="g-header"><div class="svc-logo">🟢</div><div class="svc-info"><div class="svc-name">네이버 계정 해지</div><div class="svc-type">⏱ 30분 · 서류 2종</div></div><span class="diff diff-m">보통</span><span class="g-arrow">▼</span></div>
       <div class="g-body">
         <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div></div>
@@ -409,7 +409,7 @@ body.senior .nav-icon{font-size:28px;}
       </div>
     </div>
 
-    <div class="g-card" onclick="toggleGuide(this)">
+    <div class="g-card" data-keys="구글" onclick="toggleGuide(this)">
       <div class="g-header"><div class="svc-logo">📧</div><div class="svc-info"><div class="svc-name">구글 계정 처리</div><div class="svc-type">⏱ 1~2주 · 영문 신청</div></div><span class="diff diff-m">보통</span><span class="g-arrow">▼</span></div>
       <div class="g-body">
         <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서 (영문/번역)</div><div class="doc-chip">🪪 신청인 신분증</div></div>
@@ -423,7 +423,7 @@ body.senior .nav-icon{font-size:28px;}
       </div>
     </div>
 
-    <div class="g-card" onclick="toggleGuide(this)">
+    <div class="g-card" data-keys="애플" onclick="toggleGuide(this)">
       <div class="g-header"><div class="svc-logo">🍎</div><div class="svc-info"><div class="svc-name">애플 계정 처리</div><div class="svc-type">⏱ 2~4주 · 고난도</div></div><span class="diff diff-h">어려움</span><span class="g-arrow">▼</span></div>
       <div class="g-body">
         <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div><div class="doc-chip">⚖️ 법원 상속서류</div></div>
@@ -436,7 +436,7 @@ body.senior .nav-icon{font-size:28px;}
       </div>
     </div>
 
-    <div class="g-card" onclick="toggleGuide(this)">
+    <div class="g-card" data-keys="SKT,KT,LG" onclick="toggleGuide(this)">
       <div class="g-header"><div class="svc-logo">📱</div><div class="svc-info"><div class="svc-name">휴대폰 통신 해지 (SKT·KT·LGU+)</div><div class="svc-type">⏱ 30분 · 대리점 방문</div></div><span class="diff diff-m">보통</span><span class="g-arrow">▼</span></div>
       <div class="g-body">
         <div class="sec-label">📄 필요 서류 (방문 지참)</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div><div class="doc-chip">🪪 신청인 신분증</div></div>
@@ -450,7 +450,7 @@ body.senior .nav-icon{font-size:28px;}
       </div>
     </div>
 
-    <div class="g-card" onclick="toggleGuide(this)">
+    <div class="g-card" data-keys="신용카드,은행" onclick="toggleGuide(this)">
       <div class="g-header"><div class="svc-logo">💳</div><div class="svc-info"><div class="svc-name">신용카드 포인트 상속</div><div class="svc-type">⏱ 2~4주 · 카드사별 상이</div></div><span class="diff diff-h">어려움</span><span class="g-arrow">▼</span></div>
       <div class="g-body">
         <div class="sec-label">📄 필요 서류</div><div class="doc-chips"><div class="doc-chip">📄 사망진단서</div><div class="doc-chip">👨‍👩‍👧 가족관계증명서</div><div class="doc-chip">⚖️ 상속인 확인서류</div></div>
@@ -463,7 +463,7 @@ body.senior .nav-icon{font-size:28px;}
       </div>
     </div>
 
-    <div class="g-card" onclick="toggleGuide(this)">
+    <div class="g-card" data-keys="넷플릭스,웨이브,티빙,멜론,지니,유튜브" onclick="toggleGuide(this)">
       <div class="g-header"><div class="svc-logo">🎬</div><div class="svc-info"><div class="svc-name">넷플릭스·웨이브·티빙 해지</div><div class="svc-type">⏱ 5분 · 서류 불필요</div></div><span class="diff diff-e">쉬움</span><span class="g-arrow">▼</span></div>
       <div class="g-body">
         <div class="g-steps">
@@ -475,7 +475,7 @@ body.senior .nav-icon{font-size:28px;}
       </div>
     </div>
 
-    <div class="g-card" onclick="toggleGuide(this)">
+    <div class="g-card" data-keys="쿠팡,배달의민족,요기요,G마켓,11번가,당근,쏘카,헬스장" onclick="toggleGuide(this)">
       <div class="g-header"><div class="svc-logo">🛒</div><div class="svc-info"><div class="svc-name">쿠팡·배달앱·쇼핑몰 해지</div><div class="svc-type">⏱ 5~10분 · 앱/전화</div></div><span class="diff diff-e">쉬움</span><span class="g-arrow">▼</span></div>
       <div class="g-body">
         <div class="g-steps">
@@ -845,6 +845,47 @@ function toggleSenior(){
   b.classList.toggle('senior');
   if(b.classList.contains('senior')){btn.textContent='✏️ 일반 화면으로';lbl.textContent='큰 글자 모드';}
   else{btn.textContent='🔠 큰글자';lbl.textContent='글자가 작으신가요?';}
+}
+
+// ── 선택 서비스만 서류 만들기
+function goDocsFiltered(){
+  const selected=[...document.querySelectorAll('.svc-item.on .svc-name')].map(el=>el.textContent.trim());
+  goPage('docs');
+  if(selected.length===0) return;
+  // 체크리스트 서비스명 → 서류 data-svc 매핑
+  const map={kakao:'카카오',naver:'네이버',google:'구글',apple:'애플',telecom:'SKT,KT,LG U',card:'신용카드',bank:'은행'};
+  document.querySelectorAll('.svc-pick-item').forEach(item=>{
+    const svc=item.dataset.svc;
+    const keys=(map[svc]||'').split(',').map(k=>k.trim());
+    const match=keys.some(k=>selected.some(s=>s.includes(k)));
+    if(match && !item.classList.contains('on')) item.click();
+    if(!match && item.classList.contains('on')) item.click();
+  });
+}
+
+// ── 선택 서비스만 해지안내 보기
+function goGuideFiltered(){
+  const selected=[...document.querySelectorAll('.svc-item.on .svc-name')].map(el=>el.textContent.trim());
+  goPage('guide');
+  const cards=document.querySelectorAll('.g-card');
+  if(selected.length===0){cards.forEach(c=>c.style.display='');return;}
+  cards.forEach(c=>{
+    const keys=(c.dataset.keys||'').split(',').map(k=>k.trim());
+    const match=keys.some(k=>selected.some(s=>s.includes(k)));
+    c.style.display=match?'':'none';
+  });
+  // 필터 리셋 버튼
+  const list=document.querySelector('.guide-list');
+  let resetBtn=document.getElementById('guide-reset-btn');
+  if(!resetBtn){
+    resetBtn=document.createElement('button');
+    resetBtn.id='guide-reset-btn';
+    resetBtn.className='btn btn-gray btn-full';
+    resetBtn.style.margin='0 0 10px';
+    resetBtn.textContent='전체 안내 보기';
+    resetBtn.onclick=()=>{cards.forEach(c=>c.style.display='');resetBtn.remove();};
+    list.prepend(resetBtn);
+  }
 }
 
 // ── 취약계층 체크박스
