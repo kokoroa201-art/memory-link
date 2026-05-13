@@ -866,31 +866,36 @@ function goDocsFiltered(){
 
 // ── 선택 서비스만 해지안내 보기
 function goGuideFiltered(){
-  const selected=[...document.querySelectorAll('.svc-item.on .svc-name')].map(el=>el.textContent.trim());
+  var onItems=document.querySelectorAll('#svc-list .svc-item.on .svc-name');
+  var selected=Array.from(onItems).map(function(el){return el.textContent.trim();});
   goPage('guide');
-  setTimeout(()=>{
-    const cards=document.querySelectorAll('.g-card');
-    // 기존 필터 초기화
-    cards.forEach(c=>c.classList.remove('hidden'));
-    const oldBtn=document.getElementById('guide-reset-btn');
-    if(oldBtn) oldBtn.remove();
-    if(selected.length===0) return;
-    let anyHidden=false;
-    cards.forEach(c=>{
-      const keys=(c.dataset.keys||'').split(',').map(k=>k.trim());
-      const match=keys.some(k=>selected.some(s=>s.includes(k)));
-      if(!match){c.classList.add('hidden');anyHidden=true;}
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      var cards=Array.from(document.querySelectorAll('#page-guide .g-card'));
+      cards.forEach(function(c){c.classList.remove('hidden');});
+      var oldBtn=document.getElementById('guide-reset-btn');
+      if(oldBtn) oldBtn.remove();
+      if(selected.length===0) return;
+      var anyHidden=false;
+      cards.forEach(function(c){
+        var keysStr=c.getAttribute('data-keys')||'';
+        var keys=keysStr.split(',').map(function(k){return k.trim();});
+        var match=keys.some(function(k){
+          return k&&selected.some(function(s){return s.indexOf(k)!==-1;});
+        });
+        if(!match){c.classList.add('hidden');anyHidden=true;}
+      });
+      if(anyHidden){
+        var resetBtn=document.createElement('button');
+        resetBtn.id='guide-reset-btn';
+        resetBtn.className='btn btn-gray btn-full';
+        resetBtn.style.margin='0 0 10px';
+        resetBtn.textContent='전체 안내 보기';
+        resetBtn.onclick=function(){cards.forEach(function(c){c.classList.remove('hidden');});resetBtn.remove();};
+        document.querySelector('.guide-list').prepend(resetBtn);
+      }
     });
-    if(anyHidden){
-      const resetBtn=document.createElement('button');
-      resetBtn.id='guide-reset-btn';
-      resetBtn.className='btn btn-gray btn-full';
-      resetBtn.style.margin='0 0 10px';
-      resetBtn.textContent='전체 안내 보기';
-      resetBtn.onclick=()=>{cards.forEach(c=>c.classList.remove('hidden'));resetBtn.remove();};
-      document.querySelector('.guide-list').prepend(resetBtn);
-    }
-  },0);
+  });
 }
 
 // ── 취약계층 체크박스
