@@ -25,11 +25,19 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(
 .container{max-width:680px;margin:0 auto;padding:0 20px;}
 
 /* ── 상단 바 ── */
-.top-bar{background:var(--sage-dark);color:#fff;text-align:center;padding:8px 16px;font-size:13px;display:flex;align-items:center;justify-content:center;gap:12px;}
-body.senior .top-bar{font-size:16px;}
-.toggle-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;}
+.top-bar{background:var(--sage-dark);color:#fff;padding:0 16px;font-size:13px;display:flex;align-items:center;justify-content:space-between;height:40px;max-width:100%;}
+body.senior .top-bar{height:48px;}
+.top-bar-logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;letter-spacing:-.2px;color:#fff;cursor:pointer;text-decoration:none;}
+.top-bar-logo-icon{width:24px;height:24px;background:rgba(255,255,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;}
+body.senior .top-bar-logo{font-size:17px;}
+.top-bar-right{display:flex;align-items:center;gap:8px;}
+.toggle-btn{position:relative;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;}
 .toggle-btn:hover{background:rgba(255,255,255,.28);}
-body.senior .toggle-btn{font-size:15px;padding:7px 18px;}
+.toggle-btn::after{content:attr(data-tip);position:absolute;bottom:-34px;right:0;background:rgba(0,0,0,.75);color:#fff;font-size:11px;font-weight:500;padding:5px 9px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;z-index:200;}
+.toggle-btn:hover::after{opacity:1;}
+body.senior .toggle-btn{font-size:16px;padding:6px 16px;}
+.admin-top-link{font-size:11px;color:rgba(255,255,255,.35);cursor:pointer;padding:3px 8px;border-radius:6px;user-select:none;transition:color .15s;}
+.admin-top-link:hover{color:rgba(255,255,255,.7);}
 
 /* ── 헤더 ── */
 .header{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
@@ -301,13 +309,19 @@ body.senior .nav-icon{font-size:28px;}
 </head>
 <body>
 
-<!-- 상단 바 -->
+<!-- 상단 바 (로고 + 큰글자 버튼) -->
 <div class="top-bar">
-  <span id="senior-label">글자가 작으신가요?</span>
-  <button class="toggle-btn" onclick="toggleSenior()" id="senior-btn">🔠 큰글자</button>
+  <div class="top-bar-logo" onclick="goPage('home')">
+    <div class="top-bar-logo-icon">🌿</div>
+    Memory-Link
+  </div>
+  <div class="top-bar-right">
+    <button class="toggle-btn" onclick="toggleSenior()" id="senior-btn" data-tip="큰글자 모드">큰</button>
+    <span class="admin-top-link" onclick="goPage('admin')">관리자</span>
+  </div>
 </div>
 
-<!-- 헤더 -->
+<!-- 헤더 (서브페이지용 sticky 헤더) -->
 <header class="header">
   <div class="header-inner">
     <div class="logo" onclick="goPage('home')">
@@ -940,10 +954,10 @@ function goPage(id){
 
 // ── 큰 글자 모드
 function toggleSenior(){
-  const b=document.body,btn=document.getElementById('senior-btn'),lbl=document.getElementById('senior-label');
+  const b=document.body,btn=document.getElementById('senior-btn');
   b.classList.toggle('senior');
-  if(b.classList.contains('senior')){btn.textContent='✏️ 일반 화면으로';lbl.textContent='큰 글자 모드';}
-  else{btn.textContent='🔠 큰글자';lbl.textContent='글자가 작으신가요?';}
+  if(b.classList.contains('senior')){btn.textContent='작게';btn.dataset.tip='일반 화면으로';}
+  else{btn.textContent='큰';btn.dataset.tip='큰글자 모드';}
 }
 
 // ── 선택 서비스만 서류 만들기
