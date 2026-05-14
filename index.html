@@ -25,19 +25,18 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(
 .container{max-width:680px;margin:0 auto;padding:0 20px;}
 
 /* ── 상단 바 ── */
-.top-bar{background:var(--sage-dark);color:#fff;padding:0 16px;font-size:13px;display:flex;align-items:center;justify-content:space-between;height:40px;max-width:100%;position:sticky;top:0;z-index:100;}
+.top-bar{background:var(--sage-dark);color:#fff;padding:0 16px;font-size:13px;display:flex;align-items:center;justify-content:center;height:40px;position:sticky;top:0;z-index:100;}
 body.senior .top-bar{height:48px;}
-.top-bar-logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;letter-spacing:-.2px;color:#fff;cursor:pointer;text-decoration:none;}
+.top-bar-inner{max-width:680px;width:100%;display:flex;align-items:center;justify-content:space-between;}
+.top-bar-logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;letter-spacing:-.2px;color:#fff;cursor:pointer;user-select:none;}
 .top-bar-logo-icon{width:24px;height:24px;background:rgba(255,255,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;}
 body.senior .top-bar-logo{font-size:17px;}
-.top-bar-right{display:flex;align-items:center;gap:8px;}
+.top-bar-right{display:flex;align-items:center;}
 .toggle-btn{position:relative;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;}
 .toggle-btn:hover{background:rgba(255,255,255,.28);}
 .toggle-btn::after{content:attr(data-tip);position:absolute;bottom:-34px;right:0;background:rgba(0,0,0,.75);color:#fff;font-size:11px;font-weight:500;padding:5px 9px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;z-index:200;}
 .toggle-btn:hover::after{opacity:1;}
 body.senior .toggle-btn{font-size:16px;padding:6px 16px;}
-.admin-top-link{font-size:11px;color:rgba(255,255,255,.35);cursor:pointer;padding:3px 8px;border-radius:6px;user-select:none;transition:color .15s;}
-.admin-top-link:hover{color:rgba(255,255,255,.7);}
 
 /* ── 헤더 ── */
 .header{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
@@ -309,15 +308,16 @@ body.senior .nav-icon{font-size:28px;}
 </head>
 <body>
 
-<!-- 상단 바 (로고 + 큰글자 버튼) -->
+<!-- 상단 바 -->
 <div class="top-bar">
-  <div class="top-bar-logo" onclick="goPage('home')">
-    <div class="top-bar-logo-icon">🌿</div>
-    Memory-Link
-  </div>
-  <div class="top-bar-right">
-    <button class="toggle-btn" onclick="toggleSenior()" id="senior-btn" data-tip="큰글자 모드">큰</button>
-    <span class="admin-top-link" onclick="goPage('admin')">관리자</span>
+  <div class="top-bar-inner">
+    <div class="top-bar-logo" onclick="logoTap()">
+      <div class="top-bar-logo-icon">🌿</div>
+      Memory-Link
+    </div>
+    <div class="top-bar-right">
+      <button class="toggle-btn" onclick="toggleSenior()" id="senior-btn" data-tip="큰글자 모드">큰</button>
+    </div>
   </div>
 </div>
 
@@ -923,6 +923,17 @@ body.senior .nav-icon{font-size:28px;}
 </nav>
 
 <script>
+// ── 로고 연속 탭 → 관리자 진입 (5회)
+var _lt=0,_ltTimer;
+function logoTap(){
+  _lt++;clearTimeout(_ltTimer);
+  if(_lt>=5){_lt=0;goPage('admin');}
+  else{
+    if(_lt===1) goPage('home');
+    _ltTimer=setTimeout(function(){_lt=0;},1200);
+  }
+}
+
 // ── 페이지 전환
 function goPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
