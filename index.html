@@ -1192,6 +1192,12 @@ function skipSplash(){
 
 // 날짜 드롭다운 초기화
 document.addEventListener('DOMContentLoaded',function(){
+  // /admin URL로 직접 접속 시 관리자 페이지로
+  if(window.location.pathname==='/admin'){
+    goPage('admin');
+    return;
+  }
+
   // 스플래시 초기: 상단바·네비 숨김
   document.querySelector('.top-bar').style.display='none';
   document.getElementById('bottom-nav').style.display='none';
