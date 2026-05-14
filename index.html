@@ -178,6 +178,30 @@ body.senior .lp-btn-paid{font-size:17px;padding:16px;}
 /* 바로가기 */
 .lp-menu{background:#fff;}
 
+/* ════════ 스플래시 랜딩 ════════ */
+.splash-wrap{min-height:100vh;background:#2C2825;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 28px;cursor:pointer;position:relative;}
+.splash-logo{color:var(--sage-light);font-size:12px;font-weight:800;letter-spacing:2px;margin-bottom:40px;opacity:.6;}
+.splash-h1{font-size:30px;font-weight:800;color:#fff;line-height:1.45;margin-bottom:24px;letter-spacing:-.5px;}
+body.senior .splash-h1{font-size:38px;}
+.splash-h1 em{color:var(--sage-light);font-style:normal;}
+.splash-quote{border-left:3px solid var(--sage-light);padding:16px 22px;text-align:left;max-width:360px;margin:0 auto 28px;font-size:16px;font-style:italic;color:rgba(255,255,255,.9);line-height:1.75;border-radius:0 8px 8px 0;background:rgba(255,255,255,.05);}
+body.senior .splash-quote{font-size:20px;}
+.splash-sub{color:rgba(255,255,255,.5);font-size:14px;line-height:2;margin-bottom:52px;}
+body.senior .splash-sub{font-size:18px;}
+.splash-bar-wrap{width:160px;height:2px;background:rgba(255,255,255,.12);border-radius:99px;margin:0 auto 14px;}
+.splash-bar{height:100%;background:var(--sage-light);border-radius:99px;width:0%;transition:width 5s linear;}
+.splash-hint{color:rgba(255,255,255,.25);font-size:11px;letter-spacing:.3px;}
+body.senior .splash-hint{font-size:14px;}
+.splash-skip{position:absolute;top:20px;right:24px;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;padding:6px 10px;border-radius:6px;}
+.splash-skip:hover{color:rgba(255,255,255,.7);}
+
+/* ════════ 앱 홈 헤더 ════════ */
+.home-header{background:var(--sage-dark);color:#fff;padding:20px max(20px,calc((100% - 680px)/2)) 16px;}
+.home-header h2{font-size:var(--fs-xl);font-weight:800;letter-spacing:-.3px;}
+body.senior .home-header h2{font-size:28px;}
+.home-header p{font-size:var(--fs-sm);color:rgba(255,255,255,.7);margin-top:4px;}
+body.senior .home-header p{font-size:16px;}
+
 /* ════════ 정리하기 ════════ */
 .prog-wrap{padding:16px max(20px,calc((100% - 680px)/2)) 0;}
 .prog-label{display:flex;justify-content:space-between;font-size:var(--fs-sm);color:var(--text-soft);margin-bottom:6px;}
@@ -357,61 +381,38 @@ body.senior .nav-icon{font-size:28px;}
 <!-- ══════════════════════════════════════
      홈
 ══════════════════════════════════════ -->
-<div id="page-home" class="page active">
-
-  <!-- ① HERO — 임팩트·신뢰 -->
-  <div class="lp-hero">
-    <div class="lp-hero-inner">
-      <div class="lp-hero-tag">✦ 실제 경험자가 만든 서비스</div>
-      <h1 class="lp-hero-h1">갑작스런 가족의 부재<br><em>준비되지 않은 슬픔</em></h1>
-      <div class="lp-hero-story">
-        "10,200원 상속받으러 12,000원 주차비를 냈습니다."
-      </div>
-      <p class="lp-hero-sub">
-        손 내밀 곳도, 고통을 나눌 곳도 없이<br>
-        덩그러니 놓인 그 마음 — 저도 겪었습니다.<br>
-        그대의 눈물을 닦아드리겠습니다.
-      </p>
-      <button class="lp-cta-btn" onclick="goPage('plan')">39,000원으로 시작하기</button>
-      <div class="lp-cta-free" onclick="goPage('checklist')">무료 체크리스트 먼저 보기 →</div>
+<!-- ══════════════════════════════════════
+     스플래시 랜딩 (처음 5초)
+══════════════════════════════════════ -->
+<div id="page-landing" class="page active" onclick="skipSplash()">
+  <div class="splash-wrap">
+    <div class="splash-skip" onclick="skipSplash()">건너뛰기 →</div>
+    <div class="splash-logo">MEMORY-LINK</div>
+    <h1 class="splash-h1">갑작스런 가족의 부재<br><em>준비되지 않은 슬픔</em></h1>
+    <div class="splash-quote">
+      "10,200원 상속받으러<br>12,000원 주차비를 냈습니다."
     </div>
+    <p class="splash-sub">
+      그 막막함을 압니다.<br>
+      함께 하겠습니다.
+    </p>
+    <div class="splash-bar-wrap">
+      <div class="splash-bar" id="splash-bar"></div>
+    </div>
+    <div class="splash-hint">화면을 탭하면 바로 이동합니다</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     홈 (메뉴)
+══════════════════════════════════════ -->
+<div id="page-home" class="page">
+  <div class="home-header">
+    <h2>무엇을 도와드릴까요?</h2>
+    <p>💚 유가족 디지털 정리 서비스</p>
   </div>
 
-  <!-- ② 창업자 스토리 — 따뜻함·공감 -->
-  <div class="lp-section lp-empathy">
-    <div class="lp-inner">
-      <div class="lp-sec-label">창업자 이야기</div>
-      <div class="lp-founder">
-        <div class="lp-founder-photo">🙋</div>
-        <div class="lp-founder-bubble">
-          <p>
-            슬픔을 거두지 못한 채<br>
-            내 앞에 산적한 행정 업무들.<br><br>
-            저도 그 자리에 있었습니다.<br>
-            나만의 것이 아닙니다.<br><br>
-            그대의 손이, 발이, 마음이 되어 드리겠습니다.
-          </p>
-          <div class="lp-founder-name">— Memory-Link 창업자</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ③ 공감 포인트 — 따뜻함 -->
-  <div class="lp-section lp-pain">
-    <div class="lp-inner">
-      <div class="lp-sec-label">이런 경험 있으신가요?</div>
-      <div class="lp-pain-list">
-        <div class="lp-pain-item"><span class="lp-pain-icon">😔</span>어떤 계정이 있는지조차 파악이 안 된다</div>
-        <div class="lp-pain-item"><span class="lp-pain-icon">📋</span>증권사마다 요구 서류가 달라 두 번 방문했다</div>
-        <div class="lp-pain-item"><span class="lp-pain-icon">⏰</span>여의도 창구에서 1~2시간 기다렸다</div>
-        <div class="lp-pain-item"><span class="lp-pain-icon">💳</span>해지 안 한 구독이 계속 결제되고 있다</div>
-        <div class="lp-pain-item"><span class="lp-pain-icon">📱</span>카카오·네이버 계정을 어떻게 처리해야 할지 모르겠다</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ④ 서비스·가격 -->
+  <!-- 서비스·가격 -->
   <div class="lp-section lp-service">
     <div class="lp-inner">
       <div class="lp-sec-label">서비스 안내</div>
@@ -437,8 +438,8 @@ body.senior .nav-icon{font-size:28px;}
     </div>
   </div>
 
-  <!-- ⑤ 바로가기 메뉴 -->
-  <div class="lp-section lp-menu">
+  <!-- 바로가기 메뉴 -->
+  <div class="lp-section lp-menu" style="padding-top:0;">
     <div class="lp-inner">
       <div class="lp-sec-label">바로가기</div>
       <div class="menu-grid">
@@ -465,7 +466,6 @@ body.senior .nav-icon{font-size:28px;}
       </div>
     </div>
   </div>
-
 </div>
 
 <!-- ══════════════════════════════════════
@@ -1233,8 +1233,23 @@ function getDateVal(prefix){
   return `${y.value}.${m.value||'00'}.${d.value||'00'}`;
 }
 
+// 스플래시 건너뛰기
+function skipSplash(){
+  if(window._splashTimer) clearTimeout(window._splashTimer);
+  goPage('home');
+}
+
 // 날짜 드롭다운 초기화
 document.addEventListener('DOMContentLoaded',function(){
+  // 스플래시 5초 타이머
+  var bar=document.getElementById('splash-bar');
+  if(bar){
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ bar.style.width='100%'; });
+    });
+    window._splashTimer=setTimeout(function(){ goPage('home'); },5000);
+  }
+
   const curY=new Date().getFullYear();
   buildDateSelect('d-birth-wrap',1910,curY-1);
   buildDateSelect('d-death-wrap',1910,curY);
