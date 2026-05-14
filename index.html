@@ -31,6 +31,9 @@ body.senior .top-bar{height:48px;}
 .top-bar-logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;letter-spacing:-.2px;color:#fff;cursor:pointer;user-select:none;}
 .top-bar-logo-icon{width:24px;height:24px;background:rgba(255,255,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;}
 body.senior .top-bar-logo{font-size:17px;}
+.top-bar-sub{font-size:11px;font-weight:400;color:rgba(255,255,255,.55);margin-left:6px;letter-spacing:0;}
+body.senior .top-bar-sub{font-size:13px;}
+@media(max-width:400px){.top-bar-sub{display:none;}}
 .top-bar-right{display:flex;align-items:center;}
 .toggle-btn{position:relative;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;}
 .toggle-btn:hover{background:rgba(255,255,255,.28);}
@@ -115,12 +118,9 @@ body.senior .splash-hint{font-size:14px;}
 .splash-skip:hover{color:rgba(255,255,255,.6);}
 
 /* ════════ 홈 ════════ */
-.home-header{background:var(--white);padding:28px max(20px,calc((100% - 680px)/2)) 22px;border-bottom:1px solid var(--border);}
-.home-header-label{font-size:11px;font-weight:800;color:var(--sage);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
-.home-header h2{font-size:var(--fs-xl);font-weight:800;letter-spacing:-.5px;line-height:1.3;color:var(--text);}
+.home-header{background:var(--white);padding:32px max(20px,calc((100% - 680px)/2)) 28px;border-bottom:1px solid var(--border);text-align:center;}
+.home-header h2{font-size:var(--fs-xl);font-weight:800;letter-spacing:-.5px;line-height:1.3;color:var(--sage-dark);}
 body.senior .home-header h2{font-size:30px;}
-.home-header p{font-size:var(--fs-sm);color:var(--text-soft);margin-top:6px;line-height:1.6;}
-body.senior .home-header p{font-size:16px;}
 .home-section{padding:22px max(20px,calc((100% - 680px)/2));}
 .home-section+.home-section{padding-top:0;}
 .home-section-label{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--text-subtle);margin-bottom:14px;}
@@ -314,6 +314,7 @@ body.senior .nav-icon{font-size:28px;}
     <div class="top-bar-logo" onclick="logoTap()">
       <div class="top-bar-logo-icon">🌿</div>
       Memory-Link
+      <span class="top-bar-sub">유가족 디지털 계정 정리 서비스</span>
     </div>
     <div class="top-bar-right">
       <button class="toggle-btn" onclick="toggleSenior()" id="senior-btn" data-tip="큰글자 모드">큰</button>
@@ -350,9 +351,7 @@ body.senior .nav-icon{font-size:28px;}
 ══════════════════════════════════════ -->
 <div id="page-home" class="page">
   <div class="home-header">
-    <div class="home-header-label">Memory-Link</div>
     <h2>무엇을 도와드릴까요?</h2>
-    <p>유가족 디지털 계정 정리 서비스</p>
   </div>
 
   <!-- 서비스 안내 -->
