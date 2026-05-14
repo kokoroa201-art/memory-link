@@ -25,7 +25,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(
 .container{max-width:680px;margin:0 auto;padding:0 20px;}
 
 /* ── 상단 바 ── */
-.top-bar{background:var(--sage-dark);color:#fff;padding:0 16px;font-size:13px;display:flex;align-items:center;justify-content:space-between;height:40px;max-width:100%;}
+.top-bar{background:var(--sage-dark);color:#fff;padding:0 16px;font-size:13px;display:flex;align-items:center;justify-content:space-between;height:40px;max-width:100%;position:sticky;top:0;z-index:100;}
 body.senior .top-bar{height:48px;}
 .top-bar-logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;letter-spacing:-.2px;color:#fff;cursor:pointer;text-decoration:none;}
 .top-bar-logo-icon{width:24px;height:24px;background:rgba(255,255,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;}
@@ -301,7 +301,7 @@ body.senior .nav-icon{font-size:28px;}
 
 /* ── 인쇄 ── */
 @media print {
-  .top-bar,.header,.bottom-nav,.btn,.no-print{display:none!important;}
+  .top-bar,.bottom-nav,.btn,.no-print{display:none!important;}
   .doc-preview{border:none;padding:0;}
   body{background:#fff;}
 }
@@ -321,19 +321,6 @@ body.senior .nav-icon{font-size:28px;}
   </div>
 </div>
 
-<!-- 헤더 (서브페이지용 sticky 헤더) -->
-<header class="header">
-  <div class="header-inner">
-    <div class="logo" onclick="goPage('home')">
-      <div class="logo-icon">🌿</div>
-      <div>
-        <div class="logo-name">Memory-Link</div>
-        <div class="logo-sub">사후 디지털 정리 지원</div>
-      </div>
-    </div>
-    <span class="admin-link" onclick="goPage('admin')">관리자</span>
-  </div>
-</header>
 
 <!-- ══════════════════════════════════════
      홈
@@ -944,10 +931,9 @@ function goPage(id){
   document.querySelectorAll('.nav-btn').forEach(n=>n.classList.remove('on'));
   const nav=document.getElementById('nav-'+id);
   if(nav) nav.classList.add('on');
-  // 스플래시일 때 헤더/상단바/네비 숨김
+  // 스플래시일 때 상단바·네비 숨김
   const isLanding = id==='landing';
   document.querySelector('.top-bar').style.display = isLanding?'none':'';
-  document.querySelector('.header').style.display = isLanding?'none':'';
   // 관리자·스플래시 페이지일 때 바텀 네비 숨김
   document.getElementById('bottom-nav').style.display = (id==='admin'||isLanding)?'none':'flex';
 }
@@ -1195,9 +1181,8 @@ function skipSplash(){
 
 // 날짜 드롭다운 초기화
 document.addEventListener('DOMContentLoaded',function(){
-  // 스플래시 초기: 헤더·상단바·네비 숨김
+  // 스플래시 초기: 상단바·네비 숨김
   document.querySelector('.top-bar').style.display='none';
-  document.querySelector('.header').style.display='none';
   document.getElementById('bottom-nav').style.display='none';
 
   // 스플래시 5초 타이머
