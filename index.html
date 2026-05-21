@@ -925,28 +925,50 @@ body.senior .nav-icon{font-size:28px;}
 
 <script>
 // ── 서비스 실제 로고 자동 적용
+// ic: Simple Icons 슬러그 (고화질 SVG), gf: Google favicon 도메인
+// bg: 브랜드 배경색, inv: true=흰 아이콘, false=검정 아이콘
 var LOGO_MAP = {
-  '카카오':'kakao.com','네이버':'naver.com','인스타그램':'instagram.com',
-  '밴드':'band.us','넷플릭스':'netflix.com','웨이브':'wavve.com',
-  '티빙':'tving.com','멜론':'melon.com','지니':'genie.co.kr',
-  '유튜브':'youtube.com','구글':'google.com','애플':'apple.com',
-  '마이크로소프트':'microsoft.com','SKT':'sktelecom.com','KT':'kt.com',
-  'LG':'lguplus.com','쿠팡':'coupang.com','배달의민족':'baemin.com',
-  '요기요':'yogiyo.co.kr','G마켓':'gmarket.co.kr','11번가':'11st.co.kr',
-  '당근':'daangn.com','쏘카':'socar.kr'
+  '카카오톡':    {ic:'kakaotalk',    bg:'#FAE100',inv:false},
+  '카카오스토리':{ic:'kakao',        bg:'#FAE100',inv:false},
+  '카카오페이':  {ic:'kakaopay',     bg:'#FAE100',inv:false},
+  '네이버':      {ic:'naver',        bg:'#03C75A',inv:true},
+  '인스타그램':  {ic:'instagram',    bg:'#C13584',inv:true},
+  '밴드':        {gf:'band.us',      bg:'#00C73C',inv:true},
+  '넷플릭스':    {ic:'netflix',      bg:'#141414',inv:true},
+  '웨이브':      {gf:'wavve.com',    bg:'#0037A5',inv:true},
+  '티빙':        {gf:'tving.com',    bg:'#FF153C',inv:true},
+  '멜론':        {gf:'melon.com',    bg:'#00CD3C',inv:true},
+  '지니':        {gf:'genie.co.kr',  bg:'#4262FF',inv:true},
+  '유튜브':      {ic:'youtube',      bg:'#FF0000',inv:true},
+  '구글':        {ic:'google',       bg:'#fff',   inv:false},
+  '애플':        {ic:'apple',        bg:'#1C1C1C',inv:true},
+  '마이크로소프트':{ic:'windows11',  bg:'#0078D4',inv:true},
+  'SKT':         {gf:'sktelecom.com',bg:'#EF1C27',inv:true},
+  'KT':          {gf:'kt.com',       bg:'#DA1930',inv:true},
+  'LG':          {gf:'lguplus.com',  bg:'#CC003B',inv:true},
+  '쿠팡':        {gf:'coupang.com',  bg:'#FEEB00',inv:false},
+  '배달의민족':  {gf:'baemin.com',   bg:'#2AC1BC',inv:true},
+  '요기요':      {gf:'yogiyo.co.kr', bg:'#FA0050',inv:true},
+  'G마켓':       {gf:'gmarket.co.kr',bg:'#CC1F25',inv:true},
+  '11번가':      {gf:'11st.co.kr',   bg:'#EF2929',inv:true},
+  '당근':        {gf:'daangn.com',   bg:'#FF6F0F',inv:true},
+  '쏘카':        {gf:'socar.kr',     bg:'#00B2FF',inv:true},
 };
 function applyLogos(){
   document.querySelectorAll('.svc-item,.g-header,.svc-pick-item').forEach(function(item){
     var nameEl=item.querySelector('.svc-name');
     if(!nameEl) return;
-    var name=nameEl.textContent;
-    var domain=null;
-    for(var k in LOGO_MAP){ if(name.includes(k)){domain=LOGO_MAP[k];break;} }
-    if(!domain) return;
+    var name=nameEl.textContent,info=null;
+    for(var k in LOGO_MAP){ if(name.includes(k)){info=LOGO_MAP[k];break;} }
+    if(!info) return;
     var el=item.querySelector('.svc-logo');
     if(!el||el.querySelector('img')) return;
-    var gf='https://www.google.com/s2/favicons?domain='+domain+'&sz=64';
-    el.innerHTML='<img src="https://logo.clearbit.com/'+domain+'" onerror="this.src=\''+gf+'\';this.onerror=null;" alt="">';
+    var col=info.inv?'ffffff':'000000';
+    var src=info.ic
+      ? 'https://cdn.simpleicons.org/'+info.ic+'/'+col
+      : 'https://www.google.com/s2/favicons?domain='+info.gf+'&sz=64';
+    el.style.background=info.bg;
+    el.innerHTML='<img src="'+src+'" style="width:26px;height:26px;object-fit:contain;" alt="" onerror="this.parentNode.style.background=\'var(--cream)\';">';
   });
 }
 
