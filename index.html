@@ -3,1066 +3,1087 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Memory-Link — 장례 이후의 디지털 정리</title>
-<meta name="description" content="아버지 휴대폰은 아직도 알림이 옵니다. 장례 이후 남겨진 디지털 흔적을 차근차근 함께 정리합니다.">
+<title>Memory-Link — 디지털 계정 정리 안내</title>
+<meta name="description" content="장례 이후 남겨진 카카오, 네이버, 구독서비스 등 디지털 계정 정리를 단계별로 안내합니다.">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --ivory:      #F8F6F1;
-  --ivory-deep: #F0EDE5;
-  --warm-white: #FDFCF9;
-  --warm-gray:  #9C9890;
-  --warm-mid:   #6B6760;
-  --warm-dark:  #1E1C19;
-  --night:      #141210;
-  --olive:      #5C6E3E;
-  --olive-light:#A3B584;
-  --olive-pale: #EDF0E6;
-  --kakao:      #FEE500;
+  --ivory: #F8F6F1;
+  --white: #FFFFFF;
+  --warm-gray: #9A9690;
+  --mid: #5C5A56;
+  --text: #222220;
+  --border: #E5E2DA;
+  --olive: #5C6E3E;
+  --olive-bg: #EEF2E6;
+  --olive-light: #A3B584;
+  --kakao: #FEE500;
+  --kakao-bg: #FFFBE6;
   --kakao-text: #3A1D1D;
-  --dawn:       #FBF7EE;
-  --text:       #2A2825;
-  --border:     #E5E2DA;
-  --max:        660px;
+  --night: #1A1816;
+  --max: 640px;
 }
-
 html { scroll-behavior: smooth; }
-
 body {
-  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-family: 'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
   background: var(--ivory);
   color: var(--text);
-  line-height: 1.8;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── 헤더 (투명 + 고정) ── */
-.site-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: background 0.4s, border-color 0.4s;
-}
-.site-header.scrolled {
+/* ── 공통 레이아웃 ── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ── 탑바 ── */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
   background: rgba(248,246,241,0.96);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.logo {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #fff;
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.4s;
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.back-btn {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 14px; color: var(--olive); font-weight: 600;
+  background: none; border: none; cursor: pointer; padding: 0;
 }
-.site-header.scrolled .logo { color: var(--olive); }
-.header-link {
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 8px 16px;
-  border-radius: 20px;
-  transition: all 0.3s;
+.back-btn svg { width: 16px; height: 16px; stroke: var(--olive); fill: none; stroke-width: 2.5; }
+.topbar-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.topbar-logo {
+  font-size: 14px; font-weight: 800; letter-spacing: 1px; color: var(--olive);
+  cursor: pointer; user-select: none;
 }
-.site-header.scrolled .header-link {
-  color: var(--olive);
-  background: var(--olive-pale);
-  border-color: var(--olive-light);
+.topbar-ask {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--kakao); color: var(--kakao-text);
+  font-size: 12px; font-weight: 700;
+  padding: 6px 12px; border-radius: 20px;
+  text-decoration: none; border: none; cursor: pointer;
+  white-space: nowrap;
 }
 
-/* ── SECTION 1 감정 진입 ── */
-.s1 {
-  min-height: 100vh;
+/* ──────────────────────────────
+   HOME 페이지
+────────────────────────────── */
+.home-hero {
   background: var(--night);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 100px 28px 80px;
-  position: relative;
-  overflow: hidden;
+  padding: 64px 24px 56px;
+  text-align: center;
+  position: relative; overflow: hidden;
 }
-/* 조용한 밤 조명 효과 */
-.s1::before {
+.home-hero::before {
   content: '';
-  position: absolute;
-  top: -20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(ellipse at center,
-    rgba(92,110,62,0.18) 0%,
-    rgba(254,229,0,0.04) 40%,
-    transparent 70%);
+  position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(92,110,62,0.2) 0%, transparent 65%);
   pointer-events: none;
 }
-/* 카카오 알림 UI */
-.notif {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 14px;
-  padding: 12px 18px;
-  margin-bottom: 52px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.6);
-  animation: notif-in 1.2s ease forwards;
-  opacity: 0;
-  backdrop-filter: blur(4px);
-}
-.notif-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--kakao);
-  flex-shrink: 0;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-@keyframes notif-in {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.s1-copy {
-  text-align: center;
-  max-width: 420px;
-}
-.s1-copy h1 {
-  font-size: clamp(28px, 7vw, 40px);
-  font-weight: 900;
-  line-height: 1.35;
-  letter-spacing: -1px;
-  color: #fff;
-  margin-bottom: 30px;
-  animation: fade-up 1s 0.3s ease both;
-}
-.s1-copy h1 em {
-  font-style: normal;
-  color: var(--kakao);
-}
-.s1-copy p {
-  font-size: 16px;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.8;
-  margin-bottom: 44px;
-  animation: fade-up 1s 0.5s ease both;
-}
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.btn-kakao-night {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--kakao);
-  color: var(--kakao-text);
-  font-size: 15px;
-  font-weight: 800;
-  padding: 16px 32px;
-  border-radius: 14px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  animation: fade-up 1s 0.7s ease both;
-  letter-spacing: -0.3px;
-}
-.s1-sub {
-  display: block;
-  margin-top: 18px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.28);
-  animation: fade-up 1s 0.9s ease both;
-}
-.scroll-hint {
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  animation: fade-up 1s 1.4s ease both;
-}
-.scroll-hint span {
-  font-size: 11px;
-  color: rgba(255,255,255,0.25);
-  letter-spacing: 1px;
-}
-.scroll-arrow {
-  width: 1px;
-  height: 36px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
-  animation: arrow-drop 1.8s infinite;
-}
-@keyframes arrow-drop {
-  0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
-  50% { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
-}
-
-/* ── SECTION 2 현실 문제 ── */
-.s2 {
-  background: var(--ivory);
-  padding: 88px 28px;
-}
-.s2-inner { max-width: var(--max); margin: 0 auto; }
-.s2 .eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--olive);
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.s2 h2 {
-  font-size: clamp(22px, 5vw, 30px);
-  font-weight: 900;
-  line-height: 1.4;
-  letter-spacing: -0.8px;
-  margin-bottom: 52px;
-  color: var(--text);
-}
-/* 메모 조각 */
-.memo-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.memo-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 22px 24px;
-  background: var(--warm-white);
-  border-left: 3px solid var(--olive-light);
-  border-radius: 0 8px 8px 0;
-  position: relative;
-  transition: border-color 0.2s;
-}
-.memo-item::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(90deg, rgba(163,181,132,0.06), transparent);
-  border-radius: 0 8px 8px 0;
-  pointer-events: none;
-}
-.memo-check {
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--olive-light);
-  border-radius: 4px;
-  flex-shrink: 0;
-  margin-top: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.memo-check::after {
-  content: '';
-  width: 10px;
-  height: 6px;
-  border-left: 2px solid var(--olive);
-  border-bottom: 2px solid var(--olive);
-  transform: rotate(-45deg) translateY(-1px);
-  display: block;
-}
-.memo-text {
-  font-size: 15px;
-  color: var(--warm-mid);
-  line-height: 1.6;
-  font-weight: 500;
-}
-
-/* ── SECTION 3 서비스 소개 ── */
-.s3 {
-  background: var(--warm-white);
-  padding: 88px 28px;
-  border-top: 1px solid var(--border);
-}
-.s3-inner { max-width: var(--max); margin: 0 auto; }
-.s3 .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--olive); text-transform: uppercase; margin-bottom: 20px; }
-.s3 h2 { font-size: clamp(22px, 5vw, 30px); font-weight: 900; line-height: 1.4; letter-spacing: -0.8px; margin-bottom: 60px; }
-.flow-wrap { display: flex; flex-direction: column; gap: 0; }
-.flow-step {
-  display: grid;
-  grid-template-columns: 48px 1fr;
-  gap: 20px;
-  padding-bottom: 44px;
-  position: relative;
-}
-.flow-step:last-child { padding-bottom: 0; }
-.flow-left { display: flex; flex-direction: column; align-items: center; }
-.flow-num-circle {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid var(--olive-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--olive);
-  background: var(--olive-pale);
-  flex-shrink: 0;
-}
-.flow-line {
-  width: 1px;
-  flex: 1;
-  background: linear-gradient(to bottom, var(--olive-light), transparent);
-  margin-top: 10px;
-}
-.flow-step:last-child .flow-line { display: none; }
-.flow-right { padding-top: 10px; }
-.flow-title {
-  font-size: 17px;
-  font-weight: 800;
-  margin-bottom: 8px;
-  letter-spacing: -0.3px;
-}
-.flow-desc {
-  font-size: 14px;
-  color: var(--warm-gray);
-  line-height: 1.7;
-}
-.flow-tag {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--olive);
-  background: var(--olive-pale);
-  padding: 4px 10px;
-  border-radius: 20px;
-}
-
-/* ── SECTION 4 브랜드 감성 ── */
-.s4 {
-  background: var(--olive);
-  padding: 96px 28px;
-  position: relative;
-  overflow: hidden;
-}
-.s4::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.06), transparent 60%);
-}
-.s4-inner {
-  max-width: var(--max);
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-.s4-quote {
-  font-size: clamp(20px, 5vw, 28px);
-  font-weight: 900;
-  line-height: 1.5;
-  color: #fff;
-  letter-spacing: -0.5px;
-  margin-bottom: 36px;
-}
-.s4-quote em {
-  font-style: normal;
-  color: var(--kakao);
-}
-.s4-body {
-  font-size: 15px;
-  line-height: 1.9;
-  color: rgba(255,255,255,0.68);
-  max-width: 480px;
-}
-.s4-divider {
-  width: 36px;
-  height: 2px;
-  background: rgba(255,255,255,0.3);
-  margin: 32px 0;
-}
-.s4-brand {
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* ── SECTION 5 상품 ── */
-.s5 {
-  background: var(--dawn);
-  padding: 88px 28px;
-  border-top: 1px solid var(--border);
-}
-.s5-inner { max-width: var(--max); margin: 0 auto; }
-.s5 .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--olive); text-transform: uppercase; margin-bottom: 20px; }
-.s5 h2 { font-size: clamp(22px, 5vw, 28px); font-weight: 900; line-height: 1.4; letter-spacing: -0.8px; margin-bottom: 10px; }
-.s5-subtitle { font-size: 15px; color: var(--warm-gray); margin-bottom: 48px; line-height: 1.7; }
-.product-wrap {
-  background: var(--warm-white);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-}
-.product-head {
-  background: var(--ivory-deep);
-  padding: 28px 28px 24px;
-  border-bottom: 1px solid var(--border);
-}
-.product-name {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: var(--warm-gray);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.product-price-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 12px;
-}
-.product-price-original {
-  font-size: 14px;
-  color: var(--warm-gray);
-  text-decoration: line-through;
-  margin-bottom: 4px;
-}
-.product-price-main {
-  font-size: 44px;
-  font-weight: 900;
-  color: var(--text);
-  letter-spacing: -2px;
-  line-height: 1;
-}
-.product-price-unit {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--warm-mid);
-  margin-bottom: 6px;
-}
-.product-body { padding: 28px; }
-.product-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-bottom: 28px;
-}
-.product-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 14px;
-  color: var(--warm-mid);
-  line-height: 1.6;
-}
-.product-list li::before {
-  content: '—';
-  color: var(--olive-light);
-  flex-shrink: 0;
-  font-weight: 700;
-  margin-top: 1px;
-}
-.product-cta {
-  display: block;
-  background: var(--kakao);
-  color: var(--kakao-text);
-  font-size: 15px;
-  font-weight: 800;
-  padding: 16px;
-  border-radius: 12px;
-  text-align: center;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  letter-spacing: -0.3px;
-  width: 100%;
-}
-.product-note {
-  font-size: 12px;
-  color: var(--warm-gray);
-  text-align: center;
-  margin-top: 12px;
-}
-
-/* ── SECTION 6 실제 이야기 ── */
-.s6 {
-  background: var(--ivory);
-  padding: 88px 28px;
-}
-.s6-inner { max-width: var(--max); margin: 0 auto; }
-.s6 .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--olive); text-transform: uppercase; margin-bottom: 20px; }
-.s6 h2 { font-size: clamp(22px, 5vw, 28px); font-weight: 900; line-height: 1.4; letter-spacing: -0.8px; margin-bottom: 48px; }
-.story-list { display: flex; flex-direction: column; gap: 0; }
-.story-item {
-  padding: 32px 0;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-}
-.story-item:first-child { border-top: 1px solid var(--border); }
-.story-quote-mark {
-  font-size: 48px;
-  line-height: 1;
-  color: var(--olive-light);
-  font-family: Georgia, serif;
-  margin-bottom: 8px;
-  display: block;
-}
-.story-text {
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--text);
-  margin-bottom: 16px;
-  font-weight: 500;
-  letter-spacing: -0.2px;
-}
-.story-text em {
-  font-style: normal;
-  color: var(--olive);
-}
-.story-who {
-  font-size: 12px;
-  color: var(--warm-gray);
-  letter-spacing: 0.5px;
-}
-
-/* ── SECTION 7 신뢰 ── */
-.s7 {
-  background: var(--olive-pale);
-  padding: 72px 28px;
-  border-top: 1px solid #D5DBC8;
-}
-.s7-inner { max-width: var(--max); margin: 0 auto; }
-.s7-label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--olive);
-  text-transform: uppercase;
-  margin-bottom: 28px;
-}
-.trust-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.trust-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  font-size: 14px;
-  color: var(--warm-mid);
-  line-height: 1.6;
-}
-.trust-icon-wrap {
-  width: 28px;
-  height: 28px;
-  background: rgba(92,110,62,0.12);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
-/* ── SECTION 8 마지막 CTA ── */
-.s8 {
-  background: linear-gradient(160deg, #F5F2EA 0%, #EEF2E6 100%);
-  padding: 100px 28px 80px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.s8::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--olive-light), transparent);
-}
-.s8-inner { max-width: 480px; margin: 0 auto; position: relative; }
-.s8-dawn {
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: var(--warm-gray);
-  text-transform: uppercase;
+.home-notif {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px; padding: 8px 16px;
+  font-size: 12px; color: rgba(255,255,255,0.5);
   margin-bottom: 32px;
 }
-.s8 h2 {
-  font-size: clamp(28px, 7vw, 40px);
-  font-weight: 900;
-  line-height: 1.3;
-  letter-spacing: -1px;
-  margin-bottom: 20px;
-  color: var(--text);
+.notif-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--kakao); animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.home-hero h1 {
+  font-size: clamp(26px, 7vw, 36px); font-weight: 900; line-height: 1.35;
+  letter-spacing: -1px; color: #fff; margin-bottom: 14px;
 }
-.s8 p {
-  font-size: 15px;
-  color: var(--warm-gray);
-  line-height: 1.8;
-  margin-bottom: 44px;
+.home-hero h1 em { font-style: normal; color: var(--kakao); }
+.home-hero p {
+  font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 0;
 }
-.btn-main {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--kakao);
-  color: var(--kakao-text);
-  font-size: 16px;
-  font-weight: 800;
-  padding: 18px 36px;
-  border-radius: 16px;
-  text-decoration: none;
-  border: none;
+
+.home-select {
+  padding: 36px 20px 60px;
+  max-width: var(--max); margin: 0 auto;
+}
+.home-select-label {
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px; color: var(--warm-gray);
+  text-transform: uppercase; margin-bottom: 20px; display: block;
+}
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.service-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 18px;
   cursor: pointer;
-  letter-spacing: -0.3px;
-  margin-bottom: 16px;
+  transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+  display: flex; flex-direction: column; gap: 10px;
+  text-align: left;
 }
-.s8-note {
-  font-size: 12px;
-  color: var(--warm-gray);
+.service-card:hover {
+  border-color: var(--olive-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+}
+.service-card:active { transform: translateY(0); }
+.service-icon { font-size: 26px; line-height: 1; }
+.service-name { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+.service-desc { font-size: 12px; color: var(--warm-gray); line-height: 1.5; margin-top: -4px; }
+.service-arrow { font-size: 13px; color: var(--olive-light); margin-top: auto; }
+
+.home-guide-banner {
+  margin: 0 20px 40px;
+  max-width: calc(var(--max) - 0px); margin-left: auto; margin-right: auto;
+}
+.guide-banner-card {
+  background: var(--olive-bg);
+  border: 1.5px solid var(--olive-light);
+  border-radius: 14px;
+  padding: 20px 20px;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  cursor: pointer;
+}
+.guide-banner-left {}
+.guide-banner-badge {
+  font-size: 11px; font-weight: 700; color: var(--olive);
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;
+}
+.guide-banner-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+.guide-banner-price { font-size: 13px; color: var(--mid); }
+.guide-banner-price s { color: var(--warm-gray); margin-right: 4px; }
+.guide-banner-arrow {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--olive); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
 }
 
-/* ── 면책 + 푸터 ── */
-.disclaimer {
-  background: var(--ivory-deep);
-  border-top: 1px solid var(--border);
-  padding: 28px;
+/* ──────────────────────────────
+   서비스 공통 레이아웃
+────────────────────────────── */
+.svc-hero {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 28px 24px 24px;
 }
-.disclaimer p {
-  font-size: 11px;
-  color: var(--warm-gray);
-  line-height: 1.8;
-  max-width: var(--max);
-  margin: 0 auto;
-}
-.footer {
-  background: #1E1C19;
-  padding: 36px 28px;
-}
-.footer-inner {
-  max-width: var(--max);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.footer-logo { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1px; }
-.footer-links { display: flex; gap: 20px; }
-.footer-links a { font-size: 12px; color: rgba(255,255,255,0.25); text-decoration: none; }
-.footer-copy { font-size: 11px; color: rgba(255,255,255,0.18); }
+.svc-hero-icon { font-size: 36px; margin-bottom: 12px; }
+.svc-hero-title { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 6px; }
+.svc-hero-desc { font-size: 14px; color: var(--warm-gray); line-height: 1.6; }
 
-/* ── 스크롤 애니메이션 ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+.svc-body { padding: 0 0 80px; }
+.svc-section { padding: 28px 24px; border-bottom: 1px solid var(--border); }
+.svc-section:last-child { border-bottom: none; }
+.svc-section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--olive);
+  text-transform: uppercase; margin-bottom: 16px;
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
+.svc-section-title {
+  font-size: 16px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.3px;
 }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
 
-/* ── 관리자 ── */
-#admin-page {
-  display: none;
-  min-height: 100vh;
-  padding: 80px 28px 60px;
-  background: var(--ivory);
+/* 처리 가능 항목 */
+.item-list { display: flex; flex-direction: column; gap: 10px; }
+.item-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--ivory); border-radius: 10px; padding: 14px 16px;
 }
-#admin-page.active { display: block; }
-.admin-wrap { max-width: 560px; margin: 0 auto; }
-.admin-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; }
-.admin-title { font-size: 18px; font-weight: 800; }
-.admin-back { font-size: 13px; color: var(--olive); background: none; border: none; cursor: pointer; text-decoration: underline; }
-.admin-box { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
-.admin-box h3 { font-size: 13px; font-weight: 700; color: var(--warm-gray); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
-.admin-link-row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-.admin-link-row:last-child { border: none; padding-bottom: 0; }
-.admin-link-row a { font-size: 12px; color: var(--olive); font-weight: 600; text-decoration: none; }
-.pw-wrap input {
-  width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px;
-  font-size: 14px; margin-bottom: 10px; font-family: inherit; outline: none;
-  background: var(--ivory);
+.item-row-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.item-row-text {}
+.item-row-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.item-row-detail { font-size: 12px; color: var(--warm-gray); line-height: 1.5; }
+
+/* 필요 서류 */
+.doc-list { display: flex; flex-direction: column; gap: 8px; }
+.doc-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--mid); padding: 4px 0;
 }
-.pw-wrap button {
-  width: 100%; background: var(--olive); color: #fff; border: none; padding: 12px;
-  border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer;
+.doc-item::before { content: '📄'; font-size: 15px; flex-shrink: 0; }
+.doc-required {
+  display: inline-block; font-size: 10px; font-weight: 700; color: var(--olive);
+  background: var(--olive-bg); padding: 2px 7px; border-radius: 10px; margin-left: 8px;
+}
+
+/* 단계별 절차 */
+.step-list { display: flex; flex-direction: column; gap: 0; }
+.step-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding-bottom: 20px; position: relative;
+}
+.step-item:last-child { padding-bottom: 0; }
+.step-item:not(:last-child)::before {
+  content: ''; position: absolute;
+  left: 15px; top: 32px; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--olive); color: #fff;
+  font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; position: relative; z-index: 1;
+}
+.step-content { padding-top: 6px; }
+.step-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--warm-gray); line-height: 1.6; }
+.step-link {
+  display: inline-block; margin-top: 8px;
+  font-size: 12px; font-weight: 700; color: var(--olive);
+  background: var(--olive-bg); padding: 4px 10px; border-radius: 6px;
+  text-decoration: none;
+}
+
+/* 카카오 CTA 박스 */
+.kakao-cta-box {
+  margin: 24px; background: var(--kakao-bg);
+  border: 1.5px solid #FDD835; border-radius: 14px; padding: 22px 20px;
+  text-align: center;
+}
+.kakao-cta-box p { font-size: 14px; color: var(--mid); margin-bottom: 14px; line-height: 1.6; }
+.kakao-cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--kakao); color: var(--kakao-text);
+  font-size: 14px; font-weight: 800;
+  padding: 13px 24px; border-radius: 10px;
+  text-decoration: none; border: none; cursor: pointer;
+}
+
+/* ──────────────────────────────
+   가이드 구매 페이지
+────────────────────────────── */
+.guide-page-hero {
+  background: var(--olive); padding: 40px 24px 32px; color: #fff;
+}
+.guide-page-hero p { font-size: 12px; opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+.guide-page-hero h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 8px; }
+.guide-page-hero .sub { font-size: 14px; opacity: 0.7; line-height: 1.6; font-size: 14px; }
+
+.guide-price-box {
+  margin: 24px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+}
+.guide-price-head {
+  background: var(--ivory); padding: 20px 20px 16px; border-bottom: 1px solid var(--border);
+}
+.guide-price-tag { font-size: 12px; color: var(--warm-gray); letter-spacing: 0.5px; margin-bottom: 8px; }
+.guide-price-num {
+  display: flex; align-items: flex-end; gap: 8px;
+}
+.guide-price-original { font-size: 14px; text-decoration: line-through; color: var(--warm-gray); margin-bottom: 4px; }
+.guide-price-main { font-size: 40px; font-weight: 900; letter-spacing: -2px; line-height: 1; }
+.guide-price-won { font-size: 18px; font-weight: 700; color: var(--mid); margin-bottom: 5px; }
+.guide-price-body { padding: 20px; }
+.guide-include-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.guide-include-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--mid); line-height: 1.5;
+}
+.guide-include-list li::before { content: '—'; color: var(--olive-light); flex-shrink: 0; font-weight: 700; }
+.guide-buy-btn {
+  display: block; background: var(--kakao); color: var(--kakao-text);
+  font-size: 15px; font-weight: 800;
+  padding: 15px; border-radius: 10px; text-align: center;
+  text-decoration: none; border: none; cursor: pointer; width: 100%;
+}
+.guide-note { font-size: 12px; color: var(--warm-gray); text-align: center; margin-top: 10px; }
+
+/* ──────────────────────────────
+   관리자 페이지
+────────────────────────────── */
+.admin-wrap {
+  max-width: 540px; margin: 0 auto; padding: 24px 20px 60px;
+}
+.admin-section { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+.admin-section h3 { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--warm-gray); text-transform: uppercase; margin-bottom: 14px; }
+.admin-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.admin-row:last-child { border: none; padding-bottom: 0; }
+.admin-row a { font-size: 12px; color: var(--olive); font-weight: 600; text-decoration: none; }
+.pw-input {
+  width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px;
+  font-size: 14px; margin-bottom: 10px; font-family: inherit; outline: none; background: var(--ivory);
+}
+.pw-btn {
+  width: 100%; background: var(--olive); color: #fff; border: none;
+  padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer;
 }
 #pw-error { font-size: 12px; color: #D32F2F; margin-top: 8px; display: none; }
+.admin-memo {
+  width: 100%; min-height: 90px; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  font-size: 13px; font-family: inherit; resize: vertical; outline: none; background: var(--ivory);
+}
 </style>
 </head>
 <body>
 
-<!-- 헤더 -->
-<header class="site-header" id="site-header">
-  <div class="logo" id="logo-tap">MEMORY-LINK</div>
-  <a class="header-link" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">💬 카카오 문의</a>
-</header>
-
-
-<!-- ════════════════════════════════
-  메인 페이지
-════════════════════════════════ -->
-<div id="main-page">
-
-<!-- S1 ─ 감정 진입 -->
-<section class="s1">
-  <div class="notif">
-    <span class="notif-dot"></span>
-    카카오톡 새 메시지 · 아버지
+<!-- ═══════════════════════════════════
+  HOME
+═══════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="topbar">
+    <div class="topbar-logo" id="logo-tap">MEMORY-LINK</div>
+    <a class="topbar-ask" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">💬 무료 상담</a>
   </div>
 
-  <div class="s1-copy">
-    <h1>
-      아버지 휴대폰은<br>
-      아직도 <em>알림이</em> 옵니다.
-    </h1>
-    <p>
-      카카오톡, 자동결제, 남겨진 계정들.<br>
-      장례 이후의 디지털 정리를<br>
-      차근차근 함께 안내합니다.
-    </p>
-    <a class="btn-kakao-night" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
-      💬 무료 체크리스트 받기
-    </a>
-    <span class="s1-sub">카카오 채널 · 무료 상담</span>
+  <div class="home-hero">
+    <div class="home-notif">
+      <span class="notif-dot"></span>
+      카카오톡 새 메시지 · 아버지
+    </div>
+    <h1>아버지 휴대폰은<br>아직도 <em>알림이</em> 옵니다.</h1>
+    <p>장례 이후 남겨진 디지털 계정,<br>어디서부터 시작할지 선택하세요.</p>
   </div>
 
-  <div class="scroll-hint">
-    <span>SCROLL</span>
-    <div class="scroll-arrow"></div>
-  </div>
-</section>
-
-
-<!-- S2 ─ 현실 문제 -->
-<section class="s2">
-  <div class="s2-inner">
-    <p class="eyebrow reveal">현실</p>
-    <h2 class="reveal reveal-delay-1">
-      남겨진 계정들은<br>저절로 정리되지 않습니다.
-    </h2>
-    <div class="memo-list">
-      <div class="memo-item reveal reveal-delay-1">
-        <div class="memo-check"></div>
-        <p class="memo-text">고인의 휴대폰으로 <strong>계속 알림이 옵니다</strong></p>
+  <div class="home-select">
+    <span class="home-select-label">어떤 서비스를 정리하시나요?</span>
+    <div class="service-grid">
+      <div class="service-card" onclick="goPage('kakao')">
+        <div class="service-icon">💬</div>
+        <div class="service-name">카카오</div>
+        <div class="service-desc">카카오톡 · 카카오페이<br>잔액 환급 포함</div>
+        <div class="service-arrow">→</div>
       </div>
-      <div class="memo-item reveal reveal-delay-2">
-        <div class="memo-check"></div>
-        <p class="memo-text">자동결제가 <strong>몇 달째 빠져나가고</strong> 있습니다</p>
+      <div class="service-card" onclick="goPage('naver')">
+        <div class="service-icon">🟩</div>
+        <div class="service-name">네이버</div>
+        <div class="service-desc">메일 · 블로그 · 카페<br>계정 처리</div>
+        <div class="service-arrow">→</div>
       </div>
-      <div class="memo-item reveal reveal-delay-3">
-        <div class="memo-check"></div>
-        <p class="memo-text">고객센터마다 <strong>필요한 서류가 다릅니다</strong></p>
+      <div class="service-card" onclick="goPage('subscription')">
+        <div class="service-icon">💳</div>
+        <div class="service-name">구독 · 자동결제</div>
+        <div class="service-desc">넷플릭스 · 멜론<br>자동결제 중단</div>
+        <div class="service-arrow">→</div>
       </div>
-      <div class="memo-item reveal reveal-delay-4">
-        <div class="memo-check"></div>
-        <p class="memo-text">어디서부터 해야 할지 <strong>아무도 알려주지 않습니다</strong></p>
+      <div class="service-card" onclick="goPage('sns')">
+        <div class="service-icon">📸</div>
+        <div class="service-name">인스타 · 페이스북</div>
+        <div class="service-desc">삭제 또는 추모계정<br>전환</div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card" onclick="goPage('google')">
+        <div class="service-icon">🔵</div>
+        <div class="service-name">구글 · 유튜브</div>
+        <div class="service-desc">구글 계정 삭제<br>콘텐츠 보존</div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card" onclick="goPage('telecom')">
+        <div class="service-icon">📱</div>
+        <div class="service-name">통신사</div>
+        <div class="service-desc">SKT · KT · LG<br>번호 해지</div>
+        <div class="service-arrow">→</div>
       </div>
     </div>
   </div>
-</section>
 
-
-<!-- S3 ─ 서비스 소개 -->
-<section class="s3">
-  <div class="s3-inner">
-    <p class="eyebrow reveal">안내</p>
-    <h2 class="reveal reveal-delay-1">
-      메모리링크는<br>이런 과정을 함께합니다.
-    </h2>
-    <div class="flow-wrap">
-      <div class="flow-step reveal">
-        <div class="flow-left">
-          <div class="flow-num-circle">1</div>
-          <div class="flow-line"></div>
-        </div>
-        <div class="flow-right">
-          <div class="flow-title">정리해야 할 서비스 확인</div>
-          <div class="flow-desc">카카오, 네이버, 구독서비스 등<br>확인해야 할 항목을 함께 정리합니다.</div>
-          <span class="flow-tag">15개 주요 플랫폼</span>
-        </div>
+  <div class="home-guide-banner">
+    <div class="guide-banner-card" onclick="goPage('guide')">
+      <div class="guide-banner-left">
+        <div class="guide-banner-badge">전체 가이드</div>
+        <div class="guide-banner-title">디지털 정리 완전 가이드</div>
+        <div class="guide-banner-price"><s>100,000원</s> <strong>39,000원</strong></div>
       </div>
-
-      <div class="flow-step reveal reveal-delay-1">
-        <div class="flow-left">
-          <div class="flow-num-circle">2</div>
-          <div class="flow-line"></div>
-        </div>
-        <div class="flow-right">
-          <div class="flow-title">필요한 서류 안내</div>
-          <div class="flow-desc">플랫폼마다 다른 준비 서류를<br>쉽게 안내합니다.</div>
-          <span class="flow-tag">사망진단서 · 가족관계증명서 등</span>
-        </div>
-      </div>
-
-      <div class="flow-step reveal reveal-delay-2">
-        <div class="flow-left">
-          <div class="flow-num-circle">3</div>
-          <div class="flow-line"></div>
-        </div>
-        <div class="flow-right">
-          <div class="flow-title">계정 정리 절차 안내</div>
-          <div class="flow-desc">삭제 · 추모계정 전환 · 자동결제 중단 등<br>서비스별 절차를 단계별로 설명합니다.</div>
-          <span class="flow-tag">대신 하지 않고 · 함께 안내합니다</span>
-        </div>
-      </div>
-
-      <div class="flow-step reveal reveal-delay-3">
-        <div class="flow-left">
-          <div class="flow-num-circle">4</div>
-          <div class="flow-line"></div>
-        </div>
-        <div class="flow-right">
-          <div class="flow-title">막히는 부분은 바로 질문</div>
-          <div class="flow-desc">진행 중 어려운 부분은<br>카카오로 바로 질문할 수 있습니다.</div>
-          <span class="flow-tag">1:1 카카오 지원 · 30일</span>
-        </div>
-      </div>
+      <div class="guide-banner-arrow">→</div>
     </div>
   </div>
-</section>
+</div>
 
 
-<!-- S4 ─ 브랜드 감성 -->
-<section class="s4">
-  <div class="s4-inner">
-    <p class="s4-quote reveal">
-      장례는 하루였지만<br>
-      정리는 <em>몇 달이</em> 남았습니다.
-    </p>
-    <div class="s4-divider reveal"></div>
-    <p class="s4-body reveal reveal-delay-1">
-      많은 유가족들이 행정과 디지털 정리를<br>
-      혼자 감당하고 있습니다.<br><br>
-      Memory-Link는 그 과정을<br>
-      조금 덜 막막하게 만들고 싶었습니다.
-    </p>
-    <div style="margin-top: 40px;" class="reveal reveal-delay-2">
-      <div class="s4-brand">Memory-Link</div>
+<!-- ═══════════════════════════════════
+  카카오
+═══════════════════════════════════ -->
+<div id="page-kakao" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="goPage('home')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        홈
+      </button>
+      <span class="topbar-title">카카오 정리</span>
     </div>
+    <a class="topbar-ask" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">💬 질문하기</a>
   </div>
-</section>
 
+  <div class="svc-hero">
+    <div class="svc-hero-icon">💬</div>
+    <div class="svc-hero-title">카카오 계정 정리</div>
+    <div class="svc-hero-desc">카카오톡 · 카카오페이 · 카카오스토리<br>잔액 환급부터 계정 삭제까지 안내합니다.</div>
+  </div>
 
-<!-- S5 ─ 상품 -->
-<section class="s5" id="product">
-  <div class="s5-inner">
-    <p class="eyebrow reveal">가이드</p>
-    <h2 class="reveal reveal-delay-1">사망 후 디지털 정리 가이드</h2>
-    <p class="s5-subtitle reveal reveal-delay-2">
-      혼자 찾는 데 몇 주가 걸릴 정보를<br>한 번에 정리했습니다.
-    </p>
-    <div class="product-wrap reveal reveal-delay-2">
-      <div class="product-head">
-        <div class="product-name">Digital Clean-up Guide</div>
-        <div class="product-price-row">
-          <div>
-            <div class="product-price-original">100,000원</div>
-            <div style="display:flex; align-items:flex-end; gap:6px;">
-              <div class="product-price-main">39,000</div>
-              <div class="product-price-unit">원</div>
-            </div>
+  <div class="svc-body">
+    <div class="svc-section">
+      <div class="svc-section-label">처리 가능 항목</div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-row-icon">💰</div>
+          <div class="item-row-text">
+            <div class="item-row-name">카카오페이 잔액 환급</div>
+            <div class="item-row-detail">남은 잔액을 상속인 계좌로 환급받을 수 있습니다</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">🗑</div>
+          <div class="item-row-text">
+            <div class="item-row-name">카카오 계정 삭제</div>
+            <div class="item-row-detail">카카오톡, 카카오스토리 등 연결 서비스 일괄 종료</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">📦</div>
+          <div class="item-row-text">
+            <div class="item-row-name">카카오쇼핑 포인트 확인</div>
+            <div class="item-row-detail">미사용 포인트 · 선물함 잔여금 확인</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">💳</div>
+          <div class="item-row-text">
+            <div class="item-row-name">카카오페이 자동결제 해지</div>
+            <div class="item-row-detail">연결된 정기결제 서비스 중단</div>
           </div>
         </div>
       </div>
-      <div class="product-body">
-        <ul class="product-list">
-          <li>주요 플랫폼 정리 체크리스트 (15종)</li>
-          <li>서비스별 단계별 절차 안내</li>
-          <li>플랫폼별 필요 서류 정리</li>
-          <li>자동결제 · 구독 확인 항목</li>
-          <li>카카오 1:1 질문 지원 (30일)</li>
-          <li>디지털 유언 작성 양식 포함</li>
-        </ul>
-        <a class="product-cta" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
-          💬 카카오로 문의하기
-        </a>
-        <p class="product-note">PDF 즉시 발송 · 7일 환불 보장</p>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-label">필요한 서류</div>
+      <div class="doc-list">
+        <div class="doc-item">사망진단서 (원본 또는 사본)<span class="doc-required">필수</span></div>
+        <div class="doc-item">가족관계증명서<span class="doc-required">필수</span></div>
+        <div class="doc-item">신청인 신분증 (상속인)</div>
+        <div class="doc-item">통장 사본 (잔액 환급 시)</div>
       </div>
     </div>
-  </div>
-</section>
 
-
-<!-- S6 ─ 실제 이야기 -->
-<section class="s6">
-  <div class="s6-inner">
-    <p class="eyebrow reveal">이야기</p>
-    <h2 class="reveal reveal-delay-1">이런 분들이<br>먼저 겪으셨습니다.</h2>
-    <div class="story-list">
-      <div class="story-item reveal">
-        <span class="story-quote-mark">"</span>
-        <p class="story-text">
-          아버지 휴대폰 알림이 계속 와서<br>
-          더 <em>힘들었습니다.</em><br>
-          카카오페이 잔액이 남아있는 줄도 몰랐어요.
-        </p>
-        <div class="story-who">50대 · 딸 · 경기</div>
-      </div>
-      <div class="story-item reveal reveal-delay-1">
-        <span class="story-quote-mark">"</span>
-        <p class="story-text">
-          남편 인스타그램 생일 알림이<br>
-          매년 오는 게 <em>너무 힘들었어요.</em><br>
-          추모 계정으로 바꾸는 방법을 몰랐습니다.
-        </p>
-        <div class="story-who">40대 · 아내 · 서울</div>
-      </div>
-      <div class="story-item reveal reveal-delay-2">
-        <span class="story-quote-mark">"</span>
-        <p class="story-text">
-          어디서부터 해야 할지 몰라<br>
-          <em>몇 달을 미뤘습니다.</em><br>
-          고객센터에 전화해도 알려주지 않더라고요.
-        </p>
-        <div class="story-who">30대 · 아들 · 부산</div>
+    <div class="svc-section">
+      <div class="svc-section-label">단계별 절차</div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">카카오 고객센터 접수</div>
+            <div class="step-desc">카카오 고객센터에 유가족 명의로 접수합니다. 전화보다 이메일/채팅 접수가 빠릅니다.</div>
+            <a class="step-link" href="https://cs.kakao.com" target="_blank" rel="noopener">카카오 고객센터 →</a>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">서류 제출 (이메일)</div>
+            <div class="step-desc">사망진단서 + 가족관계증명서 + 신분증을 스캔하여 이메일로 제출합니다.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">카카오페이 잔액 환급 신청 (별도)</div>
+            <div class="step-desc">카카오페이 앱에서 별도로 환급 신청이 필요합니다. 처리 기간은 약 2~4주입니다.</div>
+            <a class="step-link" href="https://pay.kakao.com" target="_blank" rel="noopener">카카오페이 →</a>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">계정 삭제 완료 확인</div>
+            <div class="step-desc">처리 완료 후 확인 메일이 옵니다. 보통 3~7 영업일 소요됩니다.</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-
-<!-- S7 ─ 신뢰 -->
-<section class="s7">
-  <div class="s7-inner">
-    <p class="s7-label reveal">Memory-Link의 약속</p>
-    <ul class="trust-list">
-      <li class="reveal reveal-delay-1">
-        <div class="trust-icon-wrap">🔒</div>
-        계정에 대신 접속하지 않습니다
-      </li>
-      <li class="reveal reveal-delay-2">
-        <div class="trust-icon-wrap">🚫</div>
-        해지나 삭제를 대행하지 않습니다
-      </li>
-      <li class="reveal reveal-delay-3">
-        <div class="trust-icon-wrap">📋</div>
-        유가족이 직접 진행할 수 있도록 안내합니다
-      </li>
-      <li class="reveal reveal-delay-4">
-        <div class="trust-icon-wrap">🗑</div>
-        상담 후 전달받은 정보는 즉시 삭제합니다
-      </li>
-    </ul>
-  </div>
-</section>
-
-
-<!-- S8 ─ 마지막 CTA -->
-<section class="s8">
-  <div class="s8-inner">
-    <p class="s8-dawn reveal">— 아침</p>
-    <h2 class="reveal reveal-delay-1">혼자 찾지 마세요.</h2>
-    <p class="reveal reveal-delay-2">
-      장례 이후 남겨진 디지털 정리를<br>
-      차근차근 함께 안내합니다.
-    </p>
-    <div class="reveal reveal-delay-3">
-      <a class="btn-main" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
-        💬 무료 체크리스트 받기
+    <div class="kakao-cta-box">
+      <p>절차가 복잡하거나 막히는 부분이 있으신가요?<br>카카오 채널로 바로 질문해주세요.</p>
+      <a class="kakao-cta-btn" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
+        💬 카카오로 질문하기
       </a>
-      <br>
-      <span class="s8-note">카카오 채널 · 무료 상담 가능</span>
     </div>
   </div>
-</section>
-
-
-<!-- 면책 -->
-<div class="disclaimer">
-  <p>
-    메모리링크가 제공하는 정보는 참고 목적이며, 법적 대리 또는 대행 서비스가 아닙니다.
-    플랫폼 정책은 변경될 수 있습니다. 법적 분쟁이 포함된 경우 전문가 상담을 권장합니다.
-  </p>
 </div>
 
-<!-- 푸터 -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-logo">MEMORY-LINK</div>
-    <div class="footer-links">
-      <a href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">카카오 채널</a>
-      <a href="mailto:hello@memory-link.kr">이메일</a>
+
+<!-- ═══════════════════════════════════
+  네이버
+═══════════════════════════════════ -->
+<div id="page-naver" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="goPage('home')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        홈
+      </button>
+      <span class="topbar-title">네이버 정리</span>
     </div>
-    <div class="footer-copy">© 2026 Memory-Link. All rights reserved.</div>
+    <a class="topbar-ask" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">💬 질문하기</a>
   </div>
-</footer>
 
-</div><!-- /#main-page -->
+  <div class="svc-hero">
+    <div class="svc-hero-icon">🟩</div>
+    <div class="svc-hero-title">네이버 계정 정리</div>
+    <div class="svc-hero-desc">네이버 메일 · 블로그 · 카페 · 네이버페이<br>계정 삭제 및 데이터 처리를 안내합니다.</div>
+  </div>
 
-
-<!-- ════════════════════════════════
-  관리자 페이지
-════════════════════════════════ -->
-<div id="admin-page">
-  <div class="admin-wrap">
-    <div class="admin-top">
-      <div class="admin-title">관리자</div>
-      <button class="admin-back" onclick="exitAdmin()">← 메인</button>
+  <div class="svc-body">
+    <div class="svc-section">
+      <div class="svc-section-label">처리 가능 항목</div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-row-icon">🗑</div>
+          <div class="item-row-text">
+            <div class="item-row-name">네이버 계정 삭제</div>
+            <div class="item-row-detail">메일, 블로그, 카페, 카페 게시글 일괄 처리</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">💰</div>
+          <div class="item-row-text">
+            <div class="item-row-name">네이버페이 포인트 확인</div>
+            <div class="item-row-detail">잔여 포인트 및 충전금 환급 절차</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">📝</div>
+          <div class="item-row-text">
+            <div class="item-row-name">블로그 · 카페 게시글 삭제</div>
+            <div class="item-row-detail">계정 삭제 전 콘텐츠 정리 또는 보존</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">📧</div>
+          <div class="item-row-text">
+            <div class="item-row-name">이메일 접근 (비밀번호 없이)</div>
+            <div class="item-row-detail">상속인 명의로 접근 요청 가능</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="admin-login-box" class="admin-box" style="display:none;">
-      <h3>비밀번호</h3>
-      <div class="pw-wrap">
-        <input type="password" id="admin-pw" placeholder="비밀번호 입력"
-          onkeydown="if(event.key==='Enter')checkPw()">
-        <button onclick="checkPw()">확인</button>
-        <p id="pw-error">비밀번호가 틀렸습니다.</p>
+    <div class="svc-section">
+      <div class="svc-section-label">필요한 서류</div>
+      <div class="doc-list">
+        <div class="doc-item">사망진단서<span class="doc-required">필수</span></div>
+        <div class="doc-item">가족관계증명서<span class="doc-required">필수</span></div>
+        <div class="doc-item">신청인 신분증</div>
+        <div class="doc-item">위임장 (대리 신청 시)</div>
       </div>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-label">단계별 절차</div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">네이버 고객센터 접수</div>
+            <div class="step-desc">'사망자 계정 처리' 항목으로 접수합니다. 네이버 고객센터는 채팅 접수를 권장합니다.</div>
+            <a class="step-link" href="https://help.naver.com" target="_blank" rel="noopener">네이버 고객센터 →</a>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">서류 제출</div>
+            <div class="step-desc">사망진단서, 가족관계증명서, 신청인 신분증을 업로드합니다.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">처리 방식 선택</div>
+            <div class="step-desc">계정 삭제 또는 특정 데이터만 내려받기(다운로드) 중 선택할 수 있습니다.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">완료 확인</div>
+            <div class="step-desc">처리 기간은 약 5~10 영업일입니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kakao-cta-box">
+      <p>서류 준비나 절차가 헷갈리시면<br>바로 질문해주세요.</p>
+      <a class="kakao-cta-btn" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
+        💬 카카오로 질문하기
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  구독·자동결제
+═══════════════════════════════════ -->
+<div id="page-subscription" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="goPage('home')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        홈
+      </button>
+      <span class="topbar-title">구독 · 자동결제</span>
+    </div>
+    <a class="topbar-ask" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">💬 질문하기</a>
+  </div>
+
+  <div class="svc-hero">
+    <div class="svc-hero-icon">💳</div>
+    <div class="svc-hero-title">구독 · 자동결제 중단</div>
+    <div class="svc-hero-desc">비밀번호 없이도 해지할 수 있는<br>방법이 있습니다.</div>
+  </div>
+
+  <div class="svc-body">
+    <div class="svc-section">
+      <div class="svc-section-label">서비스별 해지 방법</div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-row-icon">🎬</div>
+          <div class="item-row-text">
+            <div class="item-row-name">넷플릭스</div>
+            <div class="item-row-detail">고객센터 전화로 사망 신고 후 해지 가능. 카드사 통해 결제 차단도 가능</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">🎵</div>
+          <div class="item-row-text">
+            <div class="item-row-name">멜론 · 지니 · 플로</div>
+            <div class="item-row-detail">각 고객센터에 사망 사실 통보 후 해지 요청</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">📺</div>
+          <div class="item-row-text">
+            <div class="item-row-name">웨이브 · 왓챠 · 티빙</div>
+            <div class="item-row-detail">고객센터 이메일 접수 또는 카드사 자동결제 정지</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">☁️</div>
+          <div class="item-row-text">
+            <div class="item-row-name">네이버플러스 · 카카오 구독</div>
+            <div class="item-row-detail">각 플랫폼 계정 정리 시 자동 해지됨</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-label">가장 빠른 방법</div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">카드사에 연락</div>
+            <div class="step-desc">고인의 신용카드/체크카드 발급 카드사에 사망 신고를 하면 자동결제가 일괄 정지됩니다. 가장 빠른 방법입니다.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">각 서비스 고객센터 개별 해지</div>
+            <div class="step-desc">카드 정지 후에도 일부 서비스는 개별 해지 요청이 필요할 수 있습니다.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">결제 내역 확인</div>
+            <div class="step-desc">최근 3~6개월 카드 명세서에서 정기결제 항목을 확인하고 목록을 만들어두세요.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kakao-cta-box">
+      <p>어떤 서비스가 결제되고 있는지<br>파악이 안 되시면 먼저 알려주세요.</p>
+      <a class="kakao-cta-btn" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
+        💬 카카오로 질문하기
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  인스타 · 페이스북 (SNS)
+═══════════════════════════════════ -->
+<div id="page-sns" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="goPage('home')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        홈
+      </button>
+      <span class="topbar-title">인스타 · 페이스북</span>
+    </div>
+    <a class="topbar-ask" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">💬 질문하기</a>
+  </div>
+
+  <div class="svc-hero">
+    <div class="svc-hero-icon">📸</div>
+    <div class="svc-hero-title">인스타그램 · 페이스북 처리</div>
+    <div class="svc-hero-desc">삭제 또는 추모 계정으로 전환할 수 있습니다.<br>생일 알림도 멈출 수 있습니다.</div>
+  </div>
+
+  <div class="svc-body">
+    <div class="svc-section">
+      <div class="svc-section-label">처리 방식 선택</div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-row-icon">🕯</div>
+          <div class="item-row-text">
+            <div class="item-row-name">추모 계정 전환 (권장)</div>
+            <div class="item-row-detail">계정이 유지되고 게시물이 보존됩니다. 생일 알림이 발송되지 않습니다. 로그인은 불가합니다.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">🗑</div>
+          <div class="item-row-text">
+            <div class="item-row-name">계정 삭제</div>
+            <div class="item-row-detail">모든 게시물과 데이터가 삭제됩니다. 복구 불가능합니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-label">필요한 서류</div>
+      <div class="doc-list">
+        <div class="doc-item">사망진단서 (영문 번역본이 있으면 더 빠름)<span class="doc-required">필수</span></div>
+        <div class="doc-item">신청인 신분증</div>
+        <div class="doc-item">고인과의 관계를 증명하는 서류</div>
+      </div>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-label">단계별 절차</div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Meta 추모 계정 요청 양식 작성</div>
+            <div class="step-desc">인스타그램과 페이스북 모두 Meta(메타)에서 통합 처리합니다. 아래 링크에서 신청합니다.</div>
+            <a class="step-link" href="https://www.facebook.com/special/remember" target="_blank" rel="noopener">Meta 추모계정 신청 →</a>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">서류 제출</div>
+            <div class="step-desc">양식에서 사망진단서 및 신청인 신분증을 업로드합니다.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">처리 확인</div>
+            <div class="step-desc">처리 기간은 1~4주로 다소 걸립니다. 이메일로 완료 통보가 옵니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kakao-cta-box">
+      <p>영문 서류 준비나 양식 작성이 어려우시면<br>도움을 드릴 수 있습니다.</p>
+      <a class="kakao-cta-btn" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
+        💬 카카오로 질문하기
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  구글 · 유튜브
+═══════════════════════════════════ -->
+<div id="page-google" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="goPage('home')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        홈
+      </button>
+      <span class="topbar-title">구글 · 유튜브</span>
+    </div>
+    <a class="topbar-ask" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">💬 질문하기</a>
+  </div>
+
+  <div class="svc-hero">
+    <div class="svc-hero-icon">🔵</div>
+    <div class="svc-hero-title">구글 · 유튜브 계정 처리</div>
+    <div class="svc-hero-desc">구글 계정 삭제 또는 데이터 다운로드,<br>유튜브 채널 보존 방법을 안내합니다.</div>
+  </div>
+
+  <div class="svc-body">
+    <div class="svc-section">
+      <div class="svc-section-label">처리 가능 항목</div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-row-icon">🗑</div>
+          <div class="item-row-text">
+            <div class="item-row-name">구글 계정 삭제 요청</div>
+            <div class="item-row-detail">Gmail, 드라이브, 유튜브 등 연결 서비스 전체 종료</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">💾</div>
+          <div class="item-row-text">
+            <div class="item-row-name">데이터 다운로드 요청</div>
+            <div class="item-row-detail">삭제 전 이메일, 사진, 문서 등을 내려받을 수 있습니다</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">📹</div>
+          <div class="item-row-text">
+            <div class="item-row-name">유튜브 채널 영상 보존</div>
+            <div class="item-row-detail">계정 삭제 전 유튜브 영상을 다운로드하거나 공개 설정 변경</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-label">필요한 서류</div>
+      <div class="doc-list">
+        <div class="doc-item">사망진단서<span class="doc-required">필수</span></div>
+        <div class="doc-item">신청인 신분증<span class="doc-required">필수</span></div>
+        <div class="doc-item">고인과의 관계 증명 서류</div>
+      </div>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-label">단계별 절차</div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Google 사망자 계정 처리 양식 접속</div>
+            <div class="step-desc">Google에서 공식 제공하는 사망자 계정 처리 양식이 있습니다.</div>
+            <a class="step-link" href="https://support.google.com/accounts/troubleshooter/6357590" target="_blank" rel="noopener">구글 양식 →</a>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">서류 제출 및 검토</div>
+            <div class="step-desc">영문 서류가 요구될 수 있습니다. 처리 기간은 수 주가 걸릴 수 있습니다.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">데이터 처리 방식 결정</div>
+            <div class="step-desc">삭제 또는 데이터 다운로드 중 선택합니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kakao-cta-box">
+      <p>영문 서류 작성이나 양식 접근이 어려우시면<br>도움드릴 수 있습니다.</p>
+      <a class="kakao-cta-btn" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
+        💬 카카오로 질문하기
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  통신사
+═══════════════════════════════════ -->
+<div id="page-telecom" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="goPage('home')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        홈
+      </button>
+      <span class="topbar-title">통신사 해지</span>
+    </div>
+    <a class="topbar-ask" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">💬 질문하기</a>
+  </div>
+
+  <div class="svc-hero">
+    <div class="svc-hero-icon">📱</div>
+    <div class="svc-hero-title">통신사 번호 해지</div>
+    <div class="svc-hero-desc">SKT · KT · LG U+<br>사망 후 번호 해지 및 요금 정산을 안내합니다.</div>
+  </div>
+
+  <div class="svc-body">
+    <div class="svc-section">
+      <div class="svc-section-label">필요한 서류</div>
+      <div class="doc-list">
+        <div class="doc-item">사망진단서 (원본 지참)<span class="doc-required">필수</span></div>
+        <div class="doc-item">가족관계증명서<span class="doc-required">필수</span></div>
+        <div class="doc-item">신청인 신분증<span class="doc-required">필수</span></div>
+        <div class="doc-item">고인 명의 기기 (있는 경우)</div>
+      </div>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-label">통신사별 연락처</div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-row-icon">🔴</div>
+          <div class="item-row-text">
+            <div class="item-row-name">SKT</div>
+            <div class="item-row-detail">고객센터 114 또는 대리점 방문 · 사망 해지 전용 상담 가능</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">🔵</div>
+          <div class="item-row-text">
+            <div class="item-row-name">KT</div>
+            <div class="item-row-detail">고객센터 100 또는 가까운 KT 대리점 방문</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-row-icon">🟠</div>
+          <div class="item-row-text">
+            <div class="item-row-name">LG U+</div>
+            <div class="item-row-detail">고객센터 101 또는 대리점 방문 · 서류 지참 필수</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-label">단계별 절차</div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">가까운 통신사 대리점 방문</div>
+            <div class="step-desc">전화로도 가능하지만, 서류 제출을 위해 대리점 방문이 더 빠릅니다.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">사망 해지 신청</div>
+            <div class="step-desc">사망진단서와 가족관계증명서를 제출하면 당일 처리됩니다.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">미납 요금 정산</div>
+            <div class="step-desc">잔여 요금이 있을 경우 상속인이 정산하거나 면제 신청을 할 수 있습니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kakao-cta-box">
+      <p>어느 통신사인지 모르거나<br>기기 위치를 모르는 경우에도 방법이 있습니다.</p>
+      <a class="kakao-cta-btn" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
+        💬 카카오로 질문하기
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  가이드 구매
+═══════════════════════════════════ -->
+<div id="page-guide" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="goPage('home')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        홈
+      </button>
+      <span class="topbar-title">전체 가이드</span>
+    </div>
+    <a class="topbar-ask" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">💬 문의하기</a>
+  </div>
+
+  <div class="guide-page-hero">
+    <p>Complete Guide</p>
+    <h2>디지털 정리 완전 가이드</h2>
+    <div class="sub">카카오·네이버·구독·SNS·통신사까지<br>한 번에 정리하는 전체 안내서</div>
+  </div>
+
+  <div class="guide-price-box">
+    <div class="guide-price-head">
+      <div class="guide-price-tag">출시 특가</div>
+      <div class="guide-price-original">정가 100,000원</div>
+      <div class="guide-price-num">
+        <div class="guide-price-main">39,000</div>
+        <div class="guide-price-won">원</div>
+      </div>
+    </div>
+    <div class="guide-price-body">
+      <ul class="guide-include-list">
+        <li>15개 주요 플랫폼 단계별 정리 가이드</li>
+        <li>플랫폼별 필요 서류 체크리스트</li>
+        <li>자동결제·구독 확인 항목 정리</li>
+        <li>카카오 1:1 질문 지원 (30일)</li>
+        <li>디지털 유언 작성 양식 포함</li>
+        <li>PDF 즉시 발송</li>
+      </ul>
+      <a class="guide-buy-btn" href="https://pf.kakao.com/_memorylink" target="_blank" rel="noopener">
+        💬 카카오로 구매 문의하기
+      </a>
+      <p class="guide-note">7일 이내 환불 보장 · 부가세 포함</p>
+    </div>
+  </div>
+
+  <div style="padding: 0 20px 60px;">
+    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--warm-gray); text-transform: uppercase; margin-bottom: 14px;">이 가이드가 필요한 분</div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 14px; color: var(--mid);">— 어디서 시작해야 할지 모르는 분</div>
+        <div style="font-size: 14px; color: var(--mid);">— 고인의 비밀번호를 모르는 분</div>
+        <div style="font-size: 14px; color: var(--mid);">— 자동결제가 계속 빠져나가고 있는 분</div>
+        <div style="font-size: 14px; color: var(--mid);">— 고객센터마다 서류가 달라 혼란스러운 분</div>
+        <div style="font-size: 14px; color: var(--mid);">— 여러 서비스를 한 번에 정리하고 싶은 분</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  관리자
+═══════════════════════════════════ -->
+<div id="page-admin" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" onclick="goPage('home')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        메인
+      </button>
+      <span class="topbar-title">관리자</span>
+    </div>
+  </div>
+
+  <div class="admin-wrap">
+    <div id="admin-login-box" class="admin-section" style="display:none;">
+      <h3>비밀번호</h3>
+      <input type="password" class="pw-input" id="admin-pw" placeholder="비밀번호 입력"
+        onkeydown="if(event.key==='Enter')checkPw()">
+      <button class="pw-btn" onclick="checkPw()">확인</button>
+      <p id="pw-error">비밀번호가 틀렸습니다.</p>
     </div>
 
     <div id="admin-content-box" style="display:none;">
-      <div class="admin-box">
+      <div class="admin-section">
         <h3>링크</h3>
-        <div class="admin-link-row">
-          <span>카카오 채널</span>
-          <a href="https://pf.kakao.com/_memorylink" target="_blank">열기 →</a>
-        </div>
-        <div class="admin-link-row">
-          <span>GitHub 레포</span>
-          <a href="https://github.com/kokoroa201-art/memory-link" target="_blank">열기 →</a>
-        </div>
-        <div class="admin-link-row">
-          <span>Vercel 대시보드</span>
-          <a href="https://vercel.com/kokoroa201-arts-projects" target="_blank">열기 →</a>
-        </div>
-        <div class="admin-link-row">
-          <span>v1 보관본</span>
-          <a href="https://memory-link-v1.vercel.app" target="_blank">열기 →</a>
-        </div>
+        <div class="admin-row"><span>카카오 채널</span><a href="https://pf.kakao.com/_memorylink" target="_blank">열기 →</a></div>
+        <div class="admin-row"><span>GitHub</span><a href="https://github.com/kokoroa201-art/memory-link" target="_blank">열기 →</a></div>
+        <div class="admin-row"><span>Vercel</span><a href="https://vercel.com/kokoroa201-arts-projects" target="_blank">열기 →</a></div>
+        <div class="admin-row"><span>v1 보관본</span><a href="https://memory-link-v1.vercel.app" target="_blank">열기 →</a></div>
       </div>
-      <div class="admin-box">
+      <div class="admin-section">
         <h3>메모</h3>
-        <textarea id="admin-memo"
-          style="width:100%; min-height:100px; padding:10px; border:1px solid var(--border); border-radius:6px; font-size:13px; font-family:inherit; resize:vertical; outline:none; background:var(--ivory);"
-          placeholder="운영 메모..."
+        <textarea class="admin-memo" id="admin-memo" placeholder="운영 메모..."
           oninput="localStorage.setItem('ml_memo',this.value)"></textarea>
       </div>
     </div>
@@ -1071,48 +1092,32 @@ body {
 
 
 <script>
-// ── 헤더 스크롤 ──
-var header = document.getElementById('site-header');
-window.addEventListener('scroll', function() {
-  if (window.scrollY > 60) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-}, { passive: true });
+// ── 페이지 이동 ──
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var target = document.getElementById('page-' + id);
+  if (target) { target.classList.add('active'); window.scrollTo(0, 0); }
 
-// ── 스크롤 reveal ──
-var reveals = document.querySelectorAll('.reveal');
-var io = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      io.unobserve(e.target);
+  // 관리자 페이지 진입 처리
+  if (id === 'admin') {
+    if (sessionStorage.getItem('ml_admin')) { showAdminContent(); }
+    else {
+      document.getElementById('admin-login-box').style.display = 'block';
+      setTimeout(function() { document.getElementById('admin-pw').focus(); }, 100);
     }
-  });
-}, { threshold: 0.12 });
-reveals.forEach(function(el) { io.observe(el); });
+  }
+}
 
 // ── 로고 5탭 → 관리자 ──
 var _lt = 0, _ltt;
 document.getElementById('logo-tap').addEventListener('click', function() {
   _lt++;
   clearTimeout(_ltt);
-  if (_lt >= 5) { _lt = 0; enterAdmin(); }
+  if (_lt >= 5) { _lt = 0; goPage('admin'); }
   else { _ltt = setTimeout(function() { _lt = 0; }, 1500); }
 });
 
 // ── 관리자 ──
-function enterAdmin() {
-  document.getElementById('main-page').style.display = 'none';
-  document.getElementById('admin-page').classList.add('active');
-  if (sessionStorage.getItem('ml_admin')) showAdminContent();
-  else {
-    document.getElementById('admin-login-box').style.display = 'block';
-    setTimeout(function() { document.getElementById('admin-pw').focus(); }, 100);
-  }
-}
-function exitAdmin() {
-  document.getElementById('admin-page').classList.remove('active');
-  document.getElementById('main-page').style.display = 'block';
-}
 function checkPw() {
   if (document.getElementById('admin-pw').value === 'ml2026admin') {
     sessionStorage.setItem('ml_admin', '1');
@@ -1130,7 +1135,7 @@ function showAdminContent() {
 
 // ── /admin URL ──
 if (window.location.pathname === '/admin') {
-  document.addEventListener('DOMContentLoaded', function() { enterAdmin(); });
+  document.addEventListener('DOMContentLoaded', function() { goPage('admin'); });
 }
 </script>
 
